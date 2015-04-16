@@ -1,4 +1,3 @@
-# The Old Reader RSS Client for FirefoxOS
+# the Old RSS Reader
 
-More things to come...
-
+Nothing here right now.

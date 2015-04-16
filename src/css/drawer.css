@@ -1,0 +1,11 @@
+ section[role="region"] {
+      height: 100%;
+      line-height: 1em;
+      font-size: 2.2rem;
+    }
+
+div[role="main"] {
+      background: #eee;
+      height: 590px;
+      overflow: hidden;
+    }

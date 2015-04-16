@@ -1,0 +1,16 @@
+#main
+{
+    position:absolute;
+    top:5em;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    border:1px solid red;
+    background:white;
+}
+
+.form_text
+{
+    font-size:0.7em;
+    margin:10px;
+}

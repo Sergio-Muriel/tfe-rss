@@ -1,0 +1,37 @@
+@import 'lib/gaia-icons-embedded.css';
+@import 'lib/headers.css';
+@import 'lib/toolbars.css';
+@import 'lib/drawer.css';
+@import 'lib/buttons.css';
+@import 'lib/input_areas.css';
+
+/* Add custom lib css */
+@import 'colors.css';
+@import 'header.css';
+@import 'toolbar.css';
+@import 'drawer.css';
+@import 'main.css';
+
+html, body {
+    font-size:10px;
+    font-family:sans-serif;
+    margin: 0;
+    padding: 0rem;
+    height:100%;
+    overflow-x:hidden;
+    background:white;
+}
+
+body {
+  font-size: 1rem;
+  background: #fff;
+}
+
+h1 {
+  margin: 0 0 0rem 0;
+}
+
+p {
+  font-size: inherit;
+}
+

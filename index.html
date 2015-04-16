@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Privileged app</title>
+        <meta name="description" content="A privileged app stub">
+
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/app.css">
+
+        <!-- External / Tool librairies -->
+        <script type="text/javascript" src="js/libs/l10n.js" defer></script>
+        <script type="text/javascript" src="js/libs/l10n_placeholders.js" defer></script>
+
+        <!-- App librairies --> 
+        <script type="text/javascript" src="js/modules/login.js" defer></script>
+        <script type="text/javascript" src="js/modules/theoldreader.js" defer></script>
+
+        <!-- Main initialisation -->
+        <script type="text/javascript" src="js/app.js" defer></script>
+
+        <link rel="prefetch" type="application/l10n" href="data/locales.ini" />
+        <link rel="stylesheet" type="text/css" href="bower_components/gaia-fonts/style.css"></link>
+
+        <link href="css/lib/headers.css" rel="stylesheet" type="text/css">
+        <link href="css/lib/gaia-icons-embedded.css" rel="stylesheet" type="text/css">
+
+
+        
+    </head>
+    <body role="application">
+
+        <!-- MENU -->
+        <section data-type="sidebar">
+          <header>
+            <menu type="toolbar">
+              <a href="#content"><span class="icon icon-add">add</span></a>
+            </menu>
+            <h1>Title <em>(9)</em></h1>
+          </header>
+          <nav>
+            <ul>
+              <li><a href="#content">label</a></li>
+              <li><a href="#content">label</a></li>
+              <li><a href="#content">label</a></li>
+              <li><a href="#content">label</a></li>
+            </ul>
+            <h2>Subtitle</h2>
+            <ul>
+              <li><a href="#content">label</a></li>
+              <li><a href="#content">label</a></li>
+              <li><a href="#content">label larger label than the </a></li>
+              <li><a href="#content">label</a></li>
+            </ul>
+          </nav>
+        </section>
+
+
+        <!-- MAIN -->
+        <section role="region" class="header" id="drawer">
+            <header>
+                <a href="#content"><span class="icon icon-menu">hide sidebar</span></a>
+                <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
+
+                <menu type="toolbar">
+                    <button><span data-icon="settings"></span></button>
+                </menu>
+                <h1 data-l10n-id="app_title">The Old RSS Reader</h1>
+            </header>
+            <div role="main">
+                <div class="main_layer" id="register_layer">
+                    <form>
+                        <fieldset>
+                            <legend data-l10n-id="account_information"></legend>
+                            <p class="form_text" data-l10n-id="enter_account_information"></p>
+                            <p>
+                            <input type="email" name="email" data-l10n-placeholder="form_email" required>
+                            <input type="password" name="password" data-l10n-placeholder="form_password" required>
+                            <button type="reset">Clear</button>
+                            </p>
+
+                            <p><button class="login_link" class="bb-button recommend" data-l10n-id="login_link"></button></p>
+                            <p><button class="register_link" class="" data-l10n-id="register_link"></button></p>
+
+                    </fieldset>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- FOOTER / TOOLBAR -->
+        <div role="toolbar">
+            <ul>
+                <li><span data-icon="back"></span></li>
+            </ul>
+            <ul>
+                <li><span data-icon="forward"></span></li>
+            </ul>
+        </div>
+    </body>
+</html>

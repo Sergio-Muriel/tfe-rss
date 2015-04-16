@@ -1,0 +1,8 @@
+section[role="region"] > header:first-child button
+{
+    color:white;
+}
+section[role="region"] > header:first-child h1
+{
+    font-size:1.5rem;
+}

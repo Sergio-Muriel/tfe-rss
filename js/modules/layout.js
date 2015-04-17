@@ -2,8 +2,9 @@ var Layout = function()
 {
     var mover = document.querySelector('.slides_move');
 
-    this.init = function()
+    this.init = function(controller)
     {
+        this.controller = controller;
         this.bind();
     };
 

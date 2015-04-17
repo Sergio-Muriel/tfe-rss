@@ -1,7 +1,7 @@
 // Init classes
+var theoldreader = new TheOldReader();
 var layout =  new Layout();
 var login =  new Login();
-var theoldreader = new TheOldReader();
 
 
 // DOMContentLoaded is fired once the document has been loaded and parsed,
@@ -11,8 +11,7 @@ var theoldreader = new TheOldReader();
 window.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
-    layout.init();
-
+    layout.init(theoldreader);
 
     // Add the old reader support
     login.init(theoldreader);

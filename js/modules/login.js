@@ -29,6 +29,9 @@ var Login = function()
             {
                 self.loggedin();
                 layout.display_center();
+
+                self.controller.fullupdate();
+                //layout.loadfeeds();
             }
             else
             {

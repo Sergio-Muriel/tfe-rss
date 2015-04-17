@@ -5,6 +5,8 @@ var TheOldReader = function()
     this.password = null;
     this.token = null;
 
+    this.host = 'https://theoldreader.com/';
+
     // Init XHR object
     this.xhr = new XMLHttpRequest({ mozSystem: true });
 
@@ -32,6 +34,9 @@ TheOldReader.prototype.initDb = function()
         self.db = e.target.result;
 
         // Remove accounts
+        if (self.db.objectStoreNames.contains("labels")) {
+            self.db.deleteObjectStore("labels");
+        }
         if (self.db.objectStoreNames.contains("accounts")) {
             self.db.deleteObjectStore("accounts");
         }
@@ -42,7 +47,7 @@ TheOldReader.prototype.initDb = function()
 
         var objectStore = self.db.createObjectStore('accounts', { keyPath: 'id', autoIncrement: true });
         var objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
-        console.log("Object Store has been created");
+        var objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
     };
 
 };
@@ -52,7 +57,7 @@ TheOldReader.prototype.login = function(email, password, callback)
 {
     var self=this;
     var r = this.xhr;
-    r.open("POST", "https://theoldreader.com/accounts/ClientLogin", true);
+    r.open("POST", this.host+"/accounts/ClientLogin", true);
     r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     r.onreadystatechange = function () {
         if (r.readyState == 4)
@@ -67,6 +72,7 @@ TheOldReader.prototype.login = function(email, password, callback)
             }
             else
             {
+                alert(navigator.mozL10n.get('login_fail'));
                 // Bad identification, return callback
                 return callback(false);
             }
@@ -94,10 +100,8 @@ TheOldReader.prototype.create_account = function(email, token)
     var accounts = transaction.objectStore('accounts');
     var request = accounts.add(value);
     request.onsuccess = function (e) {
-        alert(navigator.mozL10n.get('account_created'));
     };
     request.onerror = function (e) {
-        alert("Error in saving the note. Reason : " + e.value);
     }
 };
 
@@ -161,6 +165,50 @@ TheOldReader.prototype.isLoggedIn = function(callback)
     {
         return false;
     }
-    console.log('token ',this.token);
+    console.log('token ',this.account.token);
     return true;
 };
+
+TheOldReader.prototype._query = function(method,url,data,callback)
+{
+    var r = this.xhr;
+    r.open(method, url, true);
+    r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    r.setRequestHeader("authorization","GoogleLogin auth="+this.account.token);
+
+    r.onreadystatechange = function () {
+        if (r.readyState == 4)
+        {
+            if(r.status == 200)
+            {
+                return callback(r.responseText);
+            }
+            else
+            {
+                return callback(null);
+            }
+        }
+    };
+    r.send(data);
+};
+
+TheOldReader.prototype.updateSubscriptionList = function(callback)
+{
+    var self=this;
+    var url = this.host+'/reader/api/0/subscription/list?output=json';
+    this._query("GET", url, null, function(text)
+    {
+        var data = JSON.parse(text);
+        if(data)
+        {
+        }
+    });
+}
+
+
+TheOldReader.prototype.fullupdate = function(callback)
+{
+    console.log('update subscription list');
+    this.updateSubscriptionList();
+};
+

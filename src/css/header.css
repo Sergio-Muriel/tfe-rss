@@ -1,8 +1,29 @@
-section[role="region"] > header:first-child button
+
+.header
 {
-    color:white;
+    height:4rem;
+    line-height:4rem;
+    background:var(--mainBg);
+    font-size:0.7rem;
+    color:var(--mainColor);
 }
-section[role="region"] > header:first-child h1
+
+.header button
 {
-    font-size:1.5rem;
+    width:4rem;
+    height:4rem;
 }
+.button_left
+{
+    float:left;
+}
+.button_right
+{
+    float:right;
+}
+.header button
+{
+    background:none;
+    border:none;
+}
+

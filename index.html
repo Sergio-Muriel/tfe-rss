@@ -18,6 +18,7 @@
 
         <!-- Main initialisation -->
         <script type="text/javascript" src="js/app.js" defer></script>
+        <script type="text/javascript" src="js/layout.js" defer></script>
 
         <link rel="prefetch" type="application/l10n" href="data/locales.ini" />
         <link rel="stylesheet" type="text/css" href="bower_components/gaia-fonts/style.css"></link>
@@ -31,42 +32,27 @@
     <body role="application">
 
         <!-- MENU -->
-        <section data-type="sidebar">
-          <header>
-            <menu type="toolbar">
-              <a href="#content"><span class="icon icon-add">add</span></a>
-            </menu>
-            <h1>Title <em>(9)</em></h1>
-          </header>
-          <nav>
-            <ul>
-              <li><a href="#content">label</a></li>
-              <li><a href="#content">label</a></li>
-              <li><a href="#content">label</a></li>
-              <li><a href="#content">label</a></li>
-            </ul>
-            <h2>Subtitle</h2>
-            <ul>
-              <li><a href="#content">label</a></li>
-              <li><a href="#content">label</a></li>
-              <li><a href="#content">label larger label than the </a></li>
-              <li><a href="#content">label</a></li>
-            </ul>
-          </nav>
-        </section>
+        <div class="header">
+            <button class="button_left" data-slide="left"><span data-icon="menu"></span></button>
+            <button class="button_right" data-slide="right"><span data-icon="settings"></span></button>
+            <h1 data-l10n-id="app_title">The Old RSS Reader</h1>
+        </div>
 
+        <div class="slides">
+            <div class="slides_move center_visible">
+                <div class="slide left">
+                    LEFT
+                </div>
+                <div class="slide center">
+                    CENTER
+                </div>
+                <div class="slide right">
+                    RIGHT
+                </div>
+            </div>
+        </div>
 
-        <!-- MAIN -->
-        <section role="region" class="header" id="drawer">
-            <header>
-                <a href="#content"><span class="icon icon-menu">hide sidebar</span></a>
-                <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
-
-                <menu type="toolbar">
-                    <button><span data-icon="settings"></span></button>
-                </menu>
-                <h1 data-l10n-id="app_title">The Old RSS Reader</h1>
-            </header>
+        <!--
             <div role="main">
                 <div class="main_layer" id="register_layer">
                     <form>
@@ -86,17 +72,6 @@
                     </form>
                 </div>
             </div>
-        </section>
-
-
-        <!-- FOOTER / TOOLBAR -->
-        <div role="toolbar">
-            <ul>
-                <li><span data-icon="back"></span></li>
-            </ul>
-            <ul>
-                <li><span data-icon="forward"></span></li>
-            </ul>
-        </div>
+            -->
     </body>
 </html>

@@ -1,0 +1,11 @@
+.form_text
+{
+    font-size:0.7em;
+    margin:10px;
+}
+
+#register_layer.hidden
+{
+    display:none;
+}
+

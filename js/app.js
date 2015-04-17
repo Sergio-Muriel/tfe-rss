@@ -5,6 +5,7 @@
 window.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
+    return;
     var login =  new Login();
 
     // Add the old reader support

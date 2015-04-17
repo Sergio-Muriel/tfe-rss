@@ -1,15 +1,10 @@
 @import 'lib/gaia-icons-embedded.css';
-@import 'lib/headers.css';
-@import 'lib/toolbars.css';
-@import 'lib/drawer.css';
-@import 'lib/buttons.css';
-@import 'lib/input_areas.css';
 
 /* Add custom lib css */
 @import 'colors.css';
 @import 'header.css';
 @import 'toolbar.css';
-@import 'drawer.css';
+@import 'layout.css';
 @import 'main.css';
 
 html, body {
@@ -20,11 +15,16 @@ html, body {
     height:100%;
     overflow-x:hidden;
     background:white;
+    text-align:center;
 }
 
 body {
   font-size: 1rem;
   background: #fff;
+}
+div, p , ul, table, tr, td, h1, h2, h3, h4
+{
+    box-sizing:border-box;
 }
 
 h1 {

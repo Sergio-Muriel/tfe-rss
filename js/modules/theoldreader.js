@@ -67,8 +67,6 @@ TheOldReader.prototype.login = function(email, password, callback)
             }
             else
             {
-                console.log('callback ',callback);
-                alert(navigator.mozL10n.get('account_created'));
                 // Bad identification, return callback
                 return callback(false);
             }

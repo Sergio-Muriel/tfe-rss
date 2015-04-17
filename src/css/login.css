@@ -1,0 +1,19 @@
+
+.logout_link
+{
+    display:none;
+}
+
+
+.loggedin .logout_link
+{
+    display: block;
+}
+
+.loggedin .login_link,
+.loggedin .register_link,
+.loggedin input[name=password]
+{
+    display:none;
+}
+

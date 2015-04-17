@@ -1,11 +1,105 @@
-.form_text
+form
 {
-    font-size:0.7em;
-    margin:10px;
+    font-size:1.7rem;
 }
+
 
 #register_layer.hidden
 {
     display:none;
 }
+
+
+
+form, fieldset, legend
+{
+    display:block;
+    border:none;
+    width:100%;
+    margin:0px;
+    padding:0px;
+    white-space:normal;
+    text-align:left;
+}
+legend
+{
+    border: 0.1rem solid #C7C7C7;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    margin: 0px 0px 1.5rem;
+    padding: 0px 1.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 4rem;
+    line-height: 4rem;
+    color: #333;
+    border-radius: 0px;
+    background: #FFF url("../../img/legend.svg") no-repeat scroll calc(100% - 1rem) calc(100% - 1rem);
+}
+
+form
+{
+    padding:20px;
+}
+.form_text
+{
+    font-size:0.8em;
+}
+form p
+{
+    position:relative;
+}
+
+form input
+{
+    display:block;
+    line-height:1.5em;
+    margin:0.5em auto;
+}
+input:invalid
+{
+    color:var(--inputInvalid);
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="search"], input[type="url"], input[type="number"], textarea
+{
+    width:100%;
+    height:4rem;
+    line-height:4rem;
+    padding:0px 1.5rem;
+    font-size:1.6rem;
+    border:0.1rem solid var(--inputBorder);
+    border-radius:0px;
+    box-shadow:none;
+    margin:0px 0px 1rem;
+    background:transparent;
+}
+
+.bb-button
+{
+    width:100%;
+    height:4rem;
+    border-radius:4rem;
+    font-size:1.6rem;
+    border:none;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:var(--buttonColor);
+}
+.bb-recommend
+{
+    background:var(--buttonRecommend);
+    color:var(--buttonRecommendColor);
+}
+.bb-danger
+{
+    background:var(--buttonDanger);
+    color:var(--buttonDangerColor);
+}
+
 

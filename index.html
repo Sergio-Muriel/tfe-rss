@@ -13,12 +13,12 @@
         <script type="text/javascript" src="js/libs/l10n_placeholders.js" defer></script>
 
         <!-- App librairies --> 
+        <script type="text/javascript" src="js/modules/layout.js" defer></script>
         <script type="text/javascript" src="js/modules/login.js" defer></script>
         <script type="text/javascript" src="js/modules/theoldreader.js" defer></script>
 
         <!-- Main initialisation -->
         <script type="text/javascript" src="js/app.js" defer></script>
-        <script type="text/javascript" src="js/layout.js" defer></script>
 
         <link rel="prefetch" type="application/l10n" href="data/locales.ini" />
         <link rel="stylesheet" type="text/css" href="bower_components/gaia-fonts/style.css"></link>
@@ -41,37 +41,45 @@
         <div class="slides">
             <div class="slides_move center_visible">
                 <div class="slide left">
-                    LEFT
+                    <div class="slide_content">
+                        LEFT
+                    </div>
                 </div>
                 <div class="slide center">
-                    CENTER
+                    <div class="slide_content">
+                        CENTER
+                    </div>
                 </div>
                 <div class="slide right">
-                    RIGHT
+                    <div class="slide_content">
+
+                        <!-- Register form -->
+                        <div role="main">
+                            <div class="main_layer" id="register_layer">
+                                <form>
+                                    <fieldset>
+                                        <legend data-l10n-id="account_information"></legend>
+                                        <p class="form_text" data-l10n-id="enter_account_information"></p>
+                                        <p>
+                                            <input type="email" name="email" data-l10n-placeholder="form_email" required>
+                                            <input type="password" name="password" data-l10n-placeholder="form_password" required>
+                                        </p>
+
+                                        <p><button class="login_link bb-button bb-recommend" data-l10n-id="login_link"></button></p>
+                                        <p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>
+                                        <p><button class="register_link bb-button" data-l10n-id="register_link"></button></p>
+
+                                </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- End of register form -->
+
+
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!--
-            <div role="main">
-                <div class="main_layer" id="register_layer">
-                    <form>
-                        <fieldset>
-                            <legend data-l10n-id="account_information"></legend>
-                            <p class="form_text" data-l10n-id="enter_account_information"></p>
-                            <p>
-                            <input type="email" name="email" data-l10n-placeholder="form_email" required>
-                            <input type="password" name="password" data-l10n-placeholder="form_password" required>
-                            <button type="reset">Clear</button>
-                            </p>
-
-                            <p><button class="login_link" class="bb-button recommend" data-l10n-id="login_link"></button></p>
-                            <p><button class="register_link" class="" data-l10n-id="register_link"></button></p>
-
-                    </fieldset>
-                    </form>
-                </div>
-            </div>
-            -->
     </body>
 </html>

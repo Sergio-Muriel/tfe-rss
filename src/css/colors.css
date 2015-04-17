@@ -2,4 +2,15 @@
 {
     --mainBg: #ddd;
     --mainColor: #000;
+
+    --selectedMenu: #fff;
+    --menuBg: #fff;
+
+    --inputInvalid: #b90000;
+    --inputBorder: #c7c7c7;
+    --buttonColor: #c7c7c7;
+    --buttonRecommend: #00caf2;
+    --buttonRecommendColor: #fff;
+    --buttonDanger: #E51E1E;
+    --buttonDangerColor: #fff;
 }

@@ -6,6 +6,8 @@
 @import 'toolbar.css';
 @import 'layout.css';
 @import 'main.css';
+@import 'form.css';
+@import 'login.css';
 
 html, body {
     font-size:10px;
@@ -34,4 +36,9 @@ h1 {
 p {
   font-size: inherit;
 }
+.hidden
+{
+    display:none;
+}
+
 

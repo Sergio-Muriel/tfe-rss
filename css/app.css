@@ -27,23 +27,33 @@
 /* Add custom lib css */
 .header
 {
-    height: 64px;
-    height:4rem;
-    line-height: 64px;
-    line-height:4rem;
+    height: 80px;
+    height:5rem;
+    line-height: 80px;
+    line-height:5rem;
     background: #ddd;
     font-size: 11px;
     font-size:0.7rem;
     color: #000;
+    overflow:hidden;
+
+    font-weight: lighter;
+    font-style: italic;
+    text-align: center;
 }
 
 .header button
 {
-    width: 64px;
-    width:4rem;
-    height: 64px;
-    height:4rem;
+    width: 80px;
+    width:5rem;
+    height: 80px;
+    height:5rem;
 }
+.header button.selected
+{
+    background: #fff;
+}
+
 .button_left
 {
     float:left;
@@ -67,8 +77,8 @@
 .slides
 {
     position:absolute;
-    top: 64px;
-    top:4rem;
+    top: 80px;
+    top:5rem;
     left:0px;
     bottom:0px;
     width:100%;
@@ -76,7 +86,6 @@
     z-index:4;
     -webkit-transition:-webkit-transform 0.5s ease;
             transition:transform 0.5s ease;
-    border:1px solid red;
     font-size:0px;
     white-space:nowrap;
 }
@@ -109,19 +118,29 @@
 .slide
 {
     display:inline-block;
+    vertical-align:top;
     font-size: 16px;
     font-size:1rem;
     width:100%;
     height:100%;
 }
-.slide.left
+.slide_content
 {
-    background:blue;
+    position:relative;
+    width:100%;
+    height:100%;
+    overflow:auto;
 }
+.slide.left,
 .slide.right
 {
-    background:yellow;
+    background: #fff;
 }
+*
+{
+    box-sizing:border-box;
+}
+
 #main
 {
     position:absolute;
@@ -129,14 +148,142 @@
     left:0px;
     right:0px;
     bottom:0px;
-    border:1px solid red;
     background:white;
 }
+form
+{
+    font-size: 27px;
+    font-size:1.7rem;
+}
 
+
+#register_layer.hidden
+{
+    display:none;
+}
+
+
+
+form, fieldset, legend
+{
+    display:block;
+    border:none;
+    width:100%;
+    margin:0px;
+    padding:0px;
+    white-space:normal;
+    text-align:left;
+}
+legend
+{
+    border: 1px solid #C7C7C7;
+    border: 0.1rem solid #C7C7C7;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-style: italic;
+    font-size: 25px;
+    font-size: 1.6rem;
+    margin: 0px 0px 24px;
+    margin: 0px 0px 1.5rem;
+    padding: 0px 24px;
+    padding: 0px 1.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 64px;
+    height: 4rem;
+    line-height: 64px;
+    line-height: 4rem;
+    color: #333;
+    border-radius: 0px;
+    background: #FFF url("../img/legend.svg") no-repeat scroll calc(100% - 1rem) calc(100% - 1rem);
+}
+
+form
+{
+    padding:20px;
+}
 .form_text
 {
-    font-size:0.7em;
-    margin:10px;
+    font-size:0.8em;
+}
+form p
+{
+    position:relative;
+}
+
+form input
+{
+    display:block;
+    line-height:1.5em;
+    margin:0.5em auto;
+}
+input:invalid
+{
+    color: #b90000;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="search"], input[type="url"], input[type="number"], textarea
+{
+    width:100%;
+    height: 64px;
+    height:4rem;
+    line-height: 64px;
+    line-height:4rem;
+    padding: 0px 24px;
+    padding:0px 1.5rem;
+    font-size: 25px;
+    font-size:1.6rem;
+    border: 1px solid #c7c7c7;
+    border: 0.1rem solid #c7c7c7;
+    border-radius:0px;
+    box-shadow:none;
+    margin: 0px 0px 16px;
+    margin:0px 0px 1rem;
+    background:transparent;
+}
+
+.bb-button
+{
+    width:100%;
+    height: 64px;
+    height:4rem;
+    border-radius:4rem;
+    font-size: 25px;
+    font-size:1.6rem;
+    border:none;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color: #c7c7c7;
+}
+.bb-recommend
+{
+    background: #00caf2;
+    color: #fff;
+}
+.bb-danger
+{
+    background: #E51E1E;
+    color: #fff;
+}
+.logout_link
+{
+    display:none;
+}
+
+
+.loggedin .logout_link
+{
+    display: block;
+}
+
+.loggedin .login_link,
+.loggedin .register_link,
+.loggedin input[name=password]
+{
+    display:none;
 }
 
 html, body {
@@ -169,4 +316,9 @@ h1 {
 p {
   font-size: inherit;
 }
+.hidden
+{
+    display:none;
+}
+
 

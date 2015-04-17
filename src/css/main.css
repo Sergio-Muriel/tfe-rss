@@ -1,3 +1,8 @@
+*
+{
+    box-sizing:border-box;
+}
+
 #main
 {
     position:absolute;
@@ -5,12 +10,6 @@
     left:0px;
     right:0px;
     bottom:0px;
-    border:1px solid red;
     background:white;
 }
 
-.form_text
-{
-    font-size:0.7em;
-    margin:10px;
-}

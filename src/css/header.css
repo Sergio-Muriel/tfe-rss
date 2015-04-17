@@ -1,18 +1,28 @@
 
 .header
 {
-    height:4rem;
-    line-height:4rem;
+    height:5rem;
+    line-height:5rem;
     background:var(--mainBg);
     font-size:0.7rem;
     color:var(--mainColor);
+    overflow:hidden;
+
+    font-weight: lighter;
+    font-style: italic;
+    text-align: center;
 }
 
 .header button
 {
-    width:4rem;
-    height:4rem;
+    width:5rem;
+    height:5rem;
 }
+.header button.selected
+{
+    background:var(--selectedMenu);
+}
+
 .button_left
 {
     float:left;

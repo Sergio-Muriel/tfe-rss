@@ -67,6 +67,8 @@ TheOldReader.prototype.login = function(email, password, callback)
             }
             else
             {
+                console.log('callback ',callback);
+                alert(navigator.mozL10n.get('account_created'));
                 // Bad identification, return callback
                 return callback(false);
             }
@@ -101,15 +103,15 @@ TheOldReader.prototype.create_account = function(email, token)
     }
 };
 
-TheOldReader.prototype.getAccounts = function(callback)
+TheOldReader.prototype.getAccount = function(callback)
 {
-    var accounts=[];
+    var account = null;
     var self=this;
 
     // If database not init already
     if(!this.db)
     {
-        return window.setTimeout(function() { self.getAccounts(callback) }, 100);
+        return window.setTimeout(function() { self.getAccount(callback) }, 100);
     }
 
     var transaction = this.db.transaction([ 'accounts' ]);
@@ -119,17 +121,48 @@ TheOldReader.prototype.getAccounts = function(callback)
     dbaccounts.openCursor().onsuccess = function (e) {
         var cursor = e.target.result;
         if (cursor) {
-            console.log('add account',cursor.value); 
-            accounts.push(cursor.value);
+            self.account = cursor.value;
             cursor.continue();
         }
         else
         {
-            callback(accounts);
+            callback(self.account);
         }
     };
-
 }
 
+TheOldReader.prototype.getEmail = function()
+{
+    return this.account  ? this.account.email : '';
+};
 
 
+TheOldReader.prototype.getRegisterLink = function()
+{
+    return 'https://theoldreader.com/#sign_up';
+};
+
+
+TheOldReader.prototype.deleteAccount = function(callback)
+{
+    if(this.account)
+    {
+        var request = this.db.transaction(["accounts"], "readwrite")
+            .objectStore("accounts")
+            .delete(this.account.id);
+        request.onsuccess = function(event) {
+            callback();
+        }
+        this.account=null;
+    }
+};
+
+TheOldReader.prototype.isLoggedIn = function(callback)
+{
+    if(!this.account)
+    {
+        return false;
+    }
+    console.log('token ',this.token);
+    return true;
+};

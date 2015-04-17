@@ -1,3 +1,9 @@
+// Init classes
+var layout =  new Layout();
+var login =  new Login();
+var theoldreader = new TheOldReader();
+
+
 // DOMContentLoaded is fired once the document has been loaded and parsed,
 // but without waiting for other external resources to load (css/images/etc)
 // That makes the app more responsive and perceived as faster.
@@ -5,19 +11,9 @@
 window.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
-    return;
-    var login =  new Login();
+    layout.init();
+
 
     // Add the old reader support
-    var theoldreader = new TheOldReader();
     login.init(theoldreader);
-
-    var list_accounts = theoldreader.getAccounts(function(list)
-      {
-          console.log('list ',list);
-      });
-
-    // Export to debug
-    window.theoldreader = theoldreader;
-    window.login = login;
 });

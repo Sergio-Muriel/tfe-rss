@@ -30,8 +30,10 @@ var Login = function()
                 self.loggedin();
                 layout.display_center();
 
-                self.controller.fullupdate();
-                //layout.loadfeeds();
+                layout.update_leftlist();
+
+                self.controller.fullupdate()
+                    .then(layout.update_leftlist);
             }
             else
             {

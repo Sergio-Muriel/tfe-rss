@@ -351,15 +351,45 @@ TheOldReader.prototype.addLabel = function(data)
 
 TheOldReader.prototype.fullupdate = function()
 {
-    this.updateSubscriptionList()
-        .then(function()
-                {
-                    console.log('done feeds');
-                })
-        .then(this.updateLabelsList.bind(this))
-        .then(function()
-                {
-                    console.log('done labels');
-                });
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        self.updateSubscriptionList()
+            .then(function()
+                    {
+                        console.log('done feeds');
+                    })
+            .then(self.updateLabelsList.bind(self))
+            .then(function()
+                    {
+                        console.log('done labels');
+                    });
+    });
 };
 
+TheOldReader.prototype.getFeeds = function()
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        var feeds = [];
+
+        var transaction = self.db.transaction([ 'feeds' ]);
+        var dbfeeds = transaction.objectStore('feeds');
+
+        // open a cursor to retrieve all items from the 'notes' store
+       var c = dbfeeds.openCursor();
+       c.onsuccess = function (e) {
+            var cursor = e.target.result;
+            if (cursor) {
+                feeds.push(cursor.value);
+                cursor.continue();
+            }
+            else
+            {
+                ok(feeds);
+            }
+        };
+       c.onerror = reject;
+    });
+}

@@ -2,6 +2,7 @@ var Layout = function()
 {
     var mover = document.querySelector('.slides_move');
     var buttons=  document.querySelectorAll('.header button');
+    var left = document.querySelector('.slide.left .slide_content')
 
     this.init = function(controller)
     {
@@ -54,8 +55,31 @@ var Layout = function()
     };
 
 
-    this.update_feeds= function()
+    this.update_leftlist= function()
     {
+        console.log('update left list');
+
+        var feeds=  this.controller.getFeeds()
+            .then(function(feeds)
+                {
+                    // Empty previous list
+                    while (left.firstChild) {
+                        left.removeChild(left.firstChild);
+                    }
+                    // Append all items
+                    var ul= document.createElement('ul');
+                    Array.forEach(feeds, function(feed)
+                    {
+                        var li = document.createElement('li');
+                        li.innerHTML= ' \
+                                <p class="left_title">'+feed.title+'</p>\
+                                ';
+                        ul.appendChild(li);
+                    });
+                    console.log('update feeds layout');
+                    left.appendChild(ul);
+                });
+
     };
 };
 

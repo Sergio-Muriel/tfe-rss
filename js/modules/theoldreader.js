@@ -70,6 +70,11 @@ TheOldReader.prototype.login = function(email, password, callback)
                 self.create_account(email,self.token);
                 return callback(true);
             }
+            else if(r.status===0)
+            {
+                alert(navigator.mozL10n.get('network_error'));
+                return callback(false);
+            }
             else
             {
                 alert(navigator.mozL10n.get('login_fail'));
@@ -182,6 +187,11 @@ TheOldReader.prototype._query = function(method,url,data,callback)
             if(r.status == 200)
             {
                 return callback(r.responseText);
+            }
+            else if(r.status===0)
+            {
+                alert(navigator.mozL10n.get('network_error'));
+                return callback(null);
             }
             else
             {

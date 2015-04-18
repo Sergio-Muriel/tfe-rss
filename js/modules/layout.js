@@ -11,6 +11,10 @@ var Layout = function()
 
     this.display_left= function()
     {
+        if(mover.classList.contains('left_visible'))
+        {
+            return this.display_center();
+        }
         mover.className='slides_move left_visible';
         Array.forEach( buttons, function(button)
         {
@@ -21,6 +25,10 @@ var Layout = function()
 
     this.display_right= function()
     {
+        if(mover.classList.contains('right_visible'))
+        {
+            return this.display_center();
+        }
         mover.className='slides_move right_visible';
         Array.forEach( buttons, function(button)
         {
@@ -40,9 +48,14 @@ var Layout = function()
 
     this.bind =  function()
     {
-        document.querySelector('.header h1').addEventListener('click', this.display_center);
-        document.querySelector('.header .button_left').addEventListener('click', this.display_left);
-        document.querySelector('.header .button_right').addEventListener('click', this.display_right);
+        document.querySelector('.header h1').addEventListener('click', this.display_center.bind(this));
+        document.querySelector('.header .button_left').addEventListener('click', this.display_left.bind(this));
+        document.querySelector('.header .button_right').addEventListener('click', this.display_right.bind(this));
+    };
+
+
+    this.update_feeds= function()
+    {
     };
 };
 

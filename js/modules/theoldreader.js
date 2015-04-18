@@ -72,14 +72,15 @@ TheOldReader.prototype.login = function(email, password, callback)
             }
             else if(r.status===0)
             {
+                alert('ici 1');
                 alert(navigator.mozL10n.get('network_error'));
-                return callback(false);
+                return false;
             }
             else
             {
                 alert(navigator.mozL10n.get('login_fail'));
                 // Bad identification, return callback
-                return callback(false);
+                return false;
             }
         }
     };
@@ -176,49 +177,189 @@ TheOldReader.prototype.isLoggedIn = function(callback)
 
 TheOldReader.prototype._query = function(method,url,data,callback)
 {
-    var r = this.xhr;
-    r.open(method, url, true);
-    r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    r.setRequestHeader("authorization","GoogleLogin auth="+this.account.token);
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        var r = self.xhr;
+        r.open(method, url, true);
+        r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        r.setRequestHeader("authorization","GoogleLogin auth="+self.account.token);
 
-    r.onreadystatechange = function () {
-        if (r.readyState == 4)
-        {
-            if(r.status == 200)
+        r.onreadystatechange = function () {
+            if (r.readyState == 4)
             {
-                return callback(r.responseText);
+                if(r.status == 200)
+                {
+                    return ok(r.responseText);
+                }
+                else if(r.status===0)
+                {
+                    alert(navigator.mozL10n.get('network_error'));
+                    return reject(null);
+                }
+                else
+                {
+                    return reject(null);
+                }
             }
-            else if(r.status===0)
-            {
-                alert(navigator.mozL10n.get('network_error'));
-                return callback(null);
-            }
-            else
-            {
-                return callback(null);
-            }
-        }
-    };
-    r.send(data);
+        };
+        r.send(data);
+    });
 };
 
-TheOldReader.prototype.updateSubscriptionList = function(callback)
+
+TheOldReader.prototype.clearFeeds = function()
 {
     var self=this;
-    var url = this.host+'/reader/api/0/subscription/list?output=json';
-    this._query("GET", url, null, function(text)
+    return new Promise(function(ok, reject)
     {
-        var data = JSON.parse(text);
-        if(data)
+        console.log('clearing feeds');
+        var transaction = self.db.transaction([ 'feeds' ], 'readwrite');
+        var feeds = transaction.objectStore('feeds');
+
+        var request = feeds.clear();
+        request.onsuccess = function()
         {
-        }
+            ok();
+        };
+        request.onerror = function()
+        {
+            reject();
+        };
+    });
+};
+TheOldReader.prototype.clearLabels = function()
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        console.log('clearing labels');
+        var transaction = self.db.transaction([ 'labels' ], 'readwrite');
+        var feeds = transaction.objectStore('labels');
+
+        var request = feeds.clear();
+        request.onsuccess = function()
+        {
+            ok();
+        };
+        request.onerror = function()
+        {
+            reject();
+        };
+    });
+};
+
+TheOldReader.prototype.updateSubscriptionList = function()
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        console.log('Fetching subscription list');
+        var url = self.host+'/reader/api/0/subscription/list?output=json';
+        self._query.bind(self)("GET", url, null)
+            .then(function(text)
+            {
+                var data = JSON.parse(text);
+                if(data)
+                {
+                    var prom = self.clearFeeds();
+
+                    Array.forEach(data.subscriptions, function(subscription)
+                    {
+                        prom=prom.then(self.addSubscription(subscription));
+                    });
+                    prom.then(ok, reject);
+                }
+                else
+                {
+                    reject();
+                }   
+            }, reject);
     });
 }
-
-
-TheOldReader.prototype.fullupdate = function(callback)
+TheOldReader.prototype.addSubscription = function(data)
 {
-    console.log('update subscription list');
-    this.updateSubscriptionList();
+    var self=this;
+    return function()
+    {
+        return new Promise(function(ok, reject)
+        {
+            var transaction_feeds = self.db.transaction([ 'feeds' ], 'readwrite');
+            //Create the Object to be saved i.e. our Note
+
+            var feeds = transaction_feeds.objectStore('feeds');
+            var request = feeds.add(data);
+            request.onsuccess = function (e) {
+                ok();
+            };
+            request.onerror = function (e) {
+                reject();
+            }
+        });
+    };
+};
+
+TheOldReader.prototype.updateLabelsList = function()
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        console.log('Fetching labels list');
+        var url = self.host+'/reader/api/0/tag/list?output=json';
+        self._query.bind(self)("GET", url, null)
+            .then(function(text)
+            {
+                var data = JSON.parse(text);
+                if(data)
+                {
+                    var prom = self.clearLabels();
+
+                    Array.forEach(data.tags, function(tag)
+                    {
+                        prom=prom.then(self.addLabel(tag), reject);
+                    });
+                    prom.then(ok, reject);
+                }
+                else
+                {
+                    reject();
+                }
+            });
+    });
+}
+TheOldReader.prototype.addLabel = function(data)
+{
+    var self=this;
+    return function()
+    {
+        return new Promise(function(ok, reject)
+        {
+            var transaction_labels = self.db.transaction([ 'labels' ], 'readwrite');
+            //Create the Object to be saved i.e. our Note
+
+            var labels = transaction_labels.objectStore('labels');
+            var request = labels.add(data);
+            request.onsuccess = function (e) {
+                ok();
+            };
+            request.onerror = function (e) {
+                reject();
+            }
+        });
+    };
+};
+
+TheOldReader.prototype.fullupdate = function()
+{
+    this.updateSubscriptionList()
+        .then(function()
+                {
+                    console.log('done feeds');
+                })
+        .then(this.updateLabelsList.bind(this))
+        .then(function()
+                {
+                    console.log('done labels');
+                });
 };
 

@@ -7,6 +7,8 @@ var Layout = function()
     var button_left = document.querySelector('.button_left');
     var button_right = document.querySelector('.button_right');
 
+    var leftlist = document.querySelector('.leftlist');
+
     this.init = function(controller)
     {
         this.controller = controller;
@@ -61,8 +63,6 @@ var Layout = function()
 
     this.update_leftlist= function()
     {
-        console.log('update left list');
-
         Promise.all([ this.controller.getFeeds(), this.controller.getLabels()])
         .then(function(values)
                 {
@@ -71,13 +71,9 @@ var Layout = function()
                     console.log('labels ', labels);
 
                     // @TODO do not remove all, only update...
+                    leftlist.innerHTML='';
 
-                    // Empty previous list
-                    while (left.firstChild) {
-                        left.removeChild(left.firstChild);
-                    }
                     // Append all items
-                    var ul= document.createElement('ul');
                     Array.forEach(labels, function(label)
                     {
                         var li = document.createElement('li');
@@ -85,10 +81,9 @@ var Layout = function()
                                 <p class="label_toggle"><span data-icon="add"></span></p>\
                                 <p class="label">'+label.id.replace(/.*label\//,'')+'</p>\
                                 ';
-                        ul.appendChild(li);
+                        leftlist.appendChild(li);
                     });
                     console.log('update feeds layout');
-                    left.appendChild(ul);
                 });
 
     };

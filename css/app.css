@@ -142,6 +142,21 @@
     overflow-x:hidden;
     overflow-y:auto;
 }
+
+
+h2
+{
+    font-size: 32px;
+    font-size:2rem;
+    text-align:center;
+    height: 80px;
+    height:5rem;
+    line-height: 80px;
+    line-height:5rem;
+    margin:0px;
+    padding:0px;
+    background: #ddd;
+}
 *
 {
     box-sizing:border-box;

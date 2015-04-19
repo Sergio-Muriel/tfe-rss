@@ -262,13 +262,13 @@ TheOldReader.prototype.updateSubscriptionList = function()
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    var prom = self.clearFeeds();
-
-                    Array.forEach(data.subscriptions, function(subscription)
-                    {
-                        prom=prom.then(self.addSubscription(subscription));
-                    });
-                    prom.then(ok, reject);
+                    var prom = self.clearFeeds()
+                        .then(self.addSubscriptions(data.subscriptions))
+                        .then(function()
+                                {
+                                    console.log('end adding');
+                                })
+                        .then(ok, reject);
                 }
                 else
                 {
@@ -277,7 +277,7 @@ TheOldReader.prototype.updateSubscriptionList = function()
             }, reject);
     });
 }
-TheOldReader.prototype.addSubscription = function(data)
+TheOldReader.prototype.addSubscriptions = function(subscriptions)
 {
     var self=this;
     return function()
@@ -285,16 +285,16 @@ TheOldReader.prototype.addSubscription = function(data)
         return new Promise(function(ok, reject)
         {
             var transaction_feeds = self.db.transaction([ 'feeds' ], 'readwrite');
-            //Create the Object to be saved i.e. our Note
+            transaction_feeds.oncomplete= ok;
+            transaction_feeds.onerror= reject;
 
-            var feeds = transaction_feeds.objectStore('feeds');
-            var request = feeds.add(data);
-            request.onsuccess = function (e) {
-                ok();
-            };
-            request.onerror = function (e) {
-                reject();
-            }
+            //Create the Object to be saved i.e. our Note
+            Array.forEach(subscriptions, function(data)
+            {
+                console.log('adding ',data);
+                var feeds = transaction_feeds.objectStore('feeds');
+                var request = feeds.add(data);
+            });
         });
     };
 };
@@ -312,13 +312,9 @@ TheOldReader.prototype.updateLabelsList = function()
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    var prom = self.clearLabels();
-
-                    Array.forEach(data.tags, function(tag)
-                    {
-                        prom=prom.then(self.addLabel(tag), reject);
-                    });
-                    prom.then(ok, reject);
+                    var prom = self.clearLabels()
+                        .then(self.addLabels(data.tags), reject)
+                        .then(ok, reject);
                 }
                 else
                 {
@@ -327,7 +323,7 @@ TheOldReader.prototype.updateLabelsList = function()
             });
     });
 }
-TheOldReader.prototype.addLabel = function(data)
+TheOldReader.prototype.addLabels = function(labels)
 {
     var self=this;
     return function()
@@ -336,15 +332,14 @@ TheOldReader.prototype.addLabel = function(data)
         {
             var transaction_labels = self.db.transaction([ 'labels' ], 'readwrite');
             //Create the Object to be saved i.e. our Note
+            transaction_labels.oncomplete= ok;
+            transaction_labels.onerror= reject;
 
-            var labels = transaction_labels.objectStore('labels');
-            var request = labels.add(data);
-            request.onsuccess = function (e) {
-                ok();
-            };
-            request.onerror = function (e) {
-                reject();
-            }
+            Array.forEach(labels, function(data)
+            {
+                var labels = transaction_labels.objectStore('labels');
+                var request = labels.add(data);
+            });
         });
     };
 };

@@ -14,113 +14,120 @@ var TheOldReader = function()
     var db_request = indexedDB.open('theoldreader');
     db_request.onsuccess = function (e) { self.db = e.target.result; };
     db_request.onerror = function (e) { console.log(e); };
-
-    this.initDb();
 };
 
 TheOldReader.prototype.initDb = function()
 {
     var self=this;
-    console.log('call init db');
-
-    var request = indexedDB.open('theoldreader_db',2);
-    request.onsuccess = function (e) {
-        self.db = e.target.result;
-    }
-    request.onerror = function (e) {
-        console.log(e);
-    };
-    request.onupgradeneeded = function (e) {
-        self.db = e.target.result;
-
-        // Remove accounts
-        if (self.db.objectStoreNames.contains("labels")) {
-            self.db.deleteObjectStore("labels");
+    return new Promise(function(ok, reject)
+    {
+        var request = indexedDB.open('theoldreader_db',2);
+        request.onsuccess = function (e) {
+            self.db = e.target.result;
+            ok();
         }
-        if (self.db.objectStoreNames.contains("accounts")) {
-            self.db.deleteObjectStore("accounts");
-        }
-        // Remove feeds
-        if (self.db.objectStoreNames.contains("feeds")) {
-            self.db.deleteObjectStore("feeds");
-        }
+        request.onerror = function (e) {
+            console.log(e);
+            reject();
+        };
+        request.onupgradeneeded = function (e) {
+            self.db = e.target.result;
 
-        var objectStore = self.db.createObjectStore('accounts', { keyPath: 'id', autoIncrement: true });
-        var objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
-        var objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
-    };
+            // Remove accounts
+            if (self.db.objectStoreNames.contains("labels")) {
+                self.db.deleteObjectStore("labels");
+            }
+            if (self.db.objectStoreNames.contains("accounts")) {
+                self.db.deleteObjectStore("accounts");
+            }
+            // Remove feeds
+            if (self.db.objectStoreNames.contains("feeds")) {
+                self.db.deleteObjectStore("feeds");
+            }
+
+            var objectStore = self.db.createObjectStore('accounts', { keyPath: 'id', autoIncrement: true });
+
+            var objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
+
+            var objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
+            objectStore.createIndex("sortid", "sortid", { unique: false });
+            objectStore.createIndex("id", "id", { unique: false });
+        };
+    });
 
 };
 
 // Methodes
-TheOldReader.prototype.login = function(email, password, callback)
+TheOldReader.prototype.login = function(email, password)
 {
     var self=this;
-    var r = this.xhr;
-    r.open("POST", this.host+"/accounts/ClientLogin", true);
-    r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    r.onreadystatechange = function () {
-        if (r.readyState == 4)
-        {
-            var auth_token;
-            if(r.status == 200 && (auth_token = r.responseText.match(/Auth=(.*)/)))
+    return new Promise(function(ok, reject)
+    {
+        var r = self.xhr;
+        r.open("POST", self.host+"/accounts/ClientLogin", true);
+        r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        r.onreadystatechange = function () {
+            if (r.readyState == 4)
             {
-                // Save token and call callbak
-                self.token = auth_token[1];
-                self.create_account(email,self.token);
-                return callback(true);
+                var auth_token;
+                if(r.status == 200 && (auth_token = r.responseText.match(/Auth=(.*)/)))
+                {
+                    // Save token and call callbak
+                    self.token = auth_token[1];
+                    self.create_account(email,self.token)
+                        .then(ok);
+                }
+                else if(r.status===0)
+                {
+                    alert('ici 1');
+                    alert(navigator.mozL10n.get('network_error'));
+                    reject();
+                }
+                else
+                {
+                    alert(navigator.mozL10n.get('login_fail'));
+                    // Bad identification, return callback
+                    reject();
+                }
             }
-            else if(r.status===0)
-            {
-                alert('ici 1');
-                alert(navigator.mozL10n.get('network_error'));
-                return false;
-            }
-            else
-            {
-                alert(navigator.mozL10n.get('login_fail'));
-                // Bad identification, return callback
-                return false;
-            }
-        }
-    };
+        };
 
-    // Send xhr request
-    r.send('client=Rssclient&'+
-            'accountType=HOSTED_OR_GOOGLE&'+
-            'service=reader&'+
-            'Email='+encodeURIComponent(email)+'&'+
-            'Passwd='+encodeURIComponent(password)
-    );
+        // Send xhr request
+        r.send('client=Rssclient&'+
+                'accountType=HOSTED_OR_GOOGLE&'+
+                'service=reader&'+
+                'Email='+encodeURIComponent(email)+'&'+
+                'Passwd='+encodeURIComponent(password)
+        );
+    });
 };
 
 TheOldReader.prototype.create_account = function(email, token)
 {
-    console.log('adding new element');
-    var transaction = this.db.transaction([ 'accounts' ], 'readwrite');
-    //Create the Object to be saved i.e. our Note
-    var value = {};
-    value.email = email;
-    value.token = token;
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        var transaction = self.db.transaction([ 'accounts' ], 'readwrite');
+        //Create the Object to be saved i.e. our Note
+        var value = {};
+        value.email = email;
+        value.token = token;
 
-    var accounts = transaction.objectStore('accounts');
-    var request = accounts.add(value);
-    request.onsuccess = function (e) {
-    };
-    request.onerror = function (e) {
-    }
+        var accounts = transaction.objectStore('accounts');
+        var request = accounts.add(value);
+        request.onsuccess = function (e) {
+            ok();
+        };
+        request.onerror = function (e) {
+            reject();
+        }
+    });
 };
 
 TheOldReader.prototype.getAccount = function(callback)
 {
     var account = null;
     var self=this;
-
-    // If database not init already
-    if(!this.db)
-    {
-        return window.setTimeout(function() { self.getAccount(callback) }, 100);
-    }
 
     var transaction = this.db.transaction([ 'accounts' ]);
     var dbaccounts = transaction.objectStore('accounts');
@@ -180,7 +187,8 @@ TheOldReader.prototype._query = function(method,url,data,callback)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var r = self.xhr;
+        // Init XHR object
+        var r = new XMLHttpRequest({ mozSystem: true });
         r.open(method, url, true);
         r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         r.setRequestHeader("authorization","GoogleLogin auth="+self.account.token);
@@ -264,10 +272,7 @@ TheOldReader.prototype.updateSubscriptionList = function()
                 {
                     var prom = self.clearFeeds()
                         .then(self.addSubscriptions(data.subscriptions))
-                        .then(function()
-                                {
-                                    console.log('end adding');
-                                })
+                        .then(function() { console.log('done update subscriptions list') })
                         .then(ok, reject);
                 }
                 else
@@ -289,9 +294,8 @@ TheOldReader.prototype.addSubscriptions = function(subscriptions)
             transaction_feeds.onerror= reject;
 
             //Create the Object to be saved i.e. our Note
-            Array.forEach(subscriptions, function(data)
+            subscriptions.forEach(function(data)
             {
-                console.log('adding ',data);
                 var feeds = transaction_feeds.objectStore('feeds');
                 var request = feeds.add(data);
             });
@@ -314,6 +318,7 @@ TheOldReader.prototype.updateLabelsList = function()
                 {
                     var prom = self.clearLabels()
                         .then(self.addLabels(data.tags), reject)
+                        .then(function() { console.log('done update labels list') })
                         .then(ok, reject);
                 }
                 else
@@ -335,7 +340,8 @@ TheOldReader.prototype.addLabels = function(labels)
             transaction_labels.oncomplete= ok;
             transaction_labels.onerror= reject;
 
-            Array.forEach(labels, function(data)
+            console.log('adding LABELS!');
+            labels.forEach(function(data)
             {
                 var labels = transaction_labels.objectStore('labels');
                 var request = labels.add(data);
@@ -346,20 +352,11 @@ TheOldReader.prototype.addLabels = function(labels)
 
 TheOldReader.prototype.fullupdate = function()
 {
-    var self=this;
-    return new Promise(function(ok, reject)
-    {
-        self.updateSubscriptionList()
-            .then(function()
-                    {
-                        console.log('done feeds');
-                    })
-            .then(self.updateLabelsList.bind(self))
-            .then(function()
-                    {
-                        console.log('done labels');
-                    });
-    });
+    return Promise.all([
+            function() { console.log('in promise'); },
+            this.updateSubscriptionList(),
+            this.updateLabelsList()
+    ]);
 };
 
 TheOldReader.prototype.getFeeds = function()
@@ -383,6 +380,35 @@ TheOldReader.prototype.getFeeds = function()
             else
             {
                 ok(feeds);
+            }
+        };
+       c.onerror = reject;
+    });
+}
+
+TheOldReader.prototype.getLabels = function()
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        var labels = [];
+
+        console.log('get labels');
+        var transaction = self.db.transaction([ 'labels' ]);
+        var dblabels = transaction.objectStore('labels');
+        var index = dblabels.index('id');
+
+        // open a cursor to retrieve all items from the 'notes' store
+       var c = index.openCursor();
+       c.onsuccess = function (e) {
+            var cursor = e.target.result;
+            if (cursor) {
+                labels.push(cursor.value);
+                cursor.continue();
+            }
+            else
+            {
+                ok(labels);
             }
         };
        c.onerror = reject;

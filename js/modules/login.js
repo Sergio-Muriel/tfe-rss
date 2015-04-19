@@ -17,7 +17,8 @@ var Login = function()
 
 
         this.bind();
-        this.init_account();
+        this.controller.initDb()
+            .then(this.init_account.bind(this));
     }; 
 
     this.init_account=function()
@@ -31,9 +32,10 @@ var Login = function()
                 layout.display_center();
 
                 layout.update_leftlist();
-
+                console.log('calling fullupdate');
                 self.controller.fullupdate()
-                    .then(layout.update_leftlist);
+                    .then(function() { console.log('done fullupdate'); })
+                    .then(layout.update_leftlist.bind(layout));
             }
             else
             {
@@ -60,7 +62,7 @@ var Login = function()
 
     this.register= function(e)
     {
-        window.open(self.controller.getRegisterLink());
+        window.open(this.controller.getRegisterLink());
         e.preventDefault();
         return false;
     };
@@ -69,12 +71,10 @@ var Login = function()
     {
         if(this.form.checkValidity())
         {
-            this.controller.login(
-                    this.email.value,
-                    this.password.value,
-                    this.init_account.bind(this)
-            );
             e.preventDefault();
+
+            this.controller.login(this.email.value,this.password.value)
+                .then(this.init_account.bind(this));
         }
         else
         {

@@ -1,0 +1,27 @@
+.slide.left
+{
+    text-align:left;
+}
+.slide.left ul,
+.slide.left li
+{
+    margin:0px;
+    padding:0px;
+    width:100%;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+
+.slide.left li
+{
+    list-style:none;
+    line-height:1rem;
+    font-size:2rem;
+    margin:0px 0.5rem;
+}
+.slide.left li p
+{
+    display:inline-block;
+}

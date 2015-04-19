@@ -8,6 +8,7 @@
 @import 'main.css';
 @import 'form.css';
 @import 'login.css';
+@import 'leftlist.css';
 
 html, body {
     font-size:10px;

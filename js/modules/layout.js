@@ -1,8 +1,11 @@
 var Layout = function()
 {
-    var mover = document.querySelector('.slides_move');
     var buttons=  document.querySelectorAll('.header button');
     var left = document.querySelector('.slide.left .slide_content')
+
+    var slides = document.querySelector('.slides');
+    var button_left = document.querySelector('.button_left');
+    var button_right = document.querySelector('.button_right');
 
     this.init = function(controller)
     {
@@ -12,25 +15,26 @@ var Layout = function()
 
     this.display_left= function()
     {
-        if(mover.classList.contains('left_visible'))
+        if(button_left.classList.contains('selected'))
         {
             return this.display_center();
         }
-        mover.className='slides_move left_visible';
+        slides.className='slides left_selected';
+
         Array.forEach( buttons, function(button)
         {
             button.classList.remove('selected');
         });
-        document.querySelector('.button_left').classList.add('selected');
+        button_left.classList.add('selected');
     };
 
     this.display_right= function()
     {
-        if(mover.classList.contains('right_visible'))
+        if(button_right.classList.contains('selected'))
         {
             return this.display_center();
         }
-        mover.className='slides_move right_visible';
+        slides.className='slides right_selected';
         Array.forEach( buttons, function(button)
         {
             button.classList.remove('selected');
@@ -40,11 +44,11 @@ var Layout = function()
 
     this.display_center= function()
     {
-        mover.className='slides_move center_visible';
         Array.forEach( buttons, function(button)
         {
             button.classList.remove('selected');
         });
+        slides.className='slides';
     };
 
     this.bind =  function()
@@ -59,20 +63,27 @@ var Layout = function()
     {
         console.log('update left list');
 
-        var feeds=  this.controller.getFeeds()
-            .then(function(feeds)
+        Promise.all([ this.controller.getFeeds(), this.controller.getLabels()])
+        .then(function(values)
                 {
+                    var feeds = values[0];
+                    var labels = values[1];
+                    console.log('labels ', labels);
+
+                    // @TODO do not remove all, only update...
+
                     // Empty previous list
                     while (left.firstChild) {
                         left.removeChild(left.firstChild);
                     }
                     // Append all items
                     var ul= document.createElement('ul');
-                    Array.forEach(feeds, function(feed)
+                    Array.forEach(labels, function(label)
                     {
                         var li = document.createElement('li');
                         li.innerHTML= ' \
-                                <p class="left_title">'+feed.title+'</p>\
+                                <p class="label_toggle"><span data-icon="add"></span></p>\
+                                <p class="label">'+label.id.replace(/.*label\//,'')+'</p>\
                                 ';
                         ul.appendChild(li);
                     });

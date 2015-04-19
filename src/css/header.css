@@ -3,9 +3,9 @@
 {
     height:5rem;
     line-height:5rem;
-    background:var(--mainBg);
+    background:var(--headerBg);
     font-size:0.7rem;
-    color:var(--mainColor);
+    color:var(--headerColor);
     overflow:hidden;
 
     font-weight: lighter;

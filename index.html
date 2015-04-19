@@ -31,53 +31,51 @@
     </head>
     <body role="application">
 
-        <!-- MENU -->
-        <div class="header">
-            <button class="button_left" data-slide="left"><span data-icon="menu"></span></button>
-            <button class="button_right" data-slide="right"><span data-icon="settings"></span></button>
-            <h1 data-l10n-id="app_title">The Old RSS Reader</h1>
-        </div>
 
         <div class="slides">
-            <div class="slides_move center_visible">
-                <div class="slide left">
-                    <div class="slide_content">
-                    </div>
+            <div class="slide left">
+                <div class="slide_content">
                 </div>
-                <div class="slide center">
-                    <div class="slide_content">
-                    </div>
-                </div>
-                <div class="slide right">
-                    <div class="slide_content">
-
-                        <!-- Register form -->
-                        <div role="main">
-                            <div class="main_layer" id="register_layer">
-                                <form>
-                                    <fieldset>
-                                        <legend data-l10n-id="account_information"></legend>
-                                        <p class="form_text" data-l10n-id="enter_account_information"></p>
-                                        <p>
-                                            <input type="email" name="email" data-l10n-placeholder="form_email" required>
-                                            <input type="password" name="password" data-l10n-placeholder="form_password" required>
-                                        </p>
-
-                                        <p><button class="login_link bb-button bb-recommend" data-l10n-id="login_link"></button></p>
-                                        <p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>
-                                        <p><button class="register_link bb-button" data-l10n-id="register_link"></button></p>
-
-                                </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- End of register form -->
-
-
+            </div>
+            <div class="slide center">
+                <div class="slide_content">
+                    <!-- MENU -->
+                    <div class="header">
+                        <button class="button_left" data-slide="left"><span data-icon="menu"></span></button>
+                        <button class="button_right" data-slide="right"><span data-icon="settings"></span></button>
+                        <h1 data-l10n-id="app_title">The Old RSS Reader</h1>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="slide right">
+                <div class="slide_content">
 
+
+                    <!-- Register form -->
+                    <div role="main">
+                        <div class="main_layer" id="register_layer">
+                            <form>
+                                <fieldset>
+                                    <legend data-l10n-id="account_information"></legend>
+                                    <p class="form_text" data-l10n-id="enter_account_information"></p>
+                                    <p>
+                                        <input type="email" name="email" data-l10n-placeholder="form_email" required>
+                                        <input type="password" name="password" data-l10n-placeholder="form_password" required>
+                                    </p>
+
+                                    <p><button class="login_link bb-button bb-recommend" data-l10n-id="login_link"></button></p>
+                                    <p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>
+                                    <p><button class="register_link bb-button" data-l10n-id="register_link"></button></p>
+
+                            </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End of register form -->
+
+
+                </div>
+            </div>
+        </div>
     </body>
 </html>

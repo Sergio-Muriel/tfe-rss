@@ -77,64 +77,70 @@
 .slides
 {
     position:absolute;
-    top: 80px;
-    top:5rem;
+    top:0px;
     left:0px;
     bottom:0px;
     width:100%;
-    background:black;
+    background: #fff;
     z-index:4;
-    -webkit-transition:-webkit-transform 0.5s ease;
-            transition:transform 0.5s ease;
     font-size:0px;
     white-space:nowrap;
 }
-.slides_move
-{
-    position:relative;
-    height:100%;
-    -webkit-transition:-webkit-transform 0.7s ease;
-            transition:transform 0.7s ease;
-}
-.slides_move.left_visible
-{
-    -webkit-transform: translateX(0%);
-        -ms-transform: translateX(0%);
-            transform: translateX(0%);
-}
-.slides_move.center_visible
-{
-    -webkit-transform: translateX(-100%);
-        -ms-transform: translateX(-100%);
-            transform: translateX(-100%);
-}
-.slides_move.right_visible
-{
-    -webkit-transform: translateX(-200%);
-        -ms-transform: translateX(-200%);
-            transform: translateX(-200%);
-}
-
 .slide
 {
-    display:inline-block;
-    vertical-align:top;
-    font-size: 16px;
-    font-size:1rem;
+    position:absolute;
+    top:0px;
     width:100%;
     height:100%;
+    font-size: 16px;
+    font-size:1rem;
+    overflow-x:hidden;
+    background: #fff;
+    -webkit-transition:-webkit-transform 0.5s ease;
+            transition:transform 0.5s ease;
 }
+
+.slide.left,
+.slide.right
+{
+    width:80%;
+    background: #eee;
+}
+.slide.center
+{
+    z-index:5;
+}
+.slide.right
+{
+    right:0px;
+}
+
+.left_selected .slide.center
+{
+    -webkit-transform: translateX(80%);
+        -ms-transform: translateX(80%);
+            transform: translateX(80%);
+}
+.right_selected .slide.center
+{
+    -webkit-transform: translateX(-80%);
+        -ms-transform: translateX(-80%);
+            transform: translateX(-80%);
+}
+
+.left_selected .slide.left,
+.right_selected .slide.right
+{
+    z-index:4;
+}
+
 .slide_content
 {
     position:relative;
     width:100%;
     height:100%;
-    overflow:auto;
-}
-.slide.left,
-.slide.right
-{
-    background: #fff;
+    overflow-x:hidden;
+    overflow-y:auto;
 }
 *
 {
@@ -284,6 +290,36 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
 .loggedin input[name=password]
 {
     display:none;
+}
+.slide.left
+{
+    text-align:left;
+}
+.slide.left ul,
+.slide.left li
+{
+    margin:0px;
+    padding:0px;
+    width:100%;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+
+.slide.left li
+{
+    list-style:none;
+    line-height: 16px;
+    line-height:1rem;
+    font-size: 32px;
+    font-size:2rem;
+    margin: 0px 8px;
+    margin:0px 0.5rem;
+}
+.slide.left li p
+{
+    display:inline-block;
 }
 
 html, body {

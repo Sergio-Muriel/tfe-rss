@@ -1,10 +1,13 @@
 :root
 {
-    --mainBg: #ddd;
+    --mainBg: #fff;
     --mainColor: #000;
 
+    --headerBg: #ddd;
+    --headerColor: #000;
+
     --selectedMenu: #fff;
-    --menuBg: #fff;
+    --menuBg: #eee;
 
     --inputInvalid: #b90000;
     --inputBorder: #c7c7c7;

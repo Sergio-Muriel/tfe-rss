@@ -85,7 +85,10 @@ var Layout = function()
                         li.innerHTML= ' \
                                 <p class="label_toggle"><span data-icon="add"></span></p>\
                                 <p class="label">'+label.id.replace(/.*label\//,'')+'</p>\
+                                <ul></ul>\
                                 ';
+                        var feedlist = li.querySelector('ul');
+
                         leftlist.appendChild(li);
                     });
                     console.log('update feeds layout');

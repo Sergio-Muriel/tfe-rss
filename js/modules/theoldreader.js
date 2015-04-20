@@ -21,7 +21,7 @@ TheOldReader.prototype.initDb = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var request = indexedDB.open('theoldreader_db',2);
+        var request = indexedDB.open('theoldreader_db',2.2);
         request.onsuccess = function (e) {
             self.db = e.target.result;
             ok();
@@ -33,21 +33,24 @@ TheOldReader.prototype.initDb = function()
         request.onupgradeneeded = function (e) {
             self.db = e.target.result;
 
-            // Remove accounts
             if (self.db.objectStoreNames.contains("labels")) {
                 self.db.deleteObjectStore("labels");
             }
             if (self.db.objectStoreNames.contains("accounts")) {
                 self.db.deleteObjectStore("accounts");
             }
-            // Remove feeds
             if (self.db.objectStoreNames.contains("feeds")) {
                 self.db.deleteObjectStore("feeds");
+            }
+            if (self.db.objectStoreNames.contains("counts")) {
+                self.db.deleteObjectStore("counts");
             }
 
             var objectStore = self.db.createObjectStore('accounts', { keyPath: 'id', autoIncrement: true });
 
             var objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
+
+            var objectStore = self.db.createObjectStore('counts', { keyPath: 'id', autoIncrement: true });
 
             var objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
             objectStore.createIndex("sortid", "sortid", { unique: false });
@@ -216,46 +219,6 @@ TheOldReader.prototype._query = function(method,url,data,callback)
 };
 
 
-TheOldReader.prototype.clearFeeds = function()
-{
-    var self=this;
-    return new Promise(function(ok, reject)
-    {
-        console.log('clearing feeds');
-        var transaction = self.db.transaction([ 'feeds' ], 'readwrite');
-        var feeds = transaction.objectStore('feeds');
-
-        var request = feeds.clear();
-        request.onsuccess = function()
-        {
-            ok();
-        };
-        request.onerror = function()
-        {
-            reject();
-        };
-    });
-};
-TheOldReader.prototype.clearLabels = function()
-{
-    var self=this;
-    return new Promise(function(ok, reject)
-    {
-        console.log('clearing labels');
-        var transaction = self.db.transaction([ 'labels' ], 'readwrite');
-        var feeds = transaction.objectStore('labels');
-
-        var request = feeds.clear();
-        request.onsuccess = function()
-        {
-            ok();
-        };
-        request.onerror = function()
-        {
-            reject();
-        };
-    });
-};
 
 TheOldReader.prototype.updateSubscriptionList = function()
 {
@@ -270,9 +233,7 @@ TheOldReader.prototype.updateSubscriptionList = function()
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    var prom = self.clearFeeds()
-                        .then(self.addSubscriptions(data.subscriptions))
-                        .then(function() { console.log('done update subscriptions list') })
+                    self.addSubscriptions(data.subscriptions)
                         .then(ok, reject);
                 }
                 else
@@ -285,22 +246,23 @@ TheOldReader.prototype.updateSubscriptionList = function()
 TheOldReader.prototype.addSubscriptions = function(subscriptions)
 {
     var self=this;
-    return function()
+    return new Promise(function(ok, reject)
     {
-        return new Promise(function(ok, reject)
-        {
-            var transaction_feeds = self.db.transaction([ 'feeds' ], 'readwrite');
-            transaction_feeds.oncomplete= ok;
-            transaction_feeds.onerror= reject;
+        var transaction_feeds = self.db.transaction([ 'feeds' ], 'readwrite');
+        transaction_feeds.oncomplete= ok;
+        transaction_feeds.onerror= reject;
 
-            //Create the Object to be saved i.e. our Note
-            subscriptions.forEach(function(data)
-            {
-                var feeds = transaction_feeds.objectStore('feeds');
-                var request = feeds.add(data);
-            });
+        // Remove previous feeds
+        var allfeeds = transaction_feeds.objectStore('feeds');
+        allfeeds.clear();
+
+        //Create the Object to be saved i.e. our Note
+        subscriptions.forEach(function(data)
+        {
+            var feeds = transaction_feeds.objectStore('feeds');
+            var request = feeds.add(data);
         });
-    };
+    });
 };
 
 TheOldReader.prototype.updateLabelsList = function()
@@ -316,9 +278,7 @@ TheOldReader.prototype.updateLabelsList = function()
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    var prom = self.clearLabels()
-                        .then(self.addLabels(data.tags), reject)
-                        .then(function() { console.log('done update labels list') })
+                    self.addLabels(data.tags)
                         .then(ok, reject);
                 }
                 else
@@ -331,23 +291,70 @@ TheOldReader.prototype.updateLabelsList = function()
 TheOldReader.prototype.addLabels = function(labels)
 {
     var self=this;
-    return function()
+    return new Promise(function(ok, reject)
     {
-        return new Promise(function(ok, reject)
-        {
-            var transaction_labels = self.db.transaction([ 'labels' ], 'readwrite');
-            //Create the Object to be saved i.e. our Note
-            transaction_labels.oncomplete= ok;
-            transaction_labels.onerror= reject;
+        var transaction_labels = self.db.transaction([ 'labels' ], 'readwrite');
+        //Create the Object to be saved i.e. our Note
+        transaction_labels.oncomplete= ok;
+        transaction_labels.onerror= reject;
 
-            console.log('adding LABELS!');
-            labels.forEach(function(data)
-            {
-                var labels = transaction_labels.objectStore('labels');
-                var request = labels.add(data);
-            });
+        // Remove previous labels
+        var alllabels = transaction_labels.objectStore('labels');
+        alllabels.clear();
+
+        labels.forEach(function(data)
+        {
+            var labels = transaction_labels.objectStore('labels');
+            var request = labels.add(data);
         });
-    };
+    });
+};
+
+TheOldReader.prototype.updateCount = function()
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        console.log('Fetching counts list');
+        var url = self.host+'/reader/api/0/unread-count?output=json';
+        self._query.bind(self)("GET", url, null)
+            .then(function(text)
+            {
+                var data = JSON.parse(text);
+                if(data)
+                {
+                    self.addCounts(data.unreadcounts)
+                        .then(function() { console.log('done update count') })
+                        .then(ok, reject);
+                }
+                else
+                {
+                    reject();
+                }
+            });
+    });
+}
+
+TheOldReader.prototype.addCounts = function(counts)
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        var transaction_counts = self.db.transaction([ 'counts' ], 'readwrite');
+        //Create the Object to be saved i.e. our Note
+        transaction_counts.oncomplete= ok;
+        transaction_counts.onerror= reject;
+
+        // Remove previous counts
+        var allcounts = transaction_counts.objectStore('counts');
+        allcounts.clear();
+
+        counts.forEach(function(data)
+        {
+            var counts = transaction_counts.objectStore('counts');
+            var request = counts.add(data);
+        });
+    });
 };
 
 TheOldReader.prototype.fullupdate = function()
@@ -355,7 +362,8 @@ TheOldReader.prototype.fullupdate = function()
     return Promise.all([
             function() { console.log('in promise'); },
             this.updateSubscriptionList(),
-            this.updateLabelsList()
+            this.updateLabelsList(),
+            this.updateCount()
     ]);
 };
 
@@ -393,7 +401,6 @@ TheOldReader.prototype.getLabels = function()
     {
         var labels = [];
 
-        console.log('get labels');
         var transaction = self.db.transaction([ 'labels' ]);
         var dblabels = transaction.objectStore('labels');
         var index = dblabels.index('id');
@@ -413,4 +420,32 @@ TheOldReader.prototype.getLabels = function()
         };
        c.onerror = reject;
     });
+};
+
+TheOldReader.prototype.getCounts = function()
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        var counts = [];
+
+        var transaction = self.db.transaction([ 'counts' ]);
+        var dbcounts = transaction.objectStore('counts');
+
+        // open a cursor to retrieve all items from the 'notes' store
+       var c = dbcounts.openCursor();
+       c.onsuccess = function (e) {
+            var cursor = e.target.result;
+            if (cursor) {
+                counts.push(cursor.value);
+                cursor.continue();
+            }
+            else
+            {
+                ok(counts);
+            }
+        };
+       c.onerror = reject;
+    });
 }
+

@@ -31,11 +31,11 @@ var Login = function()
                 self.loggedin();
                 layout.display_center();
 
-                layout.update_leftlist();
-                console.log('calling fullupdate');
+                layout.updateLeftList();
+                console.log('Start controller fullupdate');
                 self.controller.fullupdate()
-                    .then(function() { console.log('done fullupdate'); })
-                    .then(layout.update_leftlist.bind(layout));
+                    .then(function() { console.log('Done controller fullupdate'); })
+                    .then(layout.updateLeftList.bind(layout));
             }
             else
             {

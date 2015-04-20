@@ -332,6 +332,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
 
 .slide.left li
 {
+    position:relative;
     list-style:none;
     line-height: 16px;
     line-height:1rem;
@@ -347,6 +348,15 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
 {
     display:inline-block;
     vertical-align:top;
+}
+.label_num
+{
+    display:inline-block;
+    position:absolute;
+    right: 32px;
+    right:2rem;
+    top:0px;
+    height:100%;
 }
 
 html, body {

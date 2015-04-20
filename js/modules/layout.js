@@ -66,14 +66,15 @@ var Layout = function()
     };
 
 
-    this.update_leftlist= function()
+    this.updateLeftList= function()
     {
+        var self=this;
         Promise.all([ this.controller.getFeeds(), this.controller.getLabels()])
         .then(function(values)
                 {
                     var feeds = values[0];
                     var labels = values[1];
-                    console.log('labels ', labels);
+                    var counts = values[2];
 
                     // @TODO do not remove all, only update...
                     leftlist.innerHTML='';
@@ -82,9 +83,12 @@ var Layout = function()
                     Array.forEach(labels, function(label)
                     {
                         var li = document.createElement('li');
+
+                        var name = label.id.replace(/.*label\//,'');
                         li.innerHTML= ' \
                                 <p class="label_toggle"><span data-icon="add"></span></p>\
-                                <p class="label">'+label.id.replace(/.*label\//,'')+'</p>\
+                                <p class="label_num" data-id="'+name+'"></p>\
+                                <p class="label">'+name+'</p>\
                                 <ul></ul>\
                                 ';
                         var feedlist = li.querySelector('ul');
@@ -92,8 +96,31 @@ var Layout = function()
                         leftlist.appendChild(li);
                     });
                     console.log('update feeds layout');
+                    self.updateCount();
                 });
 
+    };
+    this.updateCount = function()
+    {
+        this.controller.getCounts()
+            .then(function(counts)
+            {
+                console.log('received', counts);
+                counts.forEach(function(count)
+                {
+                    var name = count.id.replace(/.*label\//,'')
+
+                    var re = ".label_num[data-id=\'"+name+"\']";
+                    console.log(re);
+                    var item = document.querySelector(re);
+                        console.log('item ', item);
+                    if(item)
+                    {
+                        item.innerHTML= count.count;
+                        console.log('item ', item);
+                    }
+                });
+            });
     };
 };
 

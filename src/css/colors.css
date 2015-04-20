@@ -11,6 +11,10 @@
     --menuBg: #333;
     --menuColor: #fff;
 
+    --listBg: #000;
+    --listItemBg: #333;
+    --listColor: #fff;
+
 
     --inputInvalid: #b90000;
     --inputBorder: #c7c7c7;

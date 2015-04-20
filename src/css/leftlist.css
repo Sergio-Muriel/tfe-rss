@@ -1,7 +1,8 @@
-.slide.left
+.slide.left .slide_content
 {
     text-align:left;
-    background:var(--menuBg);
+    background:var(--listBg);
+    color:var(--listColor);
 }
 .slide.left ul,
 .slide.left li
@@ -22,7 +23,7 @@
     font-size:2rem;
     margin:0.2rem 0rem;
     padding:0px 0.5rem;
-    background:var(--menuBg);
+    background:var(--listItemBg);
 }
 .slide.left li p
 {

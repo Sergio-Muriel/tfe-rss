@@ -1,7 +1,8 @@
 var Layout = function()
 {
     var buttons=  document.querySelectorAll('.header button');
-    var left = document.querySelector('.slide.left .slide_content')
+    var left = document.querySelector('.slide.left')
+    var right = document.querySelector('.slide.right')
 
     var slides = document.querySelector('.slides');
     var button_left = document.querySelector('.button_left');
@@ -21,6 +22,8 @@ var Layout = function()
         {
             return this.display_center();
         }
+        right.classList.add("hidden");
+        left.classList.remove("hidden");
         slides.className='slides left_selected';
 
         Array.forEach( buttons, function(button)
@@ -36,6 +39,8 @@ var Layout = function()
         {
             return this.display_center();
         }
+        left.classList.add("hidden");
+        right.classList.remove("hidden");
         slides.className='slides right_selected';
         Array.forEach( buttons, function(button)
         {

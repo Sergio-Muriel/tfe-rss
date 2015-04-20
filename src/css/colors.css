@@ -7,10 +7,15 @@
     --headerColor: #000;
 
     --selectedMenu: #fff;
-    --menuBg: #eee;
+    --headerMenuBg: #000;
+    --menuBg: #333;
+    --menuColor: #fff;
+
 
     --inputInvalid: #b90000;
     --inputBorder: #c7c7c7;
+    --inputBg: #fff;
+    --inputColor: #000;
     --buttonColor: #c7c7c7;
     --buttonRecommend: #00caf2;
     --buttonRecommendColor: #fff;

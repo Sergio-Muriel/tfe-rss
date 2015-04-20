@@ -23,7 +23,6 @@ form, fieldset, legend
 }
 legend
 {
-    border: 0.1rem solid #C7C7C7;
     width: 100%;
     box-sizing: border-box;
     font-family: sans-serif;
@@ -36,9 +35,9 @@ legend
     overflow: hidden;
     height: 4rem;
     line-height: 4rem;
-    color: #333;
+    color: #fff;
+    border-bottom:1px solid #fff;
     border-radius: 0px;
-    background: #FFF url("../../img/legend.svg") no-repeat scroll calc(100% - 1rem) calc(100% - 1rem);
 }
 
 form
@@ -76,7 +75,8 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
     border-radius:0px;
     box-shadow:none;
     margin:0px 0px 1rem;
-    background:transparent;
+    background:var(--inputBg);
+    color:var(--inputColor);
 }
 
 .bb-button

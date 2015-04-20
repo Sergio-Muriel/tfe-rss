@@ -1,6 +1,7 @@
 .slide.left
 {
     text-align:left;
+    background:var(--menuBg);
 }
 .slide.left ul,
 .slide.left li
@@ -19,9 +20,12 @@
     list-style:none;
     line-height:1rem;
     font-size:2rem;
-    margin:0px 0.5rem;
+    margin:0.2rem 0rem;
+    padding:0px 0.5rem;
+    background:var(--menuBg);
 }
 .slide.left li p
 {
     display:inline-block;
+    vertical-align:top;
 }

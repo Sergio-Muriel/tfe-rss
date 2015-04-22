@@ -75,6 +75,7 @@ var Layout = function()
                     var feeds = values[0];
                     var labels = values[1];
                     var counts = values[2];
+                    console.log(feeds);
 
                     // @TODO do not remove all, only update...
                     leftlist.innerHTML='';
@@ -83,17 +84,38 @@ var Layout = function()
                     Array.forEach(labels, function(label)
                     {
                         var li = document.createElement('li');
-
                         var name = label.id.replace(/.*label\//,'');
+                        li.className='leftlist_item';
+                        li.setAttribute('data-id',name);
+
                         li.innerHTML= ' \
                                 <p class="label_toggle"><span data-icon="add"></span></p>\
-                                <p class="label_num" data-id="'+name+'"></p>\
+                                <p class="label_num"></p>\
                                 <p class="label">'+name+'</p>\
                                 <ul></ul>\
                                 ';
                         var feedlist = li.querySelector('ul');
 
                         leftlist.appendChild(li);
+                    });
+                    Array.forEach(feeds, function(feed)
+                    {
+                        var name = feed.category.replace(/.*label\//,'')
+                        var feed_id = feed.id.replace(/.*feeds\//,'')
+                        var re = ".leftlist_item[data-id=\'"+name+"\']";
+                        var item = document.querySelector(re);
+                        console.log('add feed',item,feed);
+                        if(item)
+                        {
+                            var div  =document.createElement('div');
+                            div.className='leftlist_item';
+                            div.setAttribute('data-id', feed_id);
+                            div.innerHTML='\
+                                          <p class="feed_name">'+feed.title+'</p>\
+                                          <p class="label_num"></p>\
+                            ';
+                            item.appendChild(div);
+                        }
                     });
                     console.log('update feeds layout');
                     self.updateCount();
@@ -105,19 +127,15 @@ var Layout = function()
         this.controller.getCounts()
             .then(function(counts)
             {
-                console.log('received', counts);
                 counts.forEach(function(count)
                 {
                     var name = count.id.replace(/.*label\//,'')
 
-                    var re = ".label_num[data-id=\'"+name+"\']";
-                    console.log(re);
+                    var re = ".leftlist_item[data-id=\'"+name+"\'] .label_num";
                     var item = document.querySelector(re);
-                        console.log('item ', item);
                     if(item)
                     {
                         item.innerHTML= count.count;
-                        console.log('item ', item);
                     }
                 });
             });

@@ -260,6 +260,7 @@ TheOldReader.prototype.addSubscriptions = function(subscriptions)
         subscriptions.forEach(function(data)
         {
             var feeds = transaction_feeds.objectStore('feeds');
+            data.category = data.categories.length>0 ?  data.categories[0].id : '';
             var request = feeds.add(data);
         });
     });

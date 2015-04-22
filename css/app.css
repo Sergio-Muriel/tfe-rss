@@ -340,8 +340,6 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
     font-size:2rem;
     margin: 3px 0px;
     margin:0.2rem 0rem;
-    padding: 0px 8px;
-    padding:0px 0.5rem;
     background: #333;
 }
 .slide.left li p
@@ -349,14 +347,41 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
     display:inline-block;
     vertical-align:top;
 }
+.label_toggle
+{
+    margin-left: 8px;
+    margin-left:0.5rem;
+}
 .label_num
 {
-    display:inline-block;
+    display:block;
     position:absolute;
-    right: 32px;
-    right:2rem;
+    background: #333;
+    right:0px;
+    padding: 0px 32px 0px 16px;
+    padding:0px 2rem 0px 1rem;
     top:0px;
     height:100%;
+    font-size: 32px;
+    font-size:2rem;
+}
+
+div.leftlist_item
+{
+    display:none;
+    position:relative;
+    font-size: 24px;
+    font-size:1.5rem;
+    line-height:0.8em;
+    padding-left: 32px;
+    padding-left:2rem;
+}
+.feed_name
+{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:calc(100% - 4rem);
 }
 
 html, body {

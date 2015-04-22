@@ -23,7 +23,6 @@
     line-height:1rem;
     font-size:2rem;
     margin:0.2rem 0rem;
-    padding:0px 0.5rem;
     background:var(--listItemBg);
 }
 .slide.left li p
@@ -31,12 +30,35 @@
     display:inline-block;
     vertical-align:top;
 }
+.label_toggle
+{
+    margin-left:0.5rem;
+}
 .label_num
 {
-    display:inline-block;
+    display:block;
     position:absolute;
-    right:2rem;
+    background:var(--listItemBg);
+    right:0px;
+    padding:0px 2rem 0px 1rem;
     top:0px;
     height:100%;
+    font-size:2rem;
+}
+
+div.leftlist_item
+{
+    display:none;
+    position:relative;
+    font-size:1.5rem;
+    line-height:0.8em;
+    padding-left:2rem;
+}
+.feed_name
+{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:calc(100% - 4rem);
 }
 

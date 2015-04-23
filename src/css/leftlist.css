@@ -15,13 +15,18 @@
     text-overflow:ellipsis;
 }
 
+.label
+{
+    display:inline-block;
+    width:calc(100% - 8rem);
+}
 
 .slide.left li
 {
     position:relative;
     list-style:none;
-    line-height:1rem;
-    font-size:2rem;
+    line-height:4rem;
+    font-size:1.6rem;
     margin:0.2rem 0rem;
     background:var(--listItemBg);
 }
@@ -29,36 +34,62 @@
 {
     display:inline-block;
     vertical-align:top;
+    height:4rem;
+    line-height:4rem;
+    margin:0px;
+    padding:0px;
 }
 .label_toggle
 {
-    margin-left:0.5rem;
+    width:4rem;
+    height:100%;
+}
+.label_toggle span
+{
+    display:inline-block;
+    padding-left:1rem;
+    padding-right:1rem;
+    width:100%;
+    height:100%;
 }
 .label_num
 {
-    display:block;
-    position:absolute;
-    background:var(--listItemBg);
-    right:0px;
-    padding:0px 2rem 0px 1rem;
+    display:inline-block;
+    text-align:right;
+    padding:0px 0.5rem 0px 1rem;
     top:0px;
     height:100%;
-    font-size:2rem;
+    font-size:1em;
+    width:3rem;
+}
+.feed_icon
+{
+    display:inline-block;
+    width:2rem;
+}
+
+div.leftlist_items
+{
+    display:none;
+}
+div.leftlist_items.visible
+{
+    display:block;
 }
 
 div.leftlist_item
 {
-    display:none;
     position:relative;
     font-size:1.5rem;
     line-height:0.8em;
-    padding-left:2rem;
+    padding-left:1rem;
+    background:var(--subListBg);
 }
 .feed_name
 {
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
-    width:calc(100% - 4rem);
+    width:calc(100% - 7rem);
 }
 

@@ -16,6 +16,13 @@ var Layout = function()
         this.bind();
     };
 
+    this.bind =  function()
+    {
+        document.querySelector('.header h1').addEventListener('click', this.display_center.bind(this));
+        document.querySelector('.header .button_left').addEventListener('click', this.display_left.bind(this));
+        document.querySelector('.header .button_right').addEventListener('click', this.display_right.bind(this));
+    };
+
     this.display_left= function()
     {
         if(button_left.classList.contains('selected'))
@@ -58,13 +65,32 @@ var Layout = function()
         slides.className='slides';
     };
 
-    this.bind =  function()
-    {
-        document.querySelector('.header h1').addEventListener('click', this.display_center.bind(this));
-        document.querySelector('.header .button_left').addEventListener('click', this.display_left.bind(this));
-        document.querySelector('.header .button_right').addEventListener('click', this.display_right.bind(this));
-    };
 
+    this.toggleLabel=function(e)
+    {
+        console.log('event ',e.target);
+        e.preventDefault();
+        var span = e.target;
+        var li = e.target;
+        while(li && li.tagName!=='LI')
+        {
+            li = li.parentNode;
+        }
+        var subitems = li.querySelector('.leftlist_items');
+        console.log('data ',subitems);
+        if(!subitems.classList.contains('visible'))
+        {
+            subitems.classList.add("visible");
+            span.setAttribute('data-icon', 'minus');
+        }
+        else
+        {
+            subitems.classList.remove("visible");
+            span.setAttribute('data-icon', 'add');
+        }
+        console.log('item ', li);
+        return true;
+    };
 
     this.updateLeftList= function()
     {
@@ -86,35 +112,50 @@ var Layout = function()
                         var li = document.createElement('li');
                         var name = label.id.replace(/.*label\//,'');
                         li.className='leftlist_item';
-                        li.setAttribute('data-id',name);
+                        li.setAttribute('data-id',label.id);
 
-                        li.innerHTML= ' \
-                                <p class="label_toggle"><span data-icon="add"></span></p>\
-                                <p class="label_num"></p>\
-                                <p class="label">'+name+'</p>\
-                                <ul></ul>\
-                                ';
+                        var label_toggle = document.createElement('p');
+                        label_toggle.className='label_toggle';
+                        label_toggle.innerHTML ='<span data-icon="add"></span>';
+                        label_toggle.addEventListener('click',self.toggleLabel.bind(self), false);
+                        li.appendChild(label_toggle);
+
+                        var label = document.createElement('p');
+                        label.className='label';
+                        label.innerHTML = name;
+                        li.appendChild(label);
+
+                        var label_num = document.createElement('p');
+                        label_num.className='label_num';
+                        li.appendChild(label_num);
+
+                        var list = document.createElement('div');
+                        list.className='leftlist_items';
+                        li.appendChild(list);
+
                         var feedlist = li.querySelector('ul');
 
                         leftlist.appendChild(li);
                     });
                     Array.forEach(feeds, function(feed)
                     {
-                        var name = feed.category.replace(/.*label\//,'')
-                        var feed_id = feed.id.replace(/.*feeds\//,'')
-                        var re = ".leftlist_item[data-id=\'"+name+"\']";
-                        var item = document.querySelector(re);
-                        console.log('add feed',item,feed);
-                        if(item)
+                        console.log(feed);
+                        var name = feed.category;//replace(/.*label\//,'')
+                        var feed_id = feed.id;//replace(/.*feeds\//,'')
+                        var re = ".leftlist_item[data-id=\'"+name+"\'] .leftlist_items";
+                        var items = document.querySelector(re);
+
+                        if(items)
                         {
                             var div  =document.createElement('div');
                             div.className='leftlist_item';
                             div.setAttribute('data-id', feed_id);
                             div.innerHTML='\
+                                          <p class="feed_icon"><img src="https://'+feed.iconUrl+'" alt="" /></p>\
                                           <p class="feed_name">'+feed.title+'</p>\
                                           <p class="label_num"></p>\
                             ';
-                            item.appendChild(div);
+                            items.appendChild(div);
                         }
                     });
                     console.log('update feeds layout');
@@ -129,7 +170,7 @@ var Layout = function()
             {
                 counts.forEach(function(count)
                 {
-                    var name = count.id.replace(/.*label\//,'')
+                    var name = count.id;//replace(/.*label\//,'')
 
                     var re = ".leftlist_item[data-id=\'"+name+"\'] .label_num";
                     var item = document.querySelector(re);

@@ -82,7 +82,6 @@ TheOldReader.prototype.login = function(email, password)
                 }
                 else if(r.status===0)
                 {
-                    alert('ici 1');
                     alert(navigator.mozL10n.get('network_error'));
                     reject();
                 }

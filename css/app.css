@@ -329,15 +329,20 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
     text-overflow:ellipsis;
 }
 
+.label
+{
+    display:inline-block;
+    width:calc(100% - 8rem);
+}
 
 .slide.left li
 {
     position:relative;
     list-style:none;
-    line-height: 16px;
-    line-height:1rem;
-    font-size: 32px;
-    font-size:2rem;
+    line-height: 64px;
+    line-height:4rem;
+    font-size: 25px;
+    font-size:1.6rem;
     margin: 3px 0px;
     margin:0.2rem 0rem;
     background: #333;
@@ -346,42 +351,73 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
 {
     display:inline-block;
     vertical-align:top;
+    height: 64px;
+    height:4rem;
+    line-height: 64px;
+    line-height:4rem;
+    margin:0px;
+    padding:0px;
 }
 .label_toggle
 {
-    margin-left: 8px;
-    margin-left:0.5rem;
+    width: 64px;
+    width:4rem;
+    height:100%;
+}
+.label_toggle span
+{
+    display:inline-block;
+    padding-left: 16px;
+    padding-left:1rem;
+    padding-right: 16px;
+    padding-right:1rem;
+    width:100%;
+    height:100%;
 }
 .label_num
 {
-    display:block;
-    position:absolute;
-    background: #333;
-    right:0px;
-    padding: 0px 32px 0px 16px;
-    padding:0px 2rem 0px 1rem;
+    display:inline-block;
+    text-align:right;
+    padding: 0px 8px 0px 16px;
+    padding:0px 0.5rem 0px 1rem;
     top:0px;
     height:100%;
-    font-size: 32px;
-    font-size:2rem;
+    font-size:1em;
+    width: 48px;
+    width:3rem;
+}
+.feed_icon
+{
+    display:inline-block;
+    width: 32px;
+    width:2rem;
+}
+
+div.leftlist_items
+{
+    display:none;
+}
+div.leftlist_items.visible
+{
+    display:block;
 }
 
 div.leftlist_item
 {
-    display:none;
     position:relative;
     font-size: 24px;
     font-size:1.5rem;
     line-height:0.8em;
-    padding-left: 32px;
-    padding-left:2rem;
+    padding-left: 16px;
+    padding-left:1rem;
+    background: #2a2a2a;
 }
 .feed_name
 {
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
-    width:calc(100% - 4rem);
+    width:calc(100% - 7rem);
 }
 
 html, body {

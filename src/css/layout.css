@@ -32,7 +32,9 @@
 .slide.center
 {
     z-index:5;
+    text-align:left;
 }
+
 .slide.right
 {
     right:0px;
@@ -68,7 +70,7 @@
 }
 
 
-h2
+.subtitle h2
 {
     font-size:2rem;
     text-align:center;
@@ -78,4 +80,5 @@ h2
     padding:0px;
     background:var(--headerMenuBg);
 }
+
 

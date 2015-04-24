@@ -21,7 +21,7 @@ TheOldReader.prototype.initDb = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var request = indexedDB.open('theoldreader_db',2.2);
+        var request = indexedDB.open('theoldreader_db',2.3);
         request.onsuccess = function (e) {
             self.db = e.target.result;
             ok();
@@ -45,12 +45,17 @@ TheOldReader.prototype.initDb = function()
             if (self.db.objectStoreNames.contains("counts")) {
                 self.db.deleteObjectStore("counts");
             }
+            if (self.db.objectStoreNames.contains("items")) {
+                self.db.deleteObjectStore("items");
+            }
 
             var objectStore = self.db.createObjectStore('accounts', { keyPath: 'id', autoIncrement: true });
 
             var objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
 
             var objectStore = self.db.createObjectStore('counts', { keyPath: 'id', autoIncrement: true });
+
+            var objectStore = self.db.createObjectStore('items', { keyPath: 'id', autoIncrement: true });
 
             var objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
             objectStore.createIndex("sortid", "sortid", { unique: false });
@@ -446,6 +451,58 @@ TheOldReader.prototype.getCounts = function()
             }
         };
        c.onerror = reject;
+    });
+}
+
+TheOldReader.prototype.getItems = function(id, skip_unread, next)
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        var items=[];
+        var ids=[];
+        var url = self.host+'/reader/api/0/stream/items/ids?output=json&s='+id;
+        if(skip_unread)
+        {
+            url+='xt=user/-/state/com.google/read';
+        }
+
+        console.log('Fetching items list: '+url);
+
+        self._query.bind(self)("GET", url, null)
+            .then(function(text)
+            {
+                var items = JSON.parse(text);
+                if(items)
+                {
+                    var itemids = items.itemRefs;
+                    var url = self.host+'/reader/api/0/stream/items/contents?output=json';
+                    itemids.forEach(function(item)
+                    {
+                        url+='&i='+item.id;
+                    });
+                    console.log('content ', url);
+                    self._query.bind(self)("GET", url, null)
+                        .then(function(text)
+                        {
+                            var data = JSON.parse(text);
+                            if(data)
+                            {
+                                data.continuation = items.continuation;
+                                ok(data);
+                            }
+                            else
+                            {
+                                reject();
+                            }
+                        });
+
+                }
+                else
+                {
+                    reject();
+                }
+            }, reject);
     });
 }
 

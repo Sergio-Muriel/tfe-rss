@@ -1,8 +1,8 @@
 .slide.left .slide_content
 {
     text-align:left;
-    background:var(--listBg);
-    color:var(--listColor);
+    background:var(--menulistBg);
+    color:var(--menulistColor);
 }
 .slide.left ul,
 .slide.left li
@@ -28,7 +28,7 @@
     line-height:5rem;
     font-size:1.6rem;
     margin:0.2rem 0rem;
-    background:var(--listItemBg);
+    background:var(--menulistItemBg);
 }
 .slide.left li p
 {
@@ -83,7 +83,7 @@ div.leftlist_item
     font-size:1.5rem;
     line-height:0.8em;
     padding-left:1rem;
-    background:var(--subListBg);
+    background:var(--submenuListBg);
 }
 .feed_name
 {

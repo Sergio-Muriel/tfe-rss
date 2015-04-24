@@ -297,6 +297,16 @@ var Layout = function()
                         p.innerHTML = item.title;
                         li.appendChild(p);
 
+                        p = document.createElement('p');
+                        p.className='feed_origin';
+                        p.innerHTML = item.origin.title;
+                        li.appendChild(p);
+
+                        p = document.createElement('p');
+                        p.className='feed_time';
+                        p.innerHTML = (new Date(item.updated/1000)).toLocaleString();
+                        li.appendChild(p);
+
                         var div = document.createElement('div');
                         div.className='feed_content';
                         div.innerHTML = item.summary.content;

@@ -454,7 +454,7 @@ TheOldReader.prototype.getCounts = function()
     });
 }
 
-TheOldReader.prototype.getItems = function(id, skip_unread, next)
+TheOldReader.prototype.getItems = function(id, viewRead, next)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -462,9 +462,9 @@ TheOldReader.prototype.getItems = function(id, skip_unread, next)
         var items=[];
         var ids=[];
         var url = self.host+'/reader/api/0/stream/items/ids?output=json&s='+id;
-        if(skip_unread)
+        if(!viewRead)
         {
-            url+='xt=user/-/state/com.google/read';
+            url+='&xt=user/-/state/com.google/read';
         }
 
         console.log('Fetching items list: '+url);

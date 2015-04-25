@@ -14,7 +14,7 @@
 
         <!-- App librairies --> 
         <script type="text/javascript" src="js/modules/layout.js" defer></script>
-        <script type="text/javascript" src="js/modules/login.js" defer></script>
+        <script type="text/javascript" src="js/modules/settings.js" defer></script>
         <script type="text/javascript" src="js/modules/theoldreader.js" defer></script>
 
         <!-- Main initialisation -->
@@ -74,8 +74,22 @@
                                     <p><button class="login_link bb-button bb-recommend" data-l10n-id="login_link"></button></p>
                                     <p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>
                                     <p><button class="register_link bb-button" data-l10n-id="register_link"></button></p>
-
                             </fieldset>
+                            </form>
+
+                            <form>
+                                <fieldset>
+                                    <legend data-l10n-id="general_settings"></legend>
+
+                                    <p class="line_checkbox">
+                                        <input type="checkbox" class="view_read bb-checkbox" id="view_read">
+                                        <label for="view_read" data-l10n-id="view_read_items"></label>
+                                    </p>
+                                    <p class="line_checkbox">
+                                        <input type="checkbox" class="view_title_only bb-checkbox" id="view_title_only">
+                                        <label for="view_title_only" data-l10n-id="view_title_only"></label>
+                                    </p>
+                                </fieldset>
                             </form>
                         </div>
                     </div>

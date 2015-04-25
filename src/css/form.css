@@ -103,3 +103,23 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
 }
 
 
+.line_checkbox
+{
+    line-height:2em;
+}
+.line_checkbox input
+{
+    display:inline-block;
+    height:2rem;
+    width:2rem;
+}
+.line_checkbox label
+{
+    display:inline-block;
+    vertical-align:top;
+    margin-left:1rem;
+    line-height:2rem;
+    font-size:1.7rem;
+    width:calc(100% - 4rem);
+}
+

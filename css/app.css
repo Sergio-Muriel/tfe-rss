@@ -136,10 +136,6 @@
 {
     z-index:4;
 }
-.slide.hidden
-{
-    display:none;
-}
 
 .slide_content
 {
@@ -296,6 +292,32 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
 {
     background: #E51E1E;
     color: #fff;
+}
+
+
+.line_checkbox
+{
+    line-height:2em;
+}
+.line_checkbox input
+{
+    display:inline-block;
+    height: 32px;
+    height:2rem;
+    width: 32px;
+    width:2rem;
+}
+.line_checkbox label
+{
+    display:inline-block;
+    vertical-align:top;
+    margin-left: 16px;
+    margin-left:1rem;
+    line-height: 32px;
+    line-height:2rem;
+    font-size: 27px;
+    font-size:1.7rem;
+    width:calc(100% - 4rem);
 }
 .logout_link
 {

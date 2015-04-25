@@ -87,6 +87,7 @@ var Settings = function()
     {
         localStorage.setItem('viewRead', this.view_read.checked ? 1 : 0);
         layout.updateCount();
+        layout.displayItems();
         console.log('toggle view read');
     };
     this.toggleViewTitleOnly= function(e)

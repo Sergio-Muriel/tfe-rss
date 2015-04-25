@@ -297,11 +297,18 @@ var Layout = function()
         return this.displayItems();
     };
 
+    this.gotoTop=function()
+    {
+        center.querySelector('.slide_content').scrollTop=0;
+    };
+
     this.displayItems = function()
     {
         var viewTitleOnly = settings.getViewTitleOnly();
         var viewRead = settings.getViewRead();
         var id = this.display_id;
+
+        this.gotoTop();
         
         this.controller.getItems(id, viewRead)
             .then(function(r)
@@ -323,27 +330,44 @@ var Layout = function()
                 items.forEach(function(item)
                 {
                         var li = document.createElement('li');
+                        li.setAttribute('data-id',item.id);
+
+                        var div = document.createElement('div');
+                        div.className='feed_header';
+                        li.appendChild(div);
 
                         var p = document.createElement('p');
                         p.className='feed_title';
                         p.innerHTML = item.title;
-                        li.appendChild(p);
+                        div.appendChild(p);
 
                         p = document.createElement('p');
                         p.className='feed_origin';
                         p.innerHTML = item.origin.title;
-                        li.appendChild(p);
+                        div.appendChild(p);
 
                         p = document.createElement('p');
                         p.className='feed_time';
                         p.innerHTML = (new Date(item.updated/1000)).toLocaleString();
-                        li.appendChild(p);
+                        div.appendChild(p)
+
+                        p = document.createElement('p');
+                        p.className='feed_flags';
+                        p.innerHTML =
+                            '<span class="flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'')+'" data-icon="gmail"></span>'+
+                            '<span class="flag_share '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko':'')+'" data-icon="star-full"></span>'+
+                            '<span class="flag_like '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko':'')+'" data-icon="feedback"></span>';
+                        li.appendChild(p)
 
                         if(!viewTitleOnly)
                         {
                             var div = document.createElement('div');
                             div.className='feed_content';
-                            div.innerHTML = item.summary.content;
+
+                            var content = item.summary.content;
+                            content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
+                            content = content.replace(/<\/script[^>]*>/,'');
+                            div.innerHTML = content;
                             li.appendChild(div);
                         }
 

@@ -9,7 +9,7 @@
 {
     margin:0px;
     padding:0px;
-    width:100%;
+    width:calc(100% - 0.2rem);
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;

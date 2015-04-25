@@ -139,7 +139,7 @@ var Settings = function()
     };
     this.getViewTitleOnly = function()
     {
-        return localStorage.getItem('viewTitleOnly') === "1" ? true : false;
+        return localStorage.getItem('viewTitleOnly') !== "0" ? true : false;
     };
 
 };

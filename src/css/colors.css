@@ -19,8 +19,10 @@
     --mainlistItemBg: #e9e9e9;
     --mainlistColor: #000;
     --mainsubListBg: #fff;
-    --mainTitleBg: #000;
+    --mainTitleBg: #333;
     --mainTitleColor: #fff;
+    --mainFlagsFg: #fff;
+    --mainFlagsFgKo: #555;
 
 
     --inputInvalid: #b90000;

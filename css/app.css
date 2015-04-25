@@ -347,7 +347,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
 {
     margin:0px;
     padding:0px;
-    width:100%;
+    width:calc(100% - 0.2rem);
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -461,10 +461,23 @@ div.leftlist_item
     list-style:none;
     font-size: 25px;
     font-size:1.6rem;
-    margin: 0px 0px 32px 0px;
-    margin:0rem 0rem 2rem 0rem;
+    margin: 0px 0px 3px 0px;
+    margin:0rem 0rem 0.2rem 0rem;
     background: #e9e9e9;
     color: #000;
+}
+.feed_header
+{
+    vertical-align:top;
+    margin:0px;
+    padding:0px;
+    white-space:normal;
+    padding: 32px 80px 0px 32px;
+    padding:2rem 5rem 0rem 2rem;
+    background: #333;
+    color: #fff;
+    min-height: 176px;
+    min-height:11rem;
 }
 .feed_title
 {
@@ -472,50 +485,58 @@ div.leftlist_item
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding: 32px 16px 0px 32px;
-    padding:2rem 1rem 0rem 2rem;
-    background: #000;
-    color: #fff;
 }
 .feed_origin
 {
-    font-size: 19px;
-    font-size:1.2rem;
-    padding: 16px 32px 0px 32px;
-    padding:1rem 2rem 0rem 2rem;
+    padding: 16px 16px 0px 0px;
+    padding:1rem 1rem 0rem 0rem;
     margin:0px;
-    background: #000;
-    color: #fff;
+    font-size: 20px;
+    font-size:1.3rem;
 
 }
 .feed_time
 {
-    font-size: 19px;
-    font-size:1.2rem;
-    padding: 0px 32px 16px 32px;
-    padding:0rem 2rem 1rem 2rem;
     margin:0px;
-    background: #000;
-    color: #fff;
-
+    padding: 0px 16px 16px 0px;
+    padding:0rem 1rem 1rem 0rem;
+    font-size: 20px;
+    font-size:1.3rem;
 }
-
-.slide.center li div
+.feed_flags
 {
-    padding: 16px;
-    padding:1rem;
+    position:absolute;
+    right:0px;
+    top:0px;
+    vertical-align:top;
+    margin:0px;
+    padding:0px;
+    white-space:normal;
+    padding: 6px 0px 6px 0px;
+    padding:0.4rem 0rem 0.4rem 0rem;
+    color: #fff;
+    text-align:center;
+
 }
-
-
+.feed_flags span
+{
+    display:block;
+    margin: 0px 32px;
+    margin:0px 2rem;
+}
+.feed_flags span.ko
+{
+    color: #555;
+}
 
 .feed_content
 {
     position:relative;
-    width:calc(100% - 4rem);
+    width:100%;
     font-size: 19px;
     font-size:1.2rem;
-    margin: 32px;
-    margin:2rem;
+    padding: 16px;
+    padding:1rem;
     overflow-x:hidden;
     background: #fff;
     white-space:normal;

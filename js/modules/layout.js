@@ -326,6 +326,7 @@ var Layout = function()
                     var feed_name = document.createElement('p');
                     feed_name.className='feed_name';
                     feed_name.innerHTML = feed.title;
+                    feed_name.addEventListener('click', layout.displayItemsClick.bind(layout));
                     div.appendChild(feed_name);
 
                     var label_num = document.createElement('p');
@@ -374,7 +375,7 @@ var Layout = function()
     {
         var li = e.target;
         this.display_center();
-        while(li && li.tagName!=='LI')
+        while(li && !li.classList.contains('leftlist_item'))
         {
             li = li.parentNode;
         }

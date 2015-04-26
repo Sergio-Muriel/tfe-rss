@@ -515,8 +515,46 @@ TheOldReader.prototype.markRead= function(item_id, state)
         var url = self.host+'/reader/api/0/edit-tag?output=json';
 
         var data='i='+item_id;
-        data+= (state ? '&a=' : '&r=');
+        data+= (state ? '&r=' : '&a=');
         data+= 'user/-/state/com.google/read';
+        console.log(url,data);
+        self._query.bind(self)("POST", url, data)
+            .then(function(text)
+            {
+                ok(text);
+            }, reject);
+    });
+}
+TheOldReader.prototype.markLike= function(item_id, state)
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        console.log('Fetching subscription list');
+        var url = self.host+'/reader/api/0/edit-tag?output=json';
+
+        var data='i='+item_id;
+        data+= (state ? '&a=' : '&r=');
+        data+= 'user/-/state/com.google/like';
+        console.log(url,data);
+        self._query.bind(self)("POST", url, data)
+            .then(function(text)
+            {
+                ok(text);
+            }, reject);
+    });
+}
+TheOldReader.prototype.markStar= function(item_id, state)
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        console.log('Fetching subscription list');
+        var url = self.host+'/reader/api/0/edit-tag?output=json';
+
+        var data='i='+item_id;
+        data+= (state ? '&a=' : '&r=');
+        data+= 'user/-/state/com.google/starred';
         console.log(url,data);
         self._query.bind(self)("POST", url, data)
             .then(function(text)

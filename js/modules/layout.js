@@ -109,7 +109,63 @@ var Layout = function()
         {
             span.classList.add('ko');
         }
-        this.controller.markRead(item_id, span.classList.contains('ko'))
+        this.controller.markRead(item_id, !span.classList.contains('ko'))
+            .then(function(result)
+            {
+                span.classList.remove('updating');
+                console.log('result',result);
+            });
+
+        console.log('mark read ',item_id);
+        return true;
+    };
+    this.markStarClick=function(e)
+    {
+        var span = e.target;
+        var li = e.target;
+        while(li && li.tagName!=='LI')
+        {
+            li = li.parentNode;
+        }
+        var item_id = li.getAttribute('data-id');
+        span.classList.add('updating');
+        if(span.classList.contains('ko'))
+        {
+            span.classList.remove('ko');
+        }
+        else
+        {
+            span.classList.add('ko');
+        }
+        this.controller.markStar(item_id, !span.classList.contains('ko'))
+            .then(function(result)
+            {
+                span.classList.remove('updating');
+                console.log('result',result);
+            });
+
+        console.log('mark read ',item_id);
+        return true;
+    };
+    this.markLikeClick=function(e)
+    {
+        var span = e.target;
+        var li = e.target;
+        while(li && li.tagName!=='LI')
+        {
+            li = li.parentNode;
+        }
+        var item_id = li.getAttribute('data-id');
+        span.classList.add('updating');
+        if(span.classList.contains('ko'))
+        {
+            span.classList.remove('ko');
+        }
+        else
+        {
+            span.classList.add('ko');
+        }
+        this.controller.markLike(item_id, !span.classList.contains('ko'))
             .then(function(result)
             {
                 span.classList.remove('updating');
@@ -404,12 +460,14 @@ var Layout = function()
                         flag_read.addEventListener('click', layout.markReadClick.bind(layout));
                         p.appendChild(flag_read);
 
-                        var flag_share = document.createElement('span');
-                        flag_share.innerHTML ='<span class="flag_share '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko':'')+'" data-icon="star-full"></span>';
-                        p.appendChild(flag_share);
+                        var flag_star = document.createElement('span');
+                        flag_star.innerHTML ='<span class="flag_star '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko':'')+'" data-icon="star-full"></span>';
+                        flag_star.addEventListener('click', layout.markStarClick.bind(layout));
+                        p.appendChild(flag_star);
 
                         var flag_like = document.createElement('span');
                         flag_like.innerHTML='<span class="flag_like '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko':'')+'" data-icon="feedback"></span>';
+                        flag_like.addEventListener('click', layout.markLikeClick.bind(layout));
                         p.appendChild(flag_like);
 
                         if(!viewTitleOnly)

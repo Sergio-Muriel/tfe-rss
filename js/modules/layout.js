@@ -333,16 +333,27 @@ var Layout = function()
 
     this.displayItems = function()
     {
+        var translate = navigator.mozL10n.get;
         var viewTitleOnly = settings.getViewTitleOnly();
         var viewRead = settings.getViewRead();
         var id = this.display_id;
 
         this.gotoTop();
+
+        var ul = center.querySelector('.slide_content ul');
+        ul.innerHTML='';
+
+        var li = document.createElement('li');
+        li.className='no_items';
+        li.innerHTML=translate('loading_items');
+        ul.appendChild(li);
         
         this.controller.getItems(id, viewRead)
             .then(function(r)
             {
+                var ul = center.querySelector('.slide_content ul');
                 var items = r.items;
+                ul.innerHTML='';
 
                 // Build new list of items
                 var ul = center.querySelector('.slide_content ul');
@@ -352,9 +363,13 @@ var Layout = function()
                 // Clear previous list
                 if(!items)
                 {
-                    // @TODO: handle this
                     // No items (returned error...)
+                    var li = document.createElement('li');
+                    li.className='no_items';
+                    li.innerHTML=translate('no_items');
+                    ul.appendChild(li);
                     return;
+
                 }
                 items.forEach(function(item)
                 {

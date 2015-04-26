@@ -552,6 +552,16 @@ div.leftlist_item
     white-space:normal;
 }
 
+.no_items,
+.loading
+{
+    line-height: 112px;
+    line-height:7rem;
+    text-align:center;
+    font-size: 32px;
+    font-size:2rem;
+}
+
 html, body {
     font-size:10px;
     font-family:sans-serif;

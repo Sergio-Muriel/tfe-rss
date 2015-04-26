@@ -21,8 +21,9 @@
     --mainsubListBg: #fff;
     --mainTitleBg: #333;
     --mainTitleColor: #fff;
-    --mainFlagsFg: #fff;
+    --mainFlagsFg: #30a67c;
     --mainFlagsFgKo: #555;
+    --mainFlagsFgUpdating: #bbb;
 
 
     --inputInvalid: #b90000;

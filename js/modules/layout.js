@@ -91,6 +91,35 @@ var Layout = function()
         return true;
     };
 
+    this.markReadClick=function(e)
+    {
+        var span = e.target;
+        var li = e.target;
+        while(li && li.tagName!=='LI')
+        {
+            li = li.parentNode;
+        }
+        var item_id = li.getAttribute('data-id');
+        span.classList.add('updating');
+        if(span.classList.contains('ko'))
+        {
+            span.classList.remove('ko');
+        }
+        else
+        {
+            span.classList.add('ko');
+        }
+        this.controller.markRead(item_id, span.classList.contains('ko'))
+            .then(function(result)
+            {
+                span.classList.remove('updating');
+                console.log('result',result);
+            });
+
+        console.log('mark read ',item_id);
+        return true;
+    };
+
     this.displayDefaultLabel = function()
     {
         var li = document.querySelector('.leftlist_item');
@@ -353,11 +382,20 @@ var Layout = function()
 
                         p = document.createElement('p');
                         p.className='feed_flags';
-                        p.innerHTML =
-                            '<span class="flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'')+'" data-icon="gmail"></span>'+
-                            '<span class="flag_share '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko':'')+'" data-icon="star-full"></span>'+
-                            '<span class="flag_like '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko':'')+'" data-icon="feedback"></span>';
                         li.appendChild(p)
+
+                        var flag_read = document.createElement('span');
+                        flag_read.innerHTML='<span class="flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'')+'" data-icon="gmail"></span>';
+                        flag_read.addEventListener('click', layout.markReadClick.bind(layout));
+                        p.appendChild(flag_read);
+
+                        var flag_share = document.createElement('span');
+                        flag_share.innerHTML ='<span class="flag_share '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko':'')+'" data-icon="star-full"></span>';
+                        p.appendChild(flag_share);
+
+                        var flag_like = document.createElement('span');
+                        flag_like.innerHTML='<span class="flag_like '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko':'')+'" data-icon="feedback"></span>';
+                        p.appendChild(flag_like);
 
                         if(!viewTitleOnly)
                         {

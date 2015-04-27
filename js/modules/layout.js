@@ -468,7 +468,7 @@ var Layout = function()
                         li.appendChild(p)
 
                         var flag_read = document.createElement('span');
-                        flag_read.innerHTML='<span class="flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'')+'" data-icon="gmail"></span>';
+                        flag_read.innerHTML='<span class="flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'')+'" data-icon="tick"></span>';
                         flag_read.addEventListener('click', layout.markReadClick.bind(layout));
                         p.appendChild(flag_read);
 

@@ -570,6 +570,7 @@ div.leftlist_item
     z-index:2;
     bottom:0px;
     width:100%;
+    text-align:center;
     background: rgba(0,0,0,0.9);
     color: #fff;
     height: 80px;
@@ -577,6 +578,11 @@ div.leftlist_item
     line-height: 80px;
     line-height:5rem;
 
+}
+.center_menu span
+{
+    display:inline-block;
+    padding:0px 20px;
 }
 
 html, body {

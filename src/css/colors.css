@@ -25,6 +25,9 @@
     --mainFlagsFgKo: #555;
     --mainFlagsFgUpdating: #bbb;
 
+    --centerMenuBg: rgba(0,0,0,0.9);
+    --centerMenuFg: #fff;
+
 
     --inputInvalid: #b90000;
     --inputBorder: #c7c7c7;

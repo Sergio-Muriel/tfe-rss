@@ -562,6 +562,23 @@ div.leftlist_item
     font-size:2rem;
 }
 
+
+
+.center_menu
+{
+    position:fixed;
+    z-index:2;
+    bottom:0px;
+    width:100%;
+    background: rgba(0,0,0,0.9);
+    color: #fff;
+    height: 80px;
+    height:5rem;
+    line-height: 80px;
+    line-height:5rem;
+
+}
+
 html, body {
     font-size:10px;
     font-family:sans-serif;

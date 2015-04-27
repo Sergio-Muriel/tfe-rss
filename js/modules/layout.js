@@ -196,7 +196,7 @@ var Layout = function()
             var counts = values[2];
 
             // @TODO do not remove all, only update...
-            leftlist.innerHTML='';
+            self.clearLeft();
 
             // All items
             var li = document.createElement('li');
@@ -371,6 +371,17 @@ var Layout = function()
             });
     };
 
+    this.clearCenter = function()
+    {
+        var ul = center.querySelector('.slide_content ul');
+        ul.innerHTML='';
+    };
+
+    this.clearLeft = function()
+    {
+        leftlist.innerHTML='';
+    };
+
     this.displayItemsClick = function(e)
     {
         var li = e.target;
@@ -398,7 +409,7 @@ var Layout = function()
         this.gotoTop();
 
         var ul = center.querySelector('.slide_content ul');
-        ul.innerHTML='';
+        this.clearCenter();
 
         var li = document.createElement('li');
         li.className='no_items';

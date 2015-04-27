@@ -102,3 +102,18 @@
     text-align:center;
     font-size:2rem;
 }
+
+
+
+.center_menu
+{
+    position:fixed;
+    z-index:2;
+    bottom:0px;
+    width:100%;
+    background:var(--centerMenuBg);
+    color:var(--centerMenuFg);
+    height:5rem;
+    line-height:5rem;
+
+}

@@ -74,6 +74,10 @@ var Settings = function()
     {
         console.log('logout');
         this.controller.deleteAccount(this.loggedout.bind(this));
+
+        layout.clearCenter();
+        layout.clearLeft();
+
         e.preventDefault();
     };
 

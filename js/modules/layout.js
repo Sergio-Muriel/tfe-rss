@@ -32,6 +32,11 @@ var Layout = function()
     {
         var self=this;
         var span = e.target;
+        var translate = navigator.mozL10n.get;
+        if(!confirm(translate('confirm_read_all')))
+        {
+            return;
+        }
         span.classList.add('updating');
 
         this.controller.readAll(this.display_id)

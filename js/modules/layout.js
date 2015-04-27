@@ -23,7 +23,17 @@ var Layout = function()
         document.querySelector('.header h1').addEventListener('click', this.display_center.bind(this));
         document.querySelector('.header .button_left').addEventListener('click', this.display_left.bind(this));
         document.querySelector('.header .button_right').addEventListener('click', this.display_right.bind(this));
+
+        document.querySelector('.readall_btn').addEventListener('click', this.readall.bind(this));
+        document.querySelector('.update_btn').addEventListener('click', this.displayItems.bind(this));
     };
+
+    this.readall= function(e)
+    {
+        var span = e.target;
+        span.classList.add('updating');
+    };
+
 
     this.display_left= function()
     {
@@ -468,7 +478,7 @@ var Layout = function()
                         li.appendChild(p)
 
                         var flag_read = document.createElement('span');
-                        flag_read.innerHTML='<span class="flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'')+'" data-icon="tick"></span>';
+                        flag_read.innerHTML='<span class="flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'')+'" data-icon="gmail"></span>';
                         flag_read.addEventListener('click', layout.markReadClick.bind(layout));
                         p.appendChild(flag_read);
 

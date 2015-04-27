@@ -90,7 +90,6 @@ var Settings = function()
     this.toggleViewRead= function(e)
     {
         localStorage.setItem('viewRead', this.view_read.checked ? 1 : 0);
-        layout.updateCount();
         layout.displayItems();
         console.log('toggle view read');
     };

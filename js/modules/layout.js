@@ -349,15 +349,17 @@ var Layout = function()
             console.log('update feeds layout');
             self.updateCount();
         });
-
     };
+
     this.updateCount = function()
     {
         var viewRead = settings.getViewRead();
 
+        console.log('updating count');
         this.controller.getCounts()
             .then(function(counts)
             {
+                console.log('updating count',counts);
                 counts.forEach(function(count)
                 {
                     var name = count.id;//replace(/.*label\//,'')
@@ -411,6 +413,13 @@ var Layout = function()
 
     this.displayItems = function()
     {
+        var self=this;
+        this.controller.updateCount()
+        .then(function()
+        {
+            self.updateCount();
+        });
+
         var translate = navigator.mozL10n.get;
         var viewTitleOnly = settings.getViewTitleOnly();
         var viewRead = settings.getViewRead();

@@ -27,6 +27,7 @@
 
     --centerMenuBg: rgba(0,0,0,0.9);
     --centerMenuFg: #fff;
+    --centerMenuFgUpdating: #555;
 
 
     --inputInvalid: #b90000;

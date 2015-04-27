@@ -329,7 +329,6 @@ TheOldReader.prototype.updateCount = function()
                 if(data)
                 {
                     self.addCounts(data.unreadcounts)
-                        .then(function() { console.log('done update count') })
                         .then(ok, reject);
                 }
                 else
@@ -365,7 +364,6 @@ TheOldReader.prototype.addCounts = function(counts)
 TheOldReader.prototype.fullupdate = function()
 {
     return Promise.all([
-            function() { console.log('in promise'); },
             this.updateSubscriptionList(),
             this.updateLabelsList(),
             this.updateCount()
@@ -556,6 +554,23 @@ TheOldReader.prototype.markStar= function(item_id, state)
         data+= (state ? '&a=' : '&r=');
         data+= 'user/-/state/com.google/starred';
         console.log(url,data);
+        self._query.bind(self)("POST", url, data)
+            .then(function(text)
+            {
+                ok(text);
+            }, reject);
+    });
+}
+
+TheOldReader.prototype.readAll= function(item_id)
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        console.log('marking all as read');
+        var url = self.host+'/reader/api/0/mark-all-as-read';
+
+        var data='s='+item_id;
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {

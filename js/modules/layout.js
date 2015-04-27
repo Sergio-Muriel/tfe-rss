@@ -30,8 +30,16 @@ var Layout = function()
 
     this.readall= function(e)
     {
+        var self=this;
         var span = e.target;
         span.classList.add('updating');
+
+        this.controller.readAll(this.display_id)
+            .then(function(result)
+            {
+                span.classList.remove('updating');
+                self.displayItems();
+            });
     };
 
 
@@ -123,12 +131,11 @@ var Layout = function()
             .then(function(result)
             {
                 span.classList.remove('updating');
-                console.log('result',result);
             });
 
-        console.log('mark read ',item_id);
         return true;
     };
+
     this.markStarClick=function(e)
     {
         var span = e.target;
@@ -151,10 +158,8 @@ var Layout = function()
             .then(function(result)
             {
                 span.classList.remove('updating');
-                console.log('result',result);
             });
 
-        console.log('mark read ',item_id);
         return true;
     };
     this.markLikeClick=function(e)
@@ -179,10 +184,8 @@ var Layout = function()
             .then(function(result)
             {
                 span.classList.remove('updating');
-                console.log('result',result);
             });
 
-        console.log('mark read ',item_id);
         return true;
     };
 
@@ -346,7 +349,6 @@ var Layout = function()
                     items.appendChild(div);
                 }
             });
-            console.log('update feeds layout');
             self.updateCount();
         });
     };
@@ -359,7 +361,6 @@ var Layout = function()
         this.controller.getCounts()
             .then(function(counts)
             {
-                console.log('updating count',counts);
                 counts.forEach(function(count)
                 {
                     var name = count.id;//replace(/.*label\//,'')

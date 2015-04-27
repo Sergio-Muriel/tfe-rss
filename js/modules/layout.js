@@ -11,6 +11,7 @@ var Layout = function()
     var button_right = document.querySelector('.button_right');
 
     var leftlist = document.querySelector('.leftlist');
+    var feed_contents = [];
 
     this.init = function(controller)
     {
@@ -393,6 +394,7 @@ var Layout = function()
     {
         var ul = center.querySelector('.slide_content ul');
         ul.innerHTML='';
+        this.feed_contents=[];
     };
 
     this.clearLeft = function()
@@ -476,6 +478,7 @@ var Layout = function()
                         var p = document.createElement('p');
                         p.className='feed_title';
                         p.innerHTML = item.title;
+                        p.addEventListener('click', layout.openItem.bind(layout));
                         div.appendChild(p);
 
                         p = document.createElement('p');
@@ -493,35 +496,69 @@ var Layout = function()
                         li.appendChild(p)
 
                         var flag_read = document.createElement('span');
-                        flag_read.innerHTML='<span class="flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'')+'" data-icon="gmail"></span>';
+                        flag_read.className='flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'');
+                        flag_read.setAttribute('data-icon','gmail');
                         flag_read.addEventListener('click', layout.markReadClick.bind(layout));
                         p.appendChild(flag_read);
 
                         var flag_star = document.createElement('span');
-                        flag_star.innerHTML ='<span class="flag_star '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko':'')+'" data-icon="star-full"></span>';
+                        flag_star.className='flag_star '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko':'');
+                        flag_star.setAttribute('data-icon','star-full');
                         flag_star.addEventListener('click', layout.markStarClick.bind(layout));
                         p.appendChild(flag_star);
 
                         var flag_like = document.createElement('span');
-                        flag_like.innerHTML='<span class="flag_like '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko':'')+'" data-icon="feedback"></span>';
+                        flag_like.className='flag_like '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko':'');
+                        flag_like.setAttribute('data-icon','feedback');
                         flag_like.addEventListener('click', layout.markLikeClick.bind(layout));
                         p.appendChild(flag_like);
+
+                        var content = item.summary.content;
+                        content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
+                        content = content.replace(/<\/script[^>]*>/,'');
 
                         if(!viewTitleOnly)
                         {
                             var div = document.createElement('div');
                             div.className='feed_content';
-
-                            var content = item.summary.content;
-                            content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
-                            content = content.replace(/<\/script[^>]*>/,'');
                             div.innerHTML = content;
                             li.appendChild(div);
+                        }
+                        else
+                        {
+                            self.feed_contents[item.id] = content;
                         }
 
                         ul.appendChild(li);
                 });
             });
+    };
+    this.openItem = function(e)
+    {
+        var target=e.target;
+        var li = e.target;
+        while(li && li.tagName!=='LI')
+        {
+            li = li.parentNode;
+        }
+        var id  = li.getAttribute('data-id');
+
+        var check = li.querySelector('.feed_content');
+        if(check)
+        {
+            li.removeChild(check);
+            console.log('close');
+            return;
+        }
+        console.log('open ',id);
+
+        var div = document.createElement('div');
+        div.className='feed_content';
+        console.log('test');
+        div.innerHTML = this.feed_contents[id];
+        console.log('append to ',li);
+        li.appendChild(div);
+        console.log('test');
     };
 };
 

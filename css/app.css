@@ -603,7 +603,7 @@ div.leftlist_item
 }
 .center_menu span.updating
 {
-    color: var(--mainFlagsFgp);
+    color: #bbb;
 }
 
 .slide.center .slide_content ul

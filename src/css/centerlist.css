@@ -139,7 +139,7 @@
 }
 .center_menu span.updating
 {
-    color:var(--mainFlagsFgp);
+    color:var(--mainFlagsFgUpdating);
 }
 
 .slide.center .slide_content ul

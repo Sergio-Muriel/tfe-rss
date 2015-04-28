@@ -47,7 +47,7 @@
 .feed_time
 {
     margin:0px;
-    padding:0rem 1rem 1rem 0rem;
+    padding:0rem 1rem 2rem 0rem;
     font-size:1.3rem;
 }
 .feed_flags
@@ -116,15 +116,33 @@
     color:var(--centerMenuFg);
     height:5rem;
     line-height:5rem;
-
+    overflow:hidden;
+    white-space:nowrap;
+}
+.center_menu .label_category
+{
+    vertical-align:top;
+    font-size:1.5rem;
+    float:left;
+    width:50%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    text-align:left;
 }
 .center_menu span
 {
     display:inline-block;
     padding:0px 20px;
+    height:5rem;
+    line-height:5rem;
 }
 .center_menu span.updating
 {
-    color:var(--centerMenuFgUpdating);
+    color:var(--mainFlagsFgp);
 }
 
+.slide.center .slide_content ul
+{
+    padding-bottom:5rem;
+}

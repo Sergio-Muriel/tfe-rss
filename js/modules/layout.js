@@ -11,6 +11,7 @@ var Layout = function()
     var button_right = document.querySelector('.button_right');
 
     var leftlist = document.querySelector('.leftlist');
+    var label_category = document.querySelector('.label_category');
     var feed_contents = [];
 
     this.init = function(controller)
@@ -199,6 +200,7 @@ var Layout = function()
     {
         var li = document.querySelector('.leftlist_item');
         this.display_id = li.getAttribute('data-id');
+        this.display_name = li.querySelector('.label').innerHTML;
         return this.displayItems();
     };
 
@@ -411,6 +413,7 @@ var Layout = function()
             li = li.parentNode;
         }
         this.display_id = li.getAttribute('data-id');
+        this.display_name = li.querySelector('.label').innerHTML;
         return this.displayItems();
     };
 
@@ -427,6 +430,7 @@ var Layout = function()
         {
             self.updateCount();
         });
+        label_category.innerHTML = this.display_name;
 
         var translate = navigator.mozL10n.get;
         var viewTitleOnly = settings.getViewTitleOnly();
@@ -540,6 +544,11 @@ var Layout = function()
         while(li && li.tagName!=='LI')
         {
             li = li.parentNode;
+        }
+        var flag_read = li.querySelector('.flag_read');
+        if(!flag_read.classList.contains('ko'))
+        {
+            flag_read.click();
         }
         var id  = li.getAttribute('data-id');
 

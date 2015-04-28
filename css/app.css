@@ -571,6 +571,7 @@ div.leftlist_item
     bottom:0px;
     width:100%;
     text-align:center;
+    background: #000000;
     background: rgba(0,0,0,0.9);
     color: #fff;
     height: 80px;

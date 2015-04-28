@@ -492,7 +492,7 @@ var Layout = function()
 
                         p = document.createElement('p');
                         p.className='feed_time';
-                        p.innerHTML = (new Date(item.updated/1000)).toLocaleString();
+                        p.innerHTML = (new Date(item.updated*1000)).toLocaleString();
                         div.appendChild(p)
 
                         p = document.createElement('p');

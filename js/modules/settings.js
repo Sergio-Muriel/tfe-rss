@@ -90,13 +90,13 @@ var Settings = function()
     this.toggleViewRead= function(e)
     {
         localStorage.setItem('viewRead', this.view_read.checked ? 1 : 0);
-        layout.displayItems();
+        layout.clearAndLoadItems();
         console.log('toggle view read');
     };
     this.toggleViewTitleOnly= function(e)
     {
         localStorage.setItem('viewTitleOnly', this.view_title_only.checked ? 1 : 0);
-        layout.displayItems();
+        layout.clearAndLoadItems();
         console.log('toggle view title only');
     };
 

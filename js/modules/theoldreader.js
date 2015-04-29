@@ -229,7 +229,6 @@ TheOldReader.prototype.updateSubscriptionList = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        console.log('Fetching subscription list');
         var url = self.host+'/reader/api/0/subscription/list?output=json';
         self._query.bind(self)("GET", url, null)
             .then(function(text)
@@ -275,7 +274,6 @@ TheOldReader.prototype.updateLabelsList = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        console.log('Fetching labels list');
         var url = self.host+'/reader/api/0/tag/list?output=json';
         self._query.bind(self)("GET", url, null)
             .then(function(text)
@@ -320,7 +318,6 @@ TheOldReader.prototype.updateCount = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        console.log('Fetching counts list');
         var url = self.host+'/reader/api/0/unread-count?output=json';
         self._query.bind(self)("GET", url, null)
             .then(function(text)
@@ -464,8 +461,11 @@ TheOldReader.prototype.getItems = function(id, viewRead, next)
         {
             url+='&xt=user/-/state/com.google/read';
         }
-
-        console.log('Fetching items list: '+url);
+        if(next)
+        {
+            url+='&c='+next;
+        }
+        console.log('fetch ',url);
 
         self._query.bind(self)("GET", url, null)
             .then(function(text)
@@ -479,7 +479,6 @@ TheOldReader.prototype.getItems = function(id, viewRead, next)
                     {
                         url+='&i='+item.id;
                     });
-                    console.log('content ', url);
                     self._query.bind(self)("GET", url, null)
                         .then(function(text)
                         {
@@ -509,13 +508,11 @@ TheOldReader.prototype.markRead= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        console.log('Fetching subscription list');
         var url = self.host+'/reader/api/0/edit-tag?output=json';
 
         var data='i='+item_id;
         data+= (state ? '&r=' : '&a=');
         data+= 'user/-/state/com.google/read';
-        console.log(url,data);
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {
@@ -528,13 +525,11 @@ TheOldReader.prototype.markLike= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        console.log('Fetching subscription list');
         var url = self.host+'/reader/api/0/edit-tag?output=json';
 
         var data='i='+item_id;
         data+= (state ? '&a=' : '&r=');
         data+= 'user/-/state/com.google/like';
-        console.log(url,data);
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {
@@ -547,13 +542,11 @@ TheOldReader.prototype.markStar= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        console.log('Fetching subscription list');
         var url = self.host+'/reader/api/0/edit-tag?output=json';
 
         var data='i='+item_id;
         data+= (state ? '&a=' : '&r=');
         data+= 'user/-/state/com.google/starred';
-        console.log(url,data);
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {
@@ -567,7 +560,6 @@ TheOldReader.prototype.readAll= function(item_id)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        console.log('marking all as read');
         var url = self.host+'/reader/api/0/mark-all-as-read';
 
         var data='s='+item_id;

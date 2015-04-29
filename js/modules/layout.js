@@ -27,7 +27,7 @@ var Layout = function()
         document.querySelector('.header .button_right').addEventListener('click', this.display_right.bind(this));
 
         document.querySelector('.readall_btn').addEventListener('click', this.readall.bind(this));
-        document.querySelector('.update_btn').addEventListener('click', this.displayItems.bind(this));
+        document.querySelector('.update_btn').addEventListener('click', this.clearAndLoadItems.bind(this));
     };
 
     this.readall= function(e)
@@ -45,7 +45,7 @@ var Layout = function()
             .then(function(result)
             {
                 span.classList.remove('updating');
-                self.displayItems();
+                self.clearAndLoadItems();
             });
     };
 
@@ -201,7 +201,7 @@ var Layout = function()
         var li = document.querySelector('.leftlist_item');
         this.display_id = li.getAttribute('data-id');
         this.display_name = li.querySelector('.label').innerHTML;
-        return this.displayItems();
+        return this.clearAndLoadItems();
     };
 
     this.updateLeftList= function()
@@ -230,7 +230,7 @@ var Layout = function()
             var label = document.createElement('p');
             label.className='label';
             label.innerHTML = translate('state_reading_list');
-            label.addEventListener('click', layout.displayItemsClick.bind(layout));
+            label.addEventListener('click', layout.clearAndLoadItems.bind(layout));
             li.appendChild(label);
             var label_num = document.createElement('p');
             label_num.className='label_num';
@@ -248,7 +248,7 @@ var Layout = function()
             var label = document.createElement('p');
             label.className='label';
             label.innerHTML = translate('state_starred');
-            label.addEventListener('click', layout.displayItemsClick.bind(layout));
+            label.addEventListener('click', layout.clearAndLoadItems.bind(layout));
             li.appendChild(label);
             var label_num = document.createElement('p');
             label_num.className='label_num';
@@ -266,7 +266,7 @@ var Layout = function()
             var label = document.createElement('p');
             label.className='label';
             label.innerHTML = translate('state_liked');
-            label.addEventListener('click', layout.displayItemsClick.bind(layout));
+            label.addEventListener('click', layout.clearAndLoadItems.bind(layout));
             li.appendChild(label);
             var label_num = document.createElement('p');
             label_num.className='label_num';
@@ -284,7 +284,7 @@ var Layout = function()
             var label = document.createElement('p');
             label.className='label';
             label.innerHTML = translate('state_shared');
-            label.addEventListener('click', layout.displayItemsClick.bind(layout));
+            label.addEventListener('click', layout.clearAndLoadItems.bind(layout));
             li.appendChild(label);
             var label_num = document.createElement('p');
             label_num.className='label_num';
@@ -312,7 +312,7 @@ var Layout = function()
                     var label = document.createElement('p');
                     label.className='label';
                     label.innerHTML = name;
-                    label.addEventListener('click', layout.displayItemsClick.bind(layout));
+                    label.addEventListener('click', layout.clearAndLoadItems.bind(layout));
                     li.appendChild(label);
 
                     var label_num = document.createElement('p');
@@ -347,7 +347,7 @@ var Layout = function()
                     var feed_name = document.createElement('p');
                     feed_name.className='feed_name';
                     feed_name.innerHTML = feed.title;
-                    feed_name.addEventListener('click', layout.displayItemsClick.bind(layout));
+                    feed_name.addEventListener('click', layout.clearAndLoadItems.bind(layout));
                     div.appendChild(feed_name);
 
                     var label_num = document.createElement('p');
@@ -392,29 +392,16 @@ var Layout = function()
             });
     };
 
-    this.clearCenter = function()
-    {
-        var ul = center.querySelector('.slide_content ul');
-        ul.innerHTML='';
-        this.feed_contents=[];
-    };
 
     this.clearLeft = function()
     {
         leftlist.innerHTML='';
     };
 
-    this.displayItemsClick = function(e)
+    this.loadMore = function(e)
     {
         var li = e.target;
-        this.display_center();
-        while(li && !li.classList.contains('leftlist_item'))
-        {
-            li = li.parentNode;
-        }
-        this.display_id = li.getAttribute('data-id');
-        this.display_name = li.querySelector('.label').innerHTML;
-        return this.displayItems();
+        return this.displayItems(li.getAttribute('data-continuation'));
     };
 
     this.gotoTop=function()
@@ -422,7 +409,19 @@ var Layout = function()
         center.querySelector('.slide_content').scrollTop=0;
     };
 
-    this.displayItems = function()
+    this.clearAndLoadItems = function()
+    {
+        this.wait_loading = 0;
+        this.gotoTop();
+        this.feed_contents=[];
+        console.log('clear and load items');
+        var ul = center.querySelector('.slide_content ul');
+        ul.innerHTML='';
+
+        this.displayItems();
+    },
+
+    this.displayItems = function(continuation)
     {
         var self=this;
         this.controller.updateCount()
@@ -437,26 +436,32 @@ var Layout = function()
         var viewRead = settings.getViewRead();
         var id = this.display_id;
 
-        this.gotoTop();
-
         var ul = center.querySelector('.slide_content ul');
-        this.clearCenter();
+        var li;
 
-        var li = document.createElement('li');
-        li.className='no_items';
+        // Remove previous load more  if present
+        if(!(li=ul.querySelector('li.no_items')))
+        {
+            li = document.createElement('li');
+            li.className='no_items';
+            ul.appendChild(li);
+        }
         li.innerHTML=translate('loading_items');
-        ul.appendChild(li);
         
-        this.controller.getItems(id, viewRead)
+        this.controller.getItems(id, viewRead, continuation)
             .then(function(r)
             {
                 var ul = center.querySelector('.slide_content ul');
+
+                // Remove previous loading item
+                if(remove = ul.querySelector('li.no_items'))
+                {
+                    ul.removeChild(remove);
+                }
                 var items = r.items;
-                ul.innerHTML='';
 
                 // Build new list of items
                 var ul = center.querySelector('.slide_content ul');
-                ul.innerHTML='';
 
                 console.log(r);
                 // Clear previous list
@@ -535,6 +540,17 @@ var Layout = function()
 
                         ul.appendChild(li);
                 });
+
+                if(r.continuation)
+                {
+                    // Add load more items
+                    var li = document.createElement('li');
+                    li.className='no_items';
+                    li.innerHTML=translate('load_more');
+                    li.setAttribute('data-continuation', r.continuation);
+                    li.addEventListener('click', layout.loadMore.bind(layout));
+                    ul.appendChild(li);
+                }
             });
     };
     this.openItem = function(e)

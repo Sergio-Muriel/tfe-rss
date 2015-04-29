@@ -16,7 +16,6 @@ var Settings = function()
         this.password = this.form.querySelector('input[name=password]');
 
         this.view_read = document.querySelector('#view_read');
-        this.view_title_only = document.querySelector('#view_title_only');
 
 
         this.bind();
@@ -61,13 +60,11 @@ var Settings = function()
 
         this.register_link.addEventListener('click', function(e) { return self.register(e); });
         this.view_read.addEventListener('click', function(e) { return self.toggleViewRead(e); });
-        this.view_title_only.addEventListener('click', function(e) { return self.toggleViewTitleOnly(e); });
     };
 
     this.restoreSettings= function()
     {
         this.view_read.checked =  this.getViewRead();
-        this.view_title_only.checked =  this.getViewTitleOnly();
     };
 
     this.logout= function(e)
@@ -92,12 +89,6 @@ var Settings = function()
         localStorage.setItem('viewRead', this.view_read.checked ? 1 : 0);
         layout.clearAndLoadItems();
         console.log('toggle view read');
-    };
-    this.toggleViewTitleOnly= function(e)
-    {
-        localStorage.setItem('viewTitleOnly', this.view_title_only.checked ? 1 : 0);
-        layout.clearAndLoadItems();
-        console.log('toggle view title only');
     };
 
     this.login= function(e)
@@ -140,10 +131,6 @@ var Settings = function()
     this.getViewRead = function()
     {
         return localStorage.getItem('viewRead') === "1" ? true : false;
-    };
-    this.getViewTitleOnly = function()
-    {
-        return localStorage.getItem('viewTitleOnly') !== "0" ? true : false;
     };
 
 };

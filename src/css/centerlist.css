@@ -119,17 +119,6 @@
     overflow:hidden;
     white-space:nowrap;
 }
-.center_menu .label_category
-{
-    vertical-align:top;
-    font-size:1.5rem;
-    float:left;
-    width:50%;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    text-align:left;
-}
 .center_menu span
 {
     display:inline-block;

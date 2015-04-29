@@ -11,7 +11,6 @@ var Layout = function()
     var button_right = document.querySelector('.button_right');
 
     var leftlist = document.querySelector('.leftlist');
-    var label_category = document.querySelector('.label_category');
     var feed_contents = [];
 
     this.init = function(controller)
@@ -28,6 +27,42 @@ var Layout = function()
 
         document.querySelector('.readall_btn').addEventListener('click', this.readall.bind(this));
         document.querySelector('.update_btn').addEventListener('click', this.clearAndLoadItems.bind(this));
+
+        document.querySelector('.next_btn').addEventListener('click', this.openNext.bind(this));
+        document.querySelector('.prev_btn').addEventListener('click', this.openPrev.bind(this));
+    };
+
+    this.openNext = function(e)
+    {
+        var next;
+        if(!this.opened_item)
+        {
+            next = document.querySelector('.feed_item');
+        }
+        else
+        {
+            next = this.opened_item.nextSibling;
+        }
+        if(this.opened_item!=next)
+        {
+            this.openItem({ target: next});
+        }
+    };
+    this.openPrev = function(e)
+    {
+        var next;
+        if(!this.opened_item)
+        {
+            next = document.querySelector('.feed_item');
+        }
+        else
+        {
+            next = this.opened_item.prevSibling;
+        }
+        if(this.opened_item!=next)
+        {
+            this.openItem({ target: next});
+        }
     };
 
     this.readall= function(e)
@@ -423,6 +458,7 @@ var Layout = function()
     this.clearAndLoadItems = function()
     {
         this.wait_loading = 0;
+        this.opened_item=null;
         this.gotoTop();
         this.display_center();
         this.feed_contents=[];
@@ -440,10 +476,8 @@ var Layout = function()
         {
             self.updateCount();
         });
-        label_category.innerHTML = this.display_name;
 
         var translate = navigator.mozL10n.get;
-        var viewTitleOnly = settings.getViewTitleOnly();
         var viewRead = settings.getViewRead();
         var id = this.display_id;
 
@@ -489,6 +523,7 @@ var Layout = function()
                 items.forEach(function(item)
                 {
                         var li = document.createElement('li');
+                        li.className='feed_item';
                         li.setAttribute('data-id',item.id);
 
                         var div = document.createElement('div');
@@ -537,18 +572,7 @@ var Layout = function()
                         content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
                         content = content.replace(/<\/script[^>]*>/,'');
 
-                        if(!viewTitleOnly)
-                        {
-                            var div = document.createElement('div');
-                            div.className='feed_content';
-                            div.innerHTML = content;
-                            li.appendChild(div);
-                        }
-                        else
-                        {
-                            self.feed_contents[item.id] = content;
-                        }
-
+                        self.feed_contents[item.id] = content;
                         ul.appendChild(li);
                 });
 
@@ -572,6 +596,8 @@ var Layout = function()
         {
             li = li.parentNode;
         }
+        this.opened_item = li;
+
         var flag_read = li.querySelector('.flag_read');
         if(!flag_read.classList.contains('ko'))
         {
@@ -579,14 +605,20 @@ var Layout = function()
         }
         var id  = li.getAttribute('data-id');
 
-        var check = li.querySelector('.feed_content');
+        // Close previous opened item
+        var check = document.querySelector('.feed_content');
         if(check)
         {
-            li.removeChild(check);
-            console.log('close');
-            return;
+            var li_p = check.parentNode;
+            check.parentNode.removeChild(check);
+            // If clicked on the same item, close it
+            if(li_p==li)
+            {
+                return;
+            }
         }
         console.log('open ',id);
+        center.querySelector('.slide_content').scrollTop = li.offsetTop;
 
         var div = document.createElement('div');
         div.className='feed_content';

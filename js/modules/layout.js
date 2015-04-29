@@ -413,6 +413,7 @@ var Layout = function()
     {
         this.wait_loading = 0;
         this.gotoTop();
+        this.display_center();
         this.feed_contents=[];
         console.log('clear and load items');
         var ul = center.querySelector('.slide_content ul');

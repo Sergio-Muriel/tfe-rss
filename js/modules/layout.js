@@ -230,7 +230,7 @@ var Layout = function()
             var label = document.createElement('p');
             label.className='label';
             label.innerHTML = translate('state_reading_list');
-            label.addEventListener('click', layout.clearAndLoadItems.bind(layout));
+            label.addEventListener('click', layout.loadFeed.bind(layout));
             li.appendChild(label);
             var label_num = document.createElement('p');
             label_num.className='label_num';
@@ -248,7 +248,7 @@ var Layout = function()
             var label = document.createElement('p');
             label.className='label';
             label.innerHTML = translate('state_starred');
-            label.addEventListener('click', layout.clearAndLoadItems.bind(layout));
+            label.addEventListener('click', layout.loadFeed.bind(layout));
             li.appendChild(label);
             var label_num = document.createElement('p');
             label_num.className='label_num';
@@ -266,7 +266,7 @@ var Layout = function()
             var label = document.createElement('p');
             label.className='label';
             label.innerHTML = translate('state_liked');
-            label.addEventListener('click', layout.clearAndLoadItems.bind(layout));
+            label.addEventListener('click', layout.loadFeed.bind(layout));
             li.appendChild(label);
             var label_num = document.createElement('p');
             label_num.className='label_num';
@@ -284,7 +284,7 @@ var Layout = function()
             var label = document.createElement('p');
             label.className='label';
             label.innerHTML = translate('state_shared');
-            label.addEventListener('click', layout.clearAndLoadItems.bind(layout));
+            label.addEventListener('click', layout.loadFeed.bind(layout));
             li.appendChild(label);
             var label_num = document.createElement('p');
             label_num.className='label_num';
@@ -312,7 +312,7 @@ var Layout = function()
                     var label = document.createElement('p');
                     label.className='label';
                     label.innerHTML = name;
-                    label.addEventListener('click', layout.clearAndLoadItems.bind(layout));
+                    label.addEventListener('click', layout.loadFeed.bind(layout));
                     li.appendChild(label);
 
                     var label_num = document.createElement('p');
@@ -347,7 +347,7 @@ var Layout = function()
                     var feed_name = document.createElement('p');
                     feed_name.className='feed_name';
                     feed_name.innerHTML = feed.title;
-                    feed_name.addEventListener('click', layout.clearAndLoadItems.bind(layout));
+                    feed_name.addEventListener('click', layout.loadFeed.bind(layout));
                     div.appendChild(feed_name);
 
                     var label_num = document.createElement('p');
@@ -409,6 +409,17 @@ var Layout = function()
         center.querySelector('.slide_content').scrollTop=0;
     };
 
+    this.loadFeed = function(e)
+    {
+        var li = e.target;
+        while(li && li.tagName!=='LI')
+        {
+            li = li.parentNode;
+        }
+        this.display_id = li.getAttribute('data-id');
+        this.display_name = li.querySelector('.label').innerHTML;
+        return this.clearAndLoadItems();
+    }
     this.clearAndLoadItems = function()
     {
         this.wait_loading = 0;
@@ -418,7 +429,6 @@ var Layout = function()
         console.log('clear and load items');
         var ul = center.querySelector('.slide_content ul');
         ul.innerHTML='';
-
         this.displayItems();
     },
 

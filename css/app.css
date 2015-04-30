@@ -27,6 +27,9 @@
 /* Add custom lib css */
 .header
 {
+    position:fixed;
+    width:100%;
+    top:0px;
     height: 80px;
     height:5rem;
     line-height: 80px;
@@ -445,6 +448,9 @@ div.leftlist_item
 }
 .slide.center
 {
+    position:relative;
+    padding-top: 80px;
+    padding-top:5rem;
 }
 
 .slide.center ul,
@@ -537,8 +543,10 @@ div.leftlist_item
 {
     position:relative;
     width:100%;
-    font-size: 19px;
-    font-size:1.2rem;
+    font-size: 22px;
+    font-size:1.4rem;
+    line-height: 24px;
+    line-height:1.5rem;
     padding: 16px;
     padding:1rem;
     overflow-x:hidden;
@@ -571,11 +579,9 @@ div.leftlist_item
     bottom:0px;
     width:100%;
     text-align:center;
-    background: rgba(0,0,0,0.9);
+    background: black;
     color: #fff;
-    height: 80px;
     height:5rem;
-    line-height: 80px;
     line-height:5rem;
     overflow:hidden;
     white-space:nowrap;

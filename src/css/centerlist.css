@@ -1,5 +1,7 @@
 .slide.center
 {
+    position:relative;
+    padding-top:5rem;
 }
 
 .slide.center ul,
@@ -82,7 +84,8 @@
 {
     position:relative;
     width:100%;
-    font-size:1.2rem;
+    font-size:1.4rem;
+    line-height:1.5rem;
     padding:1rem;
     overflow-x:hidden;
     background:var(--mainsubListBg);
@@ -107,7 +110,7 @@
 
 .center_menu
 {
-    position:fixed;
+    position:relative;
     z-index:2;
     bottom:0px;
     width:100%;

@@ -1,6 +1,9 @@
 
 .header
 {
+    position:fixed;
+    width:100%;
+    top:0px;
     height:5rem;
     line-height:5rem;
     background:var(--headerBg);

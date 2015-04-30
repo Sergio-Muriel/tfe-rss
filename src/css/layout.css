@@ -31,6 +31,8 @@
 }
 .slide.center
 {
+    position:relative;
+    padding-top:5rem;
     z-index:5;
     text-align:left;
 }

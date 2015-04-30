@@ -112,6 +112,9 @@
 }
 .slide.center
 {
+    position:relative;
+    padding-top: 80px;
+    padding-top:5rem;
     z-index:5;
     text-align:left;
 }
@@ -575,13 +578,16 @@ div.leftlist_item
 .center_menu
 {
     position:fixed;
+    top:0px;
     z-index:2;
     bottom:0px;
     width:100%;
     text-align:center;
-    background: black;
+    background: rgba(0,0,0,0.9);
     color: #fff;
+    height: 80px;
     height:5rem;
+    line-height: 80px;
     line-height:5rem;
     overflow:hidden;
     white-space:nowrap;

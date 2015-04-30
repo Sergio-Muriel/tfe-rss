@@ -2,6 +2,7 @@
 {
     position:relative;
     padding-top:5rem;
+    background:var(--mainlistBg);
 }
 
 .slide.center ul,
@@ -98,12 +99,14 @@
     white-space:normal;
 }
 
-.no_items,
-.loading
+.slide.center li.no_items,
+.slide.center li.loading
 {
     line-height:7rem;
     text-align:center;
     font-size:2rem;
+    background:var(--mainlistItemBg);
+    color:var(--mainlistColor);
 }
 
 

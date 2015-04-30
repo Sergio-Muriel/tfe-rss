@@ -3,29 +3,30 @@
     --mainBg: #fff;
     --mainColor: #000;
 
-    --headerBg: #ddd;
-    --headerColor: #000;
+    --headerBg: #000F63;
+    --headerColor: #fff;
 
-    --selectedMenu: #fff;
+    --selectedMenu: #000F63;
     --headerMenuBg: #000;
     --menuBg: #333;
     --menuColor: #fff;
 
     --menulistBg: #000;
-    --menulistItemBg: #333;
-    --menulistColor: #fff;
-    --submenuListBg: #2a2a2a;
+    --menulistItemBg: #fff;
+    --menulistColor: #000;
+    --submenuListBg: #fff;
 
-    --mainlistItemBg: #e9e9e9;
+    --mainlistBg: #000;
+    --mainlistItemBg: #fff;
     --mainlistColor: #000;
-    --mainsubListBg: #fff;
-    --mainTitleBg: #333;
-    --mainTitleColor: #fff;
-    --mainFlagsFg: #30a67c;
+    --mainsubListBg: #efefef;
+    --mainTitleBg: #fff;
+    --mainTitleColor: #333;
+    --mainFlagsFg: #6B5800;
     --mainFlagsFgKo: #555;
     --mainFlagsFgUpdating: #bbb;
 
-    --centerMenuBg: rgba(0,0,0,0.9);
+    --centerMenuBg: #000F63;
     --centerMenuFg: #fff;
     --centerMenuFgUpdating: #555;
 

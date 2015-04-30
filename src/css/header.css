@@ -21,6 +21,10 @@
     width:5rem;
     height:5rem;
 }
+.header button span
+{
+    color:var(--headerColor);
+}
 .header button.selected
 {
     background:var(--selectedMenu);

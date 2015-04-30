@@ -34,10 +34,10 @@
     height:5rem;
     line-height: 80px;
     line-height:5rem;
-    background: #ddd;
+    background: #000F63;
     font-size: 11px;
     font-size:0.7rem;
-    color: #000;
+    color: #fff;
     overflow:hidden;
 
     font-weight: lighter;
@@ -52,9 +52,13 @@
     height: 80px;
     height:5rem;
 }
+.header button span
+{
+    color: #fff;
+}
 .header button.selected
 {
-    background: #fff;
+    background: #000F63;
 }
 
 .button_left
@@ -346,7 +350,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
 {
     text-align:left;
     background: #000;
-    color: #fff;
+    color: #000;
 }
 .slide.left ul,
 .slide.left li
@@ -375,7 +379,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
     font-size:1.6rem;
     margin: 3px 0px;
     margin:0.2rem 0rem;
-    background: #333;
+    background: #fff;
 }
 .slide.left li p
 {
@@ -440,7 +444,7 @@ div.leftlist_item
     line-height:0.8em;
     padding-left: 16px;
     padding-left:1rem;
-    background: #2a2a2a;
+    background: #fff;
 }
 .feed_name
 {
@@ -454,6 +458,7 @@ div.leftlist_item
     position:relative;
     padding-top: 80px;
     padding-top:5rem;
+    background: #000;
 }
 
 .slide.center ul,
@@ -472,7 +477,7 @@ div.leftlist_item
     font-size:1.6rem;
     margin: 0px 0px 3px 0px;
     margin:0rem 0rem 0.2rem 0rem;
-    background: #e9e9e9;
+    background: #fff;
     color: #000;
 }
 .feed_header
@@ -483,8 +488,8 @@ div.leftlist_item
     white-space:normal;
     padding: 32px 80px 0px 32px;
     padding:2rem 5rem 0rem 2rem;
-    background: #333;
-    color: #fff;
+    background: #fff;
+    color: #333;
     min-height: 176px;
     min-height:11rem;
 }
@@ -523,7 +528,7 @@ div.leftlist_item
     white-space:normal;
     padding: 6px 0px 6px 0px;
     padding:0.4rem 0rem 0.4rem 0rem;
-    color: #30a67c;
+    color: #6B5800;
     text-align:center;
 
 }
@@ -553,7 +558,7 @@ div.leftlist_item
     padding: 16px;
     padding:1rem;
     overflow-x:hidden;
-    background: #fff;
+    background: #efefef;
     white-space:normal;
 }
 .feed_content *
@@ -563,14 +568,16 @@ div.leftlist_item
     white-space:normal;
 }
 
-.no_items,
-.loading
+.slide.center li.no_items,
+.slide.center li.loading
 {
     line-height: 112px;
     line-height:7rem;
     text-align:center;
     font-size: 32px;
     font-size:2rem;
+    background: #fff;
+    color: #000;
 }
 
 
@@ -583,7 +590,7 @@ div.leftlist_item
     bottom:0px;
     width:100%;
     text-align:center;
-    background: rgba(0,0,0,0.9);
+    background: #000F63;
     color: #fff;
     height: 80px;
     height:5rem;

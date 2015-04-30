@@ -578,7 +578,7 @@ div.leftlist_item
 .center_menu
 {
     position:fixed;
-    top:0px;
+    bottom:0px;
     z-index:2;
     bottom:0px;
     width:100%;

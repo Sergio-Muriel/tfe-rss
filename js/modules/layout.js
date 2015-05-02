@@ -151,28 +151,13 @@ var Layout = function()
         return true;
     };
 
-    this.markReadClick=function(e)
+    this.markRead=function(li,item_id)
     {
-        var span = e.target;
-        var li = e.target;
-        while(li && li.tagName!=='LI')
-        {
-            li = li.parentNode;
-        }
-        var item_id = li.getAttribute('data-id');
-        span.classList.add('updating');
-        if(span.classList.contains('ko'))
-        {
-            span.classList.remove('ko');
-        }
-        else
-        {
-            span.classList.add('ko');
-        }
-        this.controller.markRead(item_id, !span.classList.contains('ko'))
+        li.classList.add('updating');
+        this.controller.markRead(item_id, true)
             .then(function(result)
             {
-                span.classList.remove('updating');
+                li.classList.remove('fresh_item');
             });
 
         return true;
@@ -524,6 +509,10 @@ var Layout = function()
                 {
                         var li = document.createElement('li');
                         li.className='feed_item';
+                        if(item.categories.indexOf('user/-/state/com.google/fresh')!==-1)
+                        {
+                            li.className='fresh_item';
+                        }
                         li.setAttribute('data-id',item.id);
 
                         var div = document.createElement('div');
@@ -542,19 +531,16 @@ var Layout = function()
                         div.appendChild(p);
 
                         p = document.createElement('p');
-                        p.className='feed_time';
-                        p.innerHTML = (new Date(item.updated*1000)).toLocaleString();
+                        p.className='feed_flags';
                         div.appendChild(p)
 
-                        p = document.createElement('p');
-                        p.className='feed_flags';
-                        li.appendChild(p)
-
+                        /*
                         var flag_read = document.createElement('span');
                         flag_read.className='flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'');
                         flag_read.setAttribute('data-icon','gmail');
                         flag_read.addEventListener('click', layout.markReadClick.bind(layout));
                         p.appendChild(flag_read);
+                        */
 
                         var flag_star = document.createElement('span');
                         flag_star.className='flag_star '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko':'');
@@ -562,11 +548,14 @@ var Layout = function()
                         flag_star.addEventListener('click', layout.markStarClick.bind(layout));
                         p.appendChild(flag_star);
 
+                        /*
                         var flag_like = document.createElement('span');
                         flag_like.className='flag_like '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko':'');
                         flag_like.setAttribute('data-icon','feedback');
                         flag_like.addEventListener('click', layout.markLikeClick.bind(layout));
                         p.appendChild(flag_like);
+                        */
+
 
                         var content = item.summary.content;
                         content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
@@ -597,13 +586,13 @@ var Layout = function()
             li = li.parentNode;
         }
         this.opened_item = li;
-
-        var flag_read = li.querySelector('.flag_read');
-        if(!flag_read.classList.contains('ko'))
-        {
-            flag_read.click();
-        }
         var id  = li.getAttribute('data-id');
+
+        if(li.classList.contains('fresh_item'))
+        {
+            layout.markRead(li,id);
+            li.classList.remove('fresh_item');
+        }
 
         // Close previous opened item
         var check = document.querySelector('.feed_content');

@@ -34,11 +34,13 @@
     height:5rem;
     line-height: 80px;
     line-height:5rem;
-    background: #000F63;
+    background: -webkit-linear-gradient(top, rgba(232,232,232,1) 0%, rgba(220,220,220,1) 45%, rgba(211,211,211,1) 100%);
+    background: linear-gradient(to bottom, rgba(232,232,232,1) 0%,rgba(220,220,220,1) 45%,rgba(211,211,211,1) 100%);
     font-size: 11px;
     font-size:0.7rem;
-    color: #fff;
+    color: #000;
     overflow:hidden;
+    border-bottom:1px solid black;
 
     font-weight: lighter;
     font-style: italic;
@@ -54,11 +56,12 @@
 }
 .header button span
 {
-    color: #fff;
+    color: #000;
 }
 .header button.selected
 {
-    background: #000F63;
+    background: -webkit-linear-gradient(top, rgba(232,232,232,1) 0%, rgba(220,220,220,1) 45%, rgba(211,211,211,1) 100%);
+    background: linear-gradient(to bottom, rgba(232,232,232,1) 0%,rgba(220,220,220,1) 45%,rgba(211,211,211,1) 100%);
 }
 
 .button_left
@@ -379,7 +382,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
     font-size:1.6rem;
     margin: 3px 0px;
     margin:0.2rem 0rem;
-    background: #fff;
+    background: #ebebeb;
 }
 .slide.left li p
 {
@@ -458,7 +461,6 @@ div.leftlist_item
     position:relative;
     padding-top: 80px;
     padding-top:5rem;
-    background: #000;
 }
 
 .slide.center ul,
@@ -475,68 +477,81 @@ div.leftlist_item
     list-style:none;
     font-size: 25px;
     font-size:1.6rem;
-    margin: 0px 0px 3px 0px;
-    margin:0rem 0rem 0.2rem 0rem;
-    background: #fff;
+    margin:0px;
+    background: #ebebeb;
+    border-bottom: 1px solid #c2c2c2;
     color: #000;
 }
+.slide.center li.fresh_item
+{
+    background: #fff;
+}
+
 .feed_header
 {
+    position:relative;
     vertical-align:top;
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding: 32px 80px 0px 32px;
-    padding:2rem 5rem 0rem 2rem;
-    background: #fff;
-    color: #333;
-    min-height: 176px;
-    min-height:11rem;
+    padding: 20px 16px 20px 80px;
+    padding:1.3rem 1rem 1.3rem 5rem;
 }
 .feed_title
 {
+    display:inline-block;
     vertical-align:top;
     margin:0px;
     padding:0px;
     white-space:normal;
+    padding-right: 8px;
+    padding-right:0.5rem;
+}
+.fresh_item .feed_title
+{
+    font-weight:bold;
+}
+
+.feed_origin:before
+{
+    content: ' - ';
 }
 .feed_origin
 {
-    padding: 16px 16px 0px 0px;
-    padding:1rem 1rem 0rem 0rem;
+    display:inline-block;
+    font-weight:normal;
     margin:0px;
     font-size: 20px;
     font-size:1.3rem;
 
-}
-.feed_time
-{
-    margin:0px;
-    padding: 0px 16px 32px 0px;
-    padding:0rem 1rem 2rem 0rem;
-    font-size: 20px;
-    font-size:1.3rem;
 }
 .feed_flags
 {
     position:absolute;
-    right:0px;
+    height:100%;
+    left:0px;
     top:0px;
-    vertical-align:top;
     margin:0px;
     padding:0px;
+    height:100%;
+    vertical-align:middle;
     white-space:normal;
-    padding: 6px 0px 6px 0px;
-    padding:0.4rem 0rem 0.4rem 0rem;
-    color: #6B5800;
+    color: #d4cc4d;
     text-align:center;
-
+    width: 80px;
+    width:5rem;
+}
+.feed_flags:before
+{
+    content:'';
+    height:100%;
+    display:inline-block;
+    vertical-align:middle;
 }
 .feed_flags span
 {
-    display:block;
-    margin: 0px 9px 0px 0px;
-    margin:0px 0.6rem 0px 0px;
+    display:inline-block;
+    vertical-align:middle;
 }
 .feed_flags span.ko
 {
@@ -576,7 +591,7 @@ div.leftlist_item
     text-align:center;
     font-size: 32px;
     font-size:2rem;
-    background: #fff;
+    background: #ebebeb;
     color: #000;
 }
 
@@ -590,14 +605,16 @@ div.leftlist_item
     bottom:0px;
     width:100%;
     text-align:center;
-    background: #000F63;
-    color: #fff;
+    background: -webkit-linear-gradient(top, rgba(232,232,232,1) 0%, rgba(220,220,220,1) 45%, rgba(211,211,211,1) 100%);
+    background: linear-gradient(to bottom, rgba(232,232,232,1) 0%,rgba(220,220,220,1) 45%,rgba(211,211,211,1) 100%);
+    color: #000;
     height: 80px;
     height:5rem;
     line-height: 80px;
     line-height:5rem;
     overflow:hidden;
     white-space:nowrap;
+    border-top: 1px solid #000;
 }
 .center_menu span
 {

@@ -2,7 +2,6 @@
 {
     position:relative;
     padding-top:5rem;
-    background:var(--mainlistBg);
 }
 
 .slide.center ul,
@@ -18,59 +17,77 @@
     position:relative;
     list-style:none;
     font-size:1.6rem;
-    margin:0rem 0rem 0.2rem 0rem;
+    margin:0px;
     background:var(--mainlistItemBg);
+    border-bottom:1px solid var(--mainlistItemBorder);
     color:var(--mainlistColor);
 }
+.slide.center li.fresh_item
+{
+    background:var(--mainlistItemBgFresh);
+}
+
 .feed_header
 {
+    position:relative;
     vertical-align:top;
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding:2rem 5rem 0rem 2rem;
-    background:var(--mainTitleBg);
-    color:var(--mainTitleColor);
-    min-height:11rem;
+    padding:1.3rem 1rem 1.3rem 5rem;
 }
 .feed_title
 {
+    display:inline-block;
     vertical-align:top;
     margin:0px;
     padding:0px;
     white-space:normal;
+    padding-right:0.5rem;
+}
+.fresh_item .feed_title
+{
+    font-weight:bold;
+}
+
+.feed_origin:before
+{
+    content: ' - ';
 }
 .feed_origin
 {
-    padding:1rem 1rem 0rem 0rem;
+    display:inline-block;
+    font-weight:normal;
     margin:0px;
     font-size:1.3rem;
 
-}
-.feed_time
-{
-    margin:0px;
-    padding:0rem 1rem 2rem 0rem;
-    font-size:1.3rem;
 }
 .feed_flags
 {
     position:absolute;
-    right:0px;
+    height:100%;
+    left:0px;
     top:0px;
-    vertical-align:top;
     margin:0px;
     padding:0px;
+    height:100%;
+    vertical-align:middle;
     white-space:normal;
-    padding:0.4rem 0rem 0.4rem 0rem;
     color:var(--mainFlagsFg);
     text-align:center;
-
+    width:5rem;
+}
+.feed_flags:before
+{
+    content:'';
+    height:100%;
+    display:inline-block;
+    vertical-align:middle;
 }
 .feed_flags span
 {
-    display:block;
-    margin:0px 0.6rem 0px 0px;
+    display:inline-block;
+    vertical-align:middle;
 }
 .feed_flags span.ko
 {
@@ -125,6 +142,7 @@
     line-height:5rem;
     overflow:hidden;
     white-space:nowrap;
+    border-top:1px solid var(--centerMenuFg);
 }
 .center_menu span
 {

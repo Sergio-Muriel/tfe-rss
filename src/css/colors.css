@@ -7,12 +7,14 @@
     --headerColor: #000;
 
     --selectedMenu: linear-gradient(to bottom, rgba(232,232,232,1) 0%,rgba(220,220,220,1) 45%,rgba(211,211,211,1) 100%);
-    --headerMenuBg: #000;
+    --headerMenuBg: linear-gradient(to bottom, rgba(232,232,232,1) 0%,rgba(220,220,220,1) 45%,rgba(211,211,211,1) 100%);
+    --headerMenuFg: #000;
     --menuBg: #333;
     --menuColor: #fff;
 
     --menulistBg: #000;
     --menulistItemBg: #ebebeb;
+    --menulistItemBorder: #c2c2c2;
     --menulistItemBgFresh: #fff;
     --menulistColor: #000;
     --submenuListBg: #fff;
@@ -21,13 +23,18 @@
     --mainlistItemBg: #ebebeb;
     --mainlistItemBgFresh: #fff;
     --mainlistColor: #000;
-    --mainsubListBg: #efefef;
+    --mainlistColorOrigin: #555;
+
+    --mainlistButtonBg: #2b2b2b;
+    --mainlistButtonFg: #828282;
+
+    --mainsubListBg: #fff;
     --mainFlagsFg: #d4cc4d;
     --mainFlagsFgKo: #555;
     --mainFlagsFgUpdating: #bbb;
 
-    --centerMenuBg: linear-gradient(to bottom, rgba(232,232,232,1) 0%,rgba(220,220,220,1) 45%,rgba(211,211,211,1) 100%);
-    --centerMenuFg: #000;
+    --centerMenuBg: #2b2b2b;
+    --centerMenuFg: #828282;
     --centerMenuFgUpdating: #555;
 
 

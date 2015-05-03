@@ -1,3 +1,7 @@
+.slide.left
+{
+    border-right:1px solid var(--menulistItemBorder);
+}
 .slide.left .slide_content
 {
     text-align:left;
@@ -9,7 +13,6 @@
 {
     margin:0px;
     padding:0px;
-    width:calc(100% - 0.2rem);
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -27,8 +30,9 @@
     list-style:none;
     line-height:5rem;
     font-size:1.6rem;
-    margin:0.2rem 0rem;
+    margin:0px;
     background:var(--menulistItemBg);
+    border-bottom:1px solid var(--menulistItemBorder);
 }
 .slide.left li p
 {
@@ -43,6 +47,7 @@
 {
     width:4rem;
     height:100%;
+    text-align:center;
 }
 .label_toggle span
 {
@@ -91,5 +96,19 @@ div.leftlist_item
     white-space:nowrap;
     text-overflow:ellipsis;
     width:calc(100% - 7rem);
+}
+
+
+.subtitle h2
+{
+    font-size:2rem;
+    text-align:center;
+    height:5rem;
+    line-height:5rem;
+    font-weight:normal;
+    margin:0px;
+    padding:0px;
+    background:var(--headerMenuBg);
+    color:var(--headerMenuFg);
 }
 

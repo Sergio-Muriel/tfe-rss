@@ -6,6 +6,10 @@ var Layout = function()
     var left = document.querySelector('.slide.left')
     var right = document.querySelector('.slide.right')
 
+    var full_container = document.querySelector('.feed_fullscreen-container')
+    var center_menu_single = document.querySelector('.center_menu_single')
+    var center_menu_all = document.querySelector('.center_menu_all')
+
     var slides = document.querySelector('.slides');
     var button_left = document.querySelector('.button_left');
     var button_right = document.querySelector('.button_right');
@@ -30,6 +34,7 @@ var Layout = function()
 
         document.querySelector('.next_btn').addEventListener('click', this.openNext.bind(this));
         document.querySelector('.prev_btn').addEventListener('click', this.openPrev.bind(this));
+        document.querySelector('.close_btn').addEventListener('click', this.closeItem.bind(this));
     };
 
     this.openNext = function(e)
@@ -141,12 +146,14 @@ var Layout = function()
         if(!subitems.classList.contains('visible'))
         {
             subitems.classList.add("visible");
-            span.setAttribute('data-icon', 'minus');
+            span.classList.remove('fa-folder');
+            span.classList.add('fa-folder-open');
         }
         else
         {
             subitems.classList.remove("visible");
-            span.setAttribute('data-icon', 'add');
+            span.classList.remove('fa-folder-open');
+            span.classList.add('fa-folder');
         }
         return true;
     };
@@ -176,10 +183,14 @@ var Layout = function()
         if(span.classList.contains('ko'))
         {
             span.classList.remove('ko');
+            span.classList.remove('fa-star-o');
+            span.classList.add('fa-star');
         }
         else
         {
-            span.classList.add('ko');
+            span.classList.remove('fa-star');
+            span.classList.add('ko')
+            span.classList.add('fa-star-o');
         }
         this.controller.markStar(item_id, !span.classList.contains('ko'))
             .then(function(result)
@@ -244,8 +255,7 @@ var Layout = function()
             li.className='leftlist_item';
             li.setAttribute('data-id','user/-/state/com.google/reading-list');
             var label_toggle = document.createElement('p');
-            label_toggle.className='label_toggle';
-            label_toggle.innerHTML ='<span data-icon="browsing"></span>';
+            label_toggle.className='label_toggle fa fa-home';
             li.appendChild(label_toggle);
             var label = document.createElement('p');
             label.className='label';
@@ -262,8 +272,7 @@ var Layout = function()
             li.className='leftlist_item';
             li.setAttribute('data-id','user/-/state/com.google/starred');
             var label_toggle = document.createElement('p');
-            label_toggle.className='label_toggle';
-            label_toggle.innerHTML ='<span data-icon="star-full"></span>';
+            label_toggle.className='label_toggle fa fa-star';
             li.appendChild(label_toggle);
             var label = document.createElement('p');
             label.className='label';
@@ -280,8 +289,7 @@ var Layout = function()
             li.className='leftlist_item';
             li.setAttribute('data-id','user/-/state/com.google/like');
             var label_toggle = document.createElement('p');
-            label_toggle.className='label_toggle';
-            label_toggle.innerHTML ='<span data-icon="feedback"></span>';
+            label_toggle.className='label_toggle fa fa-heart';
             li.appendChild(label_toggle);
             var label = document.createElement('p');
             label.className='label';
@@ -298,8 +306,7 @@ var Layout = function()
             li.className='leftlist_item';
             li.setAttribute('data-id','user/-/state/com.google/broadcast');
             var label_toggle = document.createElement('p');
-            label_toggle.className='label_toggle';
-            label_toggle.innerHTML ='<span data-icon="email-forward"></span>';
+            label_toggle.className='label_toggle fa fa-share-alt';
             li.appendChild(label_toggle);
             var label = document.createElement('p');
             label.className='label';
@@ -324,8 +331,8 @@ var Layout = function()
                     li.setAttribute('data-id',label.id);
 
                     var label_toggle = document.createElement('p');
-                    label_toggle.className='label_toggle';
-                    label_toggle.innerHTML ='<span data-icon="add"></span>';
+                    label_toggle.className='label_toggle fa fa-folder';
+                    label_toggle.innerHTML ='';
                     label_toggle.addEventListener('click',self.toggleLabel.bind(self), false);
                     li.appendChild(label_toggle);
 
@@ -385,7 +392,6 @@ var Layout = function()
     {
         var viewRead = settings.getViewRead();
 
-        console.log('updating count');
         this.controller.getCounts()
             .then(function(counts)
             {
@@ -442,12 +448,12 @@ var Layout = function()
     }
     this.clearAndLoadItems = function()
     {
+        this.closeItem();
         this.wait_loading = 0;
         this.opened_item=null;
         this.gotoTop();
         this.display_center();
         this.feed_contents=[];
-        console.log('clear and load items');
         var ul = center.querySelector('.slide_content ul');
         ul.innerHTML='';
         this.displayItems();
@@ -493,7 +499,6 @@ var Layout = function()
                 // Build new list of items
                 var ul = center.querySelector('.slide_content ul');
 
-                console.log(r);
                 // Clear previous list
                 if(!items)
                 {
@@ -534,28 +539,10 @@ var Layout = function()
                         p.className='feed_flags';
                         div.appendChild(p)
 
-                        /*
-                        var flag_read = document.createElement('span');
-                        flag_read.className='flag_read '+(item.categories.indexOf('user/-/state/com.google/fresh')===-1?'ko':'');
-                        flag_read.setAttribute('data-icon','gmail');
-                        flag_read.addEventListener('click', layout.markReadClick.bind(layout));
-                        p.appendChild(flag_read);
-                        */
-
                         var flag_star = document.createElement('span');
-                        flag_star.className='flag_star '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko':'');
-                        flag_star.setAttribute('data-icon','star-full');
+                        flag_star.className='flag_star fa '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko fa-star-o':'fa-star');
                         flag_star.addEventListener('click', layout.markStarClick.bind(layout));
                         p.appendChild(flag_star);
-
-                        /*
-                        var flag_like = document.createElement('span');
-                        flag_like.className='flag_like '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko':'');
-                        flag_like.setAttribute('data-icon','feedback');
-                        flag_like.addEventListener('click', layout.markLikeClick.bind(layout));
-                        p.appendChild(flag_like);
-                        */
-
 
                         var content = item.summary.content;
                         content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
@@ -577,8 +564,24 @@ var Layout = function()
                 }
             });
     };
+
+    this.closeItem = function()
+    {
+        center_menu_all.classList.remove('hidden');
+        center_menu_single.classList.add('hidden');
+
+        var check = document.querySelector('.feed_fullscreen');
+        if(check)
+        {
+            check.parentNode.removeChild(check);
+        }
+    };
+
     this.openItem = function(e)
     {
+        center_menu_all.classList.add('hidden');
+        center_menu_single.classList.remove('hidden');
+
         var target=e.target;
         var li = e.target;
         while(li && li.tagName!=='LI')
@@ -595,27 +598,20 @@ var Layout = function()
         }
 
         // Close previous opened item
-        var check = document.querySelector('.feed_content');
+        var check = document.querySelector('.feed_fullscreen');
         if(check)
         {
-            var li_p = check.parentNode;
             check.parentNode.removeChild(check);
-            // If clicked on the same item, close it
-            if(li_p==li)
-            {
-                return;
-            }
         }
-        console.log('open ',id);
-        center.querySelector('.slide_content').scrollTop = li.offsetTop;
+
+        var newLi = li.cloneNode(true);
+        newLi.className='feed_fullscreen';
+        full_container.appendChild(newLi);
 
         var div = document.createElement('div');
         div.className='feed_content';
-        console.log('test');
         div.innerHTML = this.feed_contents[id];
-        console.log('append to ',li);
-        li.appendChild(div);
-        console.log('test');
+        newLi.appendChild(div);
     };
 };
 

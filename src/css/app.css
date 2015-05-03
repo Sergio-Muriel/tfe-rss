@@ -1,6 +1,7 @@
-@import 'lib/gaia-icons-embedded.css';
 
 /* Add custom lib css */
+@import 'font-awesome.min.css';
+
 @import 'colors.css';
 @import 'header.css';
 @import 'toolbar.css';
@@ -30,6 +31,10 @@ div, p , ul, table, tr, td, h1, h2, h3, h4
 {
     box-sizing:border-box;
 }
+.fa
+{
+    font-size:1.9rem;
+}
 
 h1 {
   margin: 0 0 0rem 0;
@@ -40,7 +45,7 @@ p {
 }
 .hidden
 {
-    display:none;
+    display:none !important;
 }
 
 

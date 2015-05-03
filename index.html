@@ -21,7 +21,6 @@
         <script type="text/javascript" src="js/app.js" defer></script>
 
         <link rel="prefetch" type="application/l10n" href="data/locales.ini" />
-        <link rel="stylesheet" type="text/css" href="bower_components/gaia-fonts/style.css"></link>
 
         <link href="css/lib/headers.css" rel="stylesheet" type="text/css">
         <link href="css/lib/gaia-icons-embedded.css" rel="stylesheet" type="text/css">
@@ -44,19 +43,28 @@
             <div class="slide center">
                 <!-- MENU -->
                 <div class="header">
-                    <button class="button_left" data-slide="left"><span data-icon="menu"></span></button>
-                    <button class="button_right" data-slide="right"><span data-icon="settings"></span></button>
+                    <button class="button_left" data-slide="left"><span class="fa fa-navicon"></span></button>
+                    <button class="button_right" data-slide="right"><span class="fa fa-gears"></span></button>
                     <h1 data-l10n-id="app_title">The Old RSS Reader</h1>
                 </div>
+
+                <div class="feed_fullscreen-container">
+                </div>
+
                 <div class="slide_content">
                     <ul>
                     </ul>
                 </div>
-                <div class="center_menu">
-                    <span class="prev_btn" data-icon="arrow-back"></span>
-                    <span class="readall_btn" data-icon="tick"></span>
-                    <span class="update_btn" data-icon="reload"></span>
-                    <span class="next_btn" data-icon="arrow-forward"></span>
+
+                <div class="center_menu center_menu_all">
+                    <span class="readall_btn fa fa-check"></span>
+                    <span class="update_btn fa fa-refresh"></span>
+                </div>
+
+                <div class="center_menu center_menu_single hidden">
+                    <span class="prev_btn fa fa-arrow-left"></span>
+                    <span class="close_btn fa fa-close"></span>
+                    <span class="next_btn fa fa-arrow-right"></span>
                 </div>
             </div>
             <div class="slide right">
@@ -90,6 +98,11 @@
                                     <p class="line_checkbox">
                                         <input type="checkbox" class="view_read bb-checkbox" id="view_read">
                                         <label for="view_read" data-l10n-id="view_read_items"></label>
+                                    </p>
+
+                                    <p class="line_checkbox">
+                                        <input type="checkbox" class="view_list bb-checkbox" id="view_list">
+                                        <label for="view_list" data-l10n-id="view_list_type"></label>
                                     </p>
                                 </fieldset>
                             </form>

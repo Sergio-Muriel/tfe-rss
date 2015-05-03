@@ -44,6 +44,7 @@
     padding:0px;
     white-space:normal;
     padding-right:0.5rem;
+    color:var(--mainlistColor);
 }
 .fresh_item .feed_title
 {
@@ -60,6 +61,7 @@
     font-weight:normal;
     margin:0px;
     font-size:1.3rem;
+    color:var(--mainlistColorOrigin);
 
 }
 .feed_flags
@@ -106,7 +108,6 @@
     line-height:1.5rem;
     padding:1rem;
     overflow-x:hidden;
-    background:var(--mainsubListBg);
     white-space:normal;
 }
 .feed_content *
@@ -121,9 +122,10 @@
 {
     line-height:7rem;
     text-align:center;
-    font-size:2rem;
-    background:var(--mainlistItemBg);
-    color:var(--mainlistColor);
+    font-size:1.6rem;
+    background:var(--mainlistButtonBg);
+    text-shadow:1px 1px 1px #000;
+    color:var(--mainlistButtonFg);
 }
 
 
@@ -147,9 +149,21 @@
 .center_menu span
 {
     display:inline-block;
-    padding:0px 20px;
+    vertical-align:top;
+    padding:0px 3rem;
     height:5rem;
     line-height:5rem;
+}
+.center_menu_single
+{
+    z-index:5;
+}
+
+.center_menu span.list_btn
+{
+    background:url(../../img/list.png) center center no-repeat;
+    background-size:auto 50%;
+    vertical-align:top;
 }
 .center_menu span.updating
 {
@@ -160,3 +174,20 @@
 {
     padding-bottom:5rem;
 }
+
+
+.slide.center li.feed_fullscreen
+{
+    position:fixed;
+    z-index:4;
+    top:5rem;
+    width:100%;
+    overflow-x:hidden;
+    background:var(--mainsubListBg);
+    bottom:0px;
+}
+li.feed_fullscreen .feed_header
+{
+    background:var(--mainlistItemBg);
+}
+

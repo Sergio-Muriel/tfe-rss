@@ -479,6 +479,7 @@ TheOldReader.prototype.getItems = function(id, viewRead, next)
                     {
                         url+='&i='+item.id;
                     });
+                    console.log('fetch ',url);
                     self._query.bind(self)("GET", url, null)
                         .then(function(text)
                         {
@@ -511,7 +512,7 @@ TheOldReader.prototype.markRead= function(item_id, state)
         var url = self.host+'/reader/api/0/edit-tag?output=json';
 
         var data='i='+item_id;
-        data+= (state ? '&r=' : '&a=');
+        data+= (state ? '&a=' : '&r=');
         data+= 'user/-/state/com.google/read';
         self._query.bind(self)("POST", url, data)
             .then(function(text)

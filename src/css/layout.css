@@ -68,15 +68,5 @@
 }
 
 
-.subtitle h2
-{
-    font-size:2rem;
-    text-align:center;
-    height:5rem;
-    line-height:5rem;
-    margin:0px;
-    padding:0px;
-    background:var(--headerMenuBg);
-}
 
 

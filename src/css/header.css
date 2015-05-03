@@ -10,7 +10,6 @@
     font-size:0.7rem;
     color:var(--headerColor);
     overflow:hidden;
-    border-bottom:1px solid black;
 
     font-weight: lighter;
     font-style: italic;

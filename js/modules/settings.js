@@ -16,6 +16,7 @@ var Settings = function()
         this.password = this.form.querySelector('input[name=password]');
 
         this.view_read = document.querySelector('#view_read');
+        this.view_list = document.querySelector('#view_list');
 
 
         this.bind();
@@ -60,11 +61,13 @@ var Settings = function()
 
         this.register_link.addEventListener('click', function(e) { return self.register(e); });
         this.view_read.addEventListener('click', function(e) { return self.toggleViewRead(e); });
+        this.view_list.addEventListener('click', function(e) { return self.toggleViewList(e); });
     };
 
     this.restoreSettings= function()
     {
         this.view_read.checked =  this.getViewRead();
+        this.view_list.checked =  this.getViewList();
     };
 
     this.logout= function(e)
@@ -84,11 +87,19 @@ var Settings = function()
         e.preventDefault();
         return false;
     };
+
     this.toggleViewRead= function(e)
     {
         localStorage.setItem('viewRead', this.view_read.checked ? 1 : 0);
         layout.clearAndLoadItems();
         console.log('toggle view read');
+    };
+
+    this.toggleViewList= function(e)
+    {
+        localStorage.setItem('viewList', this.view_list.checked ? 1 : 0);
+        layout.clearAndLoadItems();
+        console.log('toggle view list');
     };
 
     this.login= function(e)
@@ -130,7 +141,11 @@ var Settings = function()
 
     this.getViewRead = function()
     {
-        return localStorage.getItem('viewRead') === "1" ? true : false;
+        return localStorage.getItem('viewRead') !== "0" ? true : false;
+    };
+    this.getViewList = function()
+    {
+        return localStorage.getItem('viewList') !== "0" ? true : false;
     };
 
 };

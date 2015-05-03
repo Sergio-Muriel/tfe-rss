@@ -446,16 +446,22 @@ var Layout = function()
         this.display_name = li.querySelector('.label').innerHTML;
         return this.clearAndLoadItems();
     }
-    this.clearAndLoadItems = function()
+
+    this.clear= function()
     {
         this.closeItem();
         this.wait_loading = 0;
         this.opened_item=null;
-        this.gotoTop();
         this.display_center();
         this.feed_contents=[];
         var ul = center.querySelector('.slide_content ul');
         ul.innerHTML='';
+    };
+
+    this.clearAndLoadItems = function()
+    {
+        this.clear();
+        this.gotoTop();
         this.displayItems();
     },
 
@@ -512,6 +518,15 @@ var Layout = function()
                 }
                 items.forEach(function(item)
                 {
+                        var content = item.summary.content;
+                        content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
+                        content = content.replace(/<\/script[^>]*>/,'');
+                        var first_image =null;
+                        if(re=content.match(/<img[^>]+src=["']([^"']+)/))
+                        {
+                            first_image=re[1];
+                        }
+
                         var li = document.createElement('li');
                         li.className='feed_item';
                         if(item.categories.indexOf('user/-/state/com.google/fresh')!==-1)
@@ -536,6 +551,11 @@ var Layout = function()
                         div.appendChild(p);
 
                         p = document.createElement('p');
+                        p.className='feed_image';
+                        p.style.backgroundImage = 'url('+first_image+')';
+                        div.appendChild(p);
+
+                        p = document.createElement('p');
                         p.className='feed_flags';
                         div.appendChild(p)
 
@@ -544,9 +564,10 @@ var Layout = function()
                         flag_star.addEventListener('click', layout.markStarClick.bind(layout));
                         p.appendChild(flag_star);
 
-                        var content = item.summary.content;
-                        content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
-                        content = content.replace(/<\/script[^>]*>/,'');
+                        var flag_like = document.createElement('span');
+                        flag_like.className='flag_like fa '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko fa-thumbs-o-up':'fa-thumbs-up');
+                        p.appendChild(flag_like);
+
 
                         self.feed_contents[item.id] = content;
                         ul.appendChild(li);
@@ -605,6 +626,9 @@ var Layout = function()
         }
 
         var newLi = li.cloneNode(true);
+        newLi.querySelector('.flag_star').addEventListener('click', layout.markStarClick.bind(layout));
+        newLi.querySelector('.flag_like').addEventListener('click', layout.markLikeClick.bind(layout));
+
         newLi.className='feed_fullscreen';
         full_container.appendChild(newLi);
 

@@ -520,7 +520,8 @@ TheOldReader.prototype.markRead= function(item_id, state)
                 ok(text);
             }, reject);
     });
-}
+};
+
 TheOldReader.prototype.markLike= function(item_id, state)
 {
     var self=this;
@@ -537,7 +538,8 @@ TheOldReader.prototype.markLike= function(item_id, state)
                 ok(text);
             }, reject);
     });
-}
+};
+
 TheOldReader.prototype.markStar= function(item_id, state)
 {
     var self=this;

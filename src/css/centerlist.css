@@ -2,6 +2,8 @@
 {
     position:relative;
     padding-top:5rem;
+    z-index:5;
+    text-align:left;
 }
 
 .slide.center ul,
@@ -184,7 +186,7 @@
     width:100%;
     overflow-x:hidden;
     background:var(--mainsubListBg);
-    bottom:0px;
+    bottom:5rem;
 }
 li.feed_fullscreen .feed_header
 {

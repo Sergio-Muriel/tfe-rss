@@ -29,13 +29,6 @@
     background:var(--menuBg);
     color:var(--menuColor);
 }
-.slide.center
-{
-    position:relative;
-    padding-top:5rem;
-    z-index:5;
-    text-align:left;
-}
 
 .slide.right
 {
@@ -61,7 +54,7 @@
 {
     position:absolute;
     top:5rem;
-    bottom:0px;
+    bottom:5rem;
     width:100%;
     overflow-x:hidden;
     overflow-y:auto;

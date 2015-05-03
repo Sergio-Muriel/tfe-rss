@@ -95,14 +95,6 @@
     background:#333;
     color:#fff;
 }
-.slide.center
-{
-    position:relative;
-    padding-top:80px;
-    padding-top:5rem;
-    z-index:5;
-    text-align:left;
-}
 
 .slide.right
 {
@@ -133,7 +125,8 @@
     position:absolute;
     top:80px;
     top:5rem;
-    bottom:0px;
+    bottom:80px;
+    bottom:5rem;
     width:100%;
     overflow-x:hidden;
     overflow-y:auto;
@@ -446,6 +439,8 @@ div.leftlist_item
     position:relative;
     padding-top:80px;
     padding-top:5rem;
+    z-index:5;
+    text-align:left;
 }
 
 .slide.center ul,
@@ -645,7 +640,8 @@ div.leftlist_item
     width:100%;
     overflow-x:hidden;
     background:#fff;
-    bottom:0px;
+    bottom:80px;
+    bottom:5rem;
 }
 li.feed_fullscreen .feed_header
 {

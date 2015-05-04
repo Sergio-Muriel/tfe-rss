@@ -492,10 +492,14 @@ div.leftlist_item
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding-right:96px;
-    padding-right:6rem;
     color:#000;
 }
+.feed_title.view_list
+{
+    padding-right:96px;
+    padding-right:6rem;
+}
+
 .fresh_item .feed_title
 {
     font-weight:bold;
@@ -648,13 +652,6 @@ div.leftlist_item
 {
     color:#bbb;
 }
-
-.slide.center .slide_content ul
-{
-    padding-bottom:80px;
-    padding-bottom:5rem;
-}
-
 
 .slide.center li.feed_fullscreen
 {

@@ -511,6 +511,7 @@ var Layout = function()
         });
 
         var viewRead = settings.getViewRead();
+        var viewList = settings.getViewList();
         var id = this.display_id;
 
         var ul = center.querySelector('.slide_content ul');
@@ -575,7 +576,7 @@ var Layout = function()
                         li.appendChild(div);
 
                         var p = document.createElement('p');
-                        p.className='feed_title';
+                        p.className='feed_title '+(viewList?'view_list':'view_full');
                         p.innerHTML = item.title;
                         p.addEventListener('click', layout.openItem.bind(layout));
                         div.appendChild(p);
@@ -585,10 +586,20 @@ var Layout = function()
                         p.innerHTML = item.origin.title;
                         div.appendChild(p);
 
-                        p = document.createElement('p');
-                        p.className='feed_image';
-                        p.style.backgroundImage = 'url('+first_image+')';
-                        div.appendChild(p);
+                        if(viewList)
+                        {
+                            p = document.createElement('p');
+                            p.className='feed_image';
+                            p.style.backgroundImage = 'url('+first_image+')';
+                            div.appendChild(p);
+                        }
+                        else
+                        {
+                            div_content = document.createElement('div');
+                            div_content.className='feed_content';
+                            div_content.innerHTML = content;
+                            li.appendChild(div_content);
+                        }
 
                         p = document.createElement('p');
                         p.className='feed_flags';
@@ -667,10 +678,13 @@ var Layout = function()
         newLi.className='feed_fullscreen';
         full_container.appendChild(newLi);
 
-        var div = document.createElement('div');
-        div.className='feed_content';
-        div.innerHTML = this.feed_contents[id];
-        newLi.appendChild(div);
+        if(!newLi.querySelector('.feed_content'))
+        {
+            var div = document.createElement('div');
+            div.className='feed_content';
+            div.innerHTML = this.feed_contents[id];
+            newLi.appendChild(div);
+        }
     };
 };
 

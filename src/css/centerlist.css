@@ -44,9 +44,13 @@
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding-right:6rem;
     color:var(--mainlistColor);
 }
+.feed_title.view_list
+{
+    padding-right:6rem;
+}
+
 .fresh_item .feed_title
 {
     font-weight:bold;
@@ -184,12 +188,6 @@
 {
     color:var(--mainFlagsFgUpdating);
 }
-
-.slide.center .slide_content ul
-{
-    padding-bottom:5rem;
-}
-
 
 .slide.center li.feed_fullscreen
 {

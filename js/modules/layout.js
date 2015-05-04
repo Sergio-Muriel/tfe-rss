@@ -73,7 +73,7 @@ var Layout = function()
         }
         else
         {
-            next = this.opened_item.nextSibling;
+            next = this.opened_item.nextElementSibling;
         }
         if(this.opened_item!=next)
         {
@@ -89,7 +89,7 @@ var Layout = function()
         }
         else
         {
-            next = this.opened_item.prevSibling;
+            next = this.opened_item.previousElementSibling ||  document.querySelector('.feed_item');
         }
         if(this.opened_item!=next)
         {
@@ -478,7 +478,6 @@ var Layout = function()
         {
             li = li.parentNode;
         }
-        console.log('li ',li);
         this.display_id = li.getAttribute('data-id');
         this.display_name = li.querySelector('.label, .feed_name').innerHTML;
         return this.clearAndLoadItems();

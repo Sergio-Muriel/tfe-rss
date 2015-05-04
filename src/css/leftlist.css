@@ -60,6 +60,7 @@
 .label_num
 {
     display:inline-block;
+    vertical-align:middle;
     text-align:right;
     padding:0px 0.5rem 0px 1rem;
     top:0px;
@@ -71,6 +72,7 @@
 {
     display:inline-block;
     width:2rem;
+    vertical-align:middle;
 }
 
 div.leftlist_items
@@ -92,6 +94,8 @@ div.leftlist_item
 }
 .feed_name
 {
+    display:inline-block;
+    vertical-align:middle;
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
@@ -110,5 +114,10 @@ div.leftlist_item
     padding:0px;
     background:var(--headerMenuBg);
     color:var(--headerMenuFg);
+}
+
+.slide.left .center_menu
+{
+    width:calc(80% - 1px);
 }
 

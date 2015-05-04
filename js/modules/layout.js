@@ -1,5 +1,6 @@
 var Layout = function()
 {
+    var translate = navigator.mozL10n.get;
     var buttons=  document.querySelectorAll('.header button');
 
     var center = document.querySelector('.slide.center');
@@ -35,6 +36,32 @@ var Layout = function()
         document.querySelector('.next_btn').addEventListener('click', this.openNext.bind(this));
         document.querySelector('.prev_btn').addEventListener('click', this.openPrev.bind(this));
         document.querySelector('.close_btn').addEventListener('click', this.closeItem.bind(this));
+
+        document.querySelector('.addfeed_btn').addEventListener('click', this.addFeed.bind(this));
+    };
+
+    this.addFeed = function()
+    {
+        var url = prompt(translate('add_feed'));
+        var self=this;
+        if(url)
+        {
+            this.controller.addFeed(url)
+            .then(
+            function(result)
+            {
+                var translate = navigator.mozL10n.get;
+                self.controller.fullupdate()
+                    .then(layout.updateLeftList.bind(layout));
+
+                alert(translate('feed_added'));
+            },
+            function(result)
+            {
+                var translate = navigator.mozL10n.get;
+                alert(translate('feed_added_error'));
+            });
+        }
     };
 
     this.openNext = function(e)
@@ -74,7 +101,6 @@ var Layout = function()
     {
         var self=this;
         var span = e.target;
-        var translate = navigator.mozL10n.get;
         if(!confirm(translate('confirm_read_all')))
         {
             return;
@@ -238,7 +264,6 @@ var Layout = function()
     this.updateLeftList= function()
     {
         var self=this;
-        var translate = navigator.mozL10n.get;
 
         return Promise.all([ this.controller.getFeeds(), this.controller.getLabels()])
         .then(function(values)
@@ -353,14 +378,25 @@ var Layout = function()
                     leftlist.appendChild(li);
                 }
             });
+
             Array.forEach(feeds, function(feed)
             {
                 var name = feed.category;//replace(/.*label\//,'')
                 var feed_id = feed.id;//replace(/.*feeds\//,'')
                 var re = ".leftlist_item[data-id=\'"+name+"\'] .leftlist_items";
-                var items = document.querySelector(re);
+                var items;
+                
+                if(name)
+                {
+                    items = document.querySelector(re);
+                }
+                else
+                {
+                    items = leftlist;
+                }
 
-                if(items)
+
+                if(!/sponsored/.test(feed.id))
                 {
                     var div  =document.createElement('div');
                     div.className='leftlist_item';
@@ -438,12 +474,13 @@ var Layout = function()
     this.loadFeed = function(e)
     {
         var li = e.target;
-        while(li && li.tagName!=='LI')
+        while(li && li.tagName!=='LI' && li.tagName!=='DIV')
         {
             li = li.parentNode;
         }
+        console.log('li ',li);
         this.display_id = li.getAttribute('data-id');
-        this.display_name = li.querySelector('.label').innerHTML;
+        this.display_name = li.querySelector('.label, .feed_name').innerHTML;
         return this.clearAndLoadItems();
     }
 
@@ -474,7 +511,6 @@ var Layout = function()
             self.updateCount();
         });
 
-        var translate = navigator.mozL10n.get;
         var viewRead = settings.getViewRead();
         var id = this.display_id;
 

@@ -9,6 +9,7 @@ var Activities = function()
     };
     this.getMessage= function(receive)
     {
+        var self=this;
         console.log('receive',receive);
         if(receive.source.data.type=='url')
         {
@@ -17,7 +18,8 @@ var Activities = function()
             function(result)
             {
                 var translate = navigator.mozL10n.get;
-                layout.updateLeftList();
+                self.controller.fullupdate()
+                    .then(layout.updateLeftList.bind(layout));
                 alert(translate('feed_added'));
             },
             function(result)

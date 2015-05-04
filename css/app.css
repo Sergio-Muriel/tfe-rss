@@ -374,6 +374,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
 .label_num
 {
     display:inline-block;
+    vertical-align:middle;
     text-align:right;
     padding:0px 8px 0px 16px;
     padding:0px 0.5rem 0px 1rem;
@@ -388,6 +389,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
     display:inline-block;
     width:32px;
     width:2rem;
+    vertical-align:middle;
 }
 
 div.leftlist_items
@@ -411,6 +413,8 @@ div.leftlist_item
 }
 .feed_name
 {
+    display:inline-block;
+    vertical-align:middle;
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
@@ -433,6 +437,11 @@ div.leftlist_item
     background:-webkit-linear-gradient(top, rgba(232,232,232,1) 0%, rgba(220,220,220,1) 45%, rgba(211,211,211,1) 100%);
     background:linear-gradient(to bottom, rgba(232,232,232,1) 0%,rgba(220,220,220,1) 45%,rgba(211,211,211,1) 100%);
     color:#000;
+}
+
+.slide.left .center_menu
+{
+    width:calc(80% - 1px);
 }
 .slide.center
 {

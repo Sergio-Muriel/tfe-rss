@@ -40,7 +40,6 @@ var Settings = function()
 
                 console.log('Start controller fullupdate');
                 self.controller.fullupdate()
-                    .then(function() { console.log('Done controller fullupdate'); })
                     .then(layout.updateLeftList.bind(layout));
             }
             else

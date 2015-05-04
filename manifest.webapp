@@ -22,5 +22,26 @@
   "installs_allowed_from": [
     "*"
   ],
-  "default_locale": "es"
+  "default_locale": "es",
+  "activities":
+  {
+      "view": {
+          "filters": {
+              "type": "url",
+              "url": {
+                  "required": true,
+                  "regexp":"/^https?:/"
+              }
+          }
+      },
+      "share": {
+          "filters": {
+              "type": "url",
+              "url": {
+                  "required": true,
+                  "regexp":"/^https?:/"
+              }
+          }
+      }
+  }
 }

@@ -574,3 +574,28 @@ TheOldReader.prototype.readAll= function(item_id)
     });
 }
 
+TheOldReader.prototype.addFeed= function(url)
+{
+    var self=this;
+    var addurl = url;
+    return new Promise(function(ok, reject)
+    {
+        var url = self.host+'/reader/api/0/subscription/quickadd';
+        var data = 'quickadd='+encodeURIComponent(addurl);
+
+        self._query.bind(self)("POST", url, data)
+            .then(function(text)
+            {
+                var data = JSON.parse(text);
+                if(data.error)
+                {
+                    reject(data);
+                }
+                else
+                {
+                    ok(data);
+                }
+            }, reject);
+    });
+};
+

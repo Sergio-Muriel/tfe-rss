@@ -2,6 +2,7 @@
 var theoldreader = new TheOldReader();
 var layout =  new Layout();
 var settings =  new Settings();
+var activities =  new Activities();
 
 
 // DOMContentLoaded is fired once the document has been loaded and parsed,
@@ -15,4 +16,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
     // Add the old reader support
     settings.init(theoldreader);
+    activities.init(theoldreader);
+
 });

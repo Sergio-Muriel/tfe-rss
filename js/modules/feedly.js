@@ -1,46 +1,44 @@
-var TheOldReader = function()
+var Feedly = function()
 {
     var self=this;
     this.username = null;
     this.password = null;
+    this.token = null;
 
-    this.form = document.querySelector('.theoldreader form');
-    this.login_link = document.querySelector('.theoldreader .login_link');
-    this.logout_link = document.querySelector('.theoldreader .logout_link');
-    this.register_link = document.querySelector('.theoldreader .register_link');
-    this.email = this.form.querySelector('input[name=email]');
-    this.password = this.form.querySelector('input[name=password]');
+    this.form = document.querySelector('.feedly form');
+    this.login_link = document.querySelector('.feedly .login_link');
+    this.logout_link = document.querySelector('.feedly .logout_link');
+    this.register_link = document.querySelector('.feedly .register_link');
+    this.email = this.form.querySelector('.feedly input[name=email]');
+    this.password = this.form.querySelector('.feedly input[name=password]');
 
-    this.host = 'https://theoldreader.com/';
+    this.host = 'https://feedly.com/';
 
     // Init XHR object
     this.xhr = new XMLHttpRequest({ mozSystem: true });
 
     // Init indexed DB
-    var db_request = indexedDB.open('theoldreader');
+    var db_request = indexedDB.open('feedly');
     db_request.onsuccess = function (e) { self.db = e.target.result; };
     db_request.onerror = function (e) { console.log(e); };
 };
 
-TheOldReader.prototype.hide = function()
+Feedly.prototype.hide = function()
 {
     this.form.style.display='none';
 };
-TheOldReader.prototype.show = function()
+Feedly.prototype.show = function()
 {
     this.form.style.display='block';
 };
 
-TheOldReader.prototype.init = function()
+
+Feedly.prototype.init = function()
 {
     var self=this;
     if(!self.inited)
     {
-        // Bind buttons
-        this.form.addEventListener('submit', function(e) { return self.login(e); }, false);
-        this.login_link.addEventListener('submit', function(e) { return self.login(e); }, false);
-        this.logout_link.addEventListener('click', function(e) { return self.logout(e); }, false);
-        this.register_link.addEventListener('click', function(e) { return self.register(e); });
+        // Bind
     }
     self.inited=1;
 
@@ -48,16 +46,15 @@ TheOldReader.prototype.init = function()
             this.initDb()
     ]);
 };
-TheOldReader.prototype.logout = function(e)
+Feedly.prototype.logout = function(e)
 {
     this.deleteAccount(this.loggedout.bind(this));
     settings.logout();
     e.preventDefault();
 }
 
-TheOldReader.prototype.login= function(e)
+Feedly.prototype.login= function(e)
 {
-    var self=this;
     if(this.form.checkValidity())
     {
         e.preventDefault();
@@ -72,12 +69,12 @@ TheOldReader.prototype.login= function(e)
     }
 };
 
-TheOldReader.prototype.initDb = function()
+Feedly.prototype.initDb = function()
 {
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var request = indexedDB.open('theoldreader_db',2.3);
+        var request = indexedDB.open('feedly_db',2.3);
         request.onsuccess = function (e) {
             self.db = e.target.result;
             ok();
@@ -122,7 +119,7 @@ TheOldReader.prototype.initDb = function()
 };
 
 // Methodes
-TheOldReader.prototype._login = function(email, password)
+Feedly.prototype._login = function(email, password)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -137,7 +134,8 @@ TheOldReader.prototype._login = function(email, password)
                 if(r.status == 200 && (auth_token = r.responseText.match(/Auth=(.*)/)))
                 {
                     // Save token and call callbak
-                    self.create_account(email,auth_token[1])
+                    self.token = auth_token[1];
+                    self.create_account(email,self.token)
                         .then(ok);
                 }
                 else if(r.status===0)
@@ -164,20 +162,20 @@ TheOldReader.prototype._login = function(email, password)
     });
 };
 
-TheOldReader.prototype.loggedin = function()
+Feedly.prototype.loggedin = function()
 {
-    this.email.value = this.getEmail();
-    this.form.classList.add("loggedin");
-    this.email.disabled=true;
+    //this.email.value = this.getEmail();
+    //this.form.classList.add("loggedin");
+    //this.email.disabled=true;
 };
 
-TheOldReader.prototype.loggedout = function()
+Feedly.prototype.loggedout = function()
 {
-    this.form.classList.remove("loggedin");
-    this.email.disabled=false;
+    //this.form.classList.remove("loggedin");
+    //this.email.disabled=false;
 };
 
-TheOldReader.prototype.create_account = function(email, token)
+Feedly.prototype.create_account = function(email, token)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -199,7 +197,7 @@ TheOldReader.prototype.create_account = function(email, token)
     });
 };
 
-TheOldReader.prototype.getAccount = function(callback)
+Feedly.prototype.getAccount = function(callback)
 {
     var account = null;
     var self=this;
@@ -221,19 +219,19 @@ TheOldReader.prototype.getAccount = function(callback)
     };
 }
 
-TheOldReader.prototype.getEmail = function()
+Feedly.prototype.getEmail = function()
 {
     return this.account  ? this.account.email : '';
 };
 
 
-TheOldReader.prototype.getRegisterLink = function()
+Feedly.prototype.getRegisterLink = function()
 {
     return 'https://theoldreader.com/#sign_up';
 };
 
 
-TheOldReader.prototype.deleteAccount = function(callback)
+Feedly.prototype.deleteAccount = function(callback)
 {
     if(this.account)
     {
@@ -247,25 +245,21 @@ TheOldReader.prototype.deleteAccount = function(callback)
     }
 };
 
-TheOldReader.prototype.isLoggedIn = function(callback)
+Feedly.prototype.isLoggedIn = function(callback)
 {
     if(!this.account)
     {
         return false;
     }
+    console.log('token ',this.account.token);
     return true;
 };
 
-TheOldReader.prototype._query = function(method,url,data,callback)
+Feedly.prototype._query = function(method,url,data,callback)
 {
     var self=this;
     return new Promise(function(ok, reject)
     {
-        if(!self.account || !self.account.token)
-        {
-            reject();
-        }
-
         // Init XHR object
         var r = new XMLHttpRequest({ mozSystem: true });
         r.open(method, url, true);
@@ -296,7 +290,7 @@ TheOldReader.prototype._query = function(method,url,data,callback)
 
 
 
-TheOldReader.prototype.updateSubscriptionList = function()
+Feedly.prototype.updateSubscriptionList = function()
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -318,7 +312,7 @@ TheOldReader.prototype.updateSubscriptionList = function()
             }, reject);
     });
 }
-TheOldReader.prototype.addSubscriptions = function(subscriptions)
+Feedly.prototype.addSubscriptions = function(subscriptions)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -341,7 +335,7 @@ TheOldReader.prototype.addSubscriptions = function(subscriptions)
     });
 };
 
-TheOldReader.prototype.updateLabelsList = function()
+Feedly.prototype.updateLabelsList = function()
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -363,7 +357,7 @@ TheOldReader.prototype.updateLabelsList = function()
             });
     });
 }
-TheOldReader.prototype.addLabels = function(labels)
+Feedly.prototype.addLabels = function(labels)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -385,7 +379,7 @@ TheOldReader.prototype.addLabels = function(labels)
     });
 };
 
-TheOldReader.prototype.updateCount = function()
+Feedly.prototype.updateCount = function()
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -408,7 +402,7 @@ TheOldReader.prototype.updateCount = function()
     });
 }
 
-TheOldReader.prototype.addCounts = function(counts)
+Feedly.prototype.addCounts = function(counts)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -430,7 +424,7 @@ TheOldReader.prototype.addCounts = function(counts)
     });
 };
 
-TheOldReader.prototype.fullupdate = function()
+Feedly.prototype.fullupdate = function()
 {
     return Promise.all([
             this.updateSubscriptionList(),
@@ -439,7 +433,7 @@ TheOldReader.prototype.fullupdate = function()
     ]);
 };
 
-TheOldReader.prototype.getFeeds = function()
+Feedly.prototype.getFeeds = function()
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -466,7 +460,7 @@ TheOldReader.prototype.getFeeds = function()
     });
 }
 
-TheOldReader.prototype.getLabels = function()
+Feedly.prototype.getLabels = function()
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -494,7 +488,7 @@ TheOldReader.prototype.getLabels = function()
     });
 };
 
-TheOldReader.prototype.getCounts = function()
+Feedly.prototype.getCounts = function()
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -521,7 +515,7 @@ TheOldReader.prototype.getCounts = function()
     });
 }
 
-TheOldReader.prototype.getItems = function(id, viewRead, next)
+Feedly.prototype.getItems = function(id, viewRead, next)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -576,7 +570,7 @@ TheOldReader.prototype.getItems = function(id, viewRead, next)
     });
 }
 
-TheOldReader.prototype.markRead= function(item_id, state)
+Feedly.prototype.markRead= function(item_id, state)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -594,7 +588,7 @@ TheOldReader.prototype.markRead= function(item_id, state)
     });
 };
 
-TheOldReader.prototype.markLike= function(item_id, state)
+Feedly.prototype.markLike= function(item_id, state)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -612,7 +606,7 @@ TheOldReader.prototype.markLike= function(item_id, state)
     });
 };
 
-TheOldReader.prototype.markStar= function(item_id, state)
+Feedly.prototype.markStar= function(item_id, state)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -630,7 +624,7 @@ TheOldReader.prototype.markStar= function(item_id, state)
     });
 }
 
-TheOldReader.prototype.readAll= function(item_id)
+Feedly.prototype.readAll= function(item_id)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -646,7 +640,7 @@ TheOldReader.prototype.readAll= function(item_id)
     });
 }
 
-TheOldReader.prototype.addFeed= function(url)
+Feedly.prototype.addFeed= function(url)
 {
     var self=this;
     var addurl = url;

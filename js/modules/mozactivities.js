@@ -7,6 +7,12 @@ var Activities = function()
         this.controller = controller;
         navigator.mozSetMessageHandler("activity", this.getMessage.bind(this));
     };
+
+    this.setController= function(_controller)
+    {
+        this.controller = _controller;
+    };
+
     this.getMessage= function(receive)
     {
         var self=this;

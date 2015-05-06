@@ -23,17 +23,14 @@
     "*"
   ],
   "default_locale": "es",
+
+  "redirects": [
+  {"from": "https://cloud.feedly.com/subscriptions",
+      "to": "/app/index.html"}
+  ],
+
   "activities":
   {
-      "view": {
-          "filters": {
-              "type": "url",
-              "url": {
-                  "required": true,
-                  "regexp":"/^https?:/"
-              }
-          }
-      },
       "share": {
           "filters": {
               "type": "url",

@@ -24,6 +24,11 @@ var Layout = function()
         this.bind();
     };
 
+    this.setController= function(_controller)
+    {
+        this.controller = _controller;
+    };
+
     this.bind =  function()
     {
         document.querySelector('.header h1').addEventListener('click', this.display_center.bind(this));
@@ -488,7 +493,6 @@ var Layout = function()
         this.closeItem();
         this.wait_loading = 0;
         this.opened_item=null;
-        this.display_center();
         this.feed_contents=[];
         var ul = center.querySelector('.slide_content ul');
         ul.innerHTML='';

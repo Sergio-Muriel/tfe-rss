@@ -4,16 +4,11 @@ var Settings = function()
     this.form= null;
     this.controller = null;
 
-    this.init =  function(controller)
+    this.init =  function(controllers)
     {
         var self=this;
-        this.controller = controller;
-        this.form = document.querySelector('#register_layer form');
-        this.login_link = document.querySelector('.login_link');
-        this.logout_link = document.querySelector('.logout_link');
-        this.register_link = document.querySelector('.register_link');
-        this.email = this.form.querySelector('input[name=email]');
-        this.password = this.form.querySelector('input[name=password]');
+        this.controllers = controllers;
+
 
         this.view_read = document.querySelector('#view_read');
         this.view_list = document.querySelector('#view_list');
@@ -21,44 +16,75 @@ var Settings = function()
 
         this.bind();
         this.restoreSettings();
-        this.controller.initDb()
-            .then(this.init_account.bind(this));
+
+        this.init_accounts();
+
     }; 
 
-    this.init_account=function()
+    this.init_accounts=function()
     {
         var self=this;
-        var list_accounts = this.controller.getAccount(function(list)
+        var promises =  [];
+        this.controllers.forEach(function(controller)
         {
-            if(list)
+            promises.push(
+                    controller.init().then(self.init_account.bind(self,controller))
+            );
+        });
+        Promise.all(promises)
+            .then(function()
             {
-                self.loggedin();
-                layout.display_center();
+                if(!self.loggedin)
+                {
+                    self.controllers.forEach(function(_controller)
+                    {
+                        _controller.show();
+                    });
+                }
+            });
+    };
 
-                layout.updateLeftList()
-                    .then(layout.displayDefaultLabel.bind(layout));
+    this.init_account=function(_controller)
+    {
+        var self=this;
 
-                console.log('Start controller fullupdate');
-                self.controller.fullupdate()
-                    .then(layout.updateLeftList.bind(layout));
-            }
-            else
+        return new Promise(function(ok, reject)
+        {
+            var list_accounts = _controller.getAccount(function(list)
             {
-                self.loggedout();
-                layout.display_right();
-            }
+                if(list)
+                {
+                    self.loggedin=true;
+
+                    // Send controller to objects
+                    layout.setController(_controller);
+                    activities.setController(_controller);
+
+                    // Save used current controller
+                    self.controller  = _controller;
+
+                    _controller.loggedin();
+                    layout.display_center();
+
+                    layout.updateLeftList()
+                        .then(layout.displayDefaultLabel.bind(layout));
+
+                    _controller.fullupdate()
+                        .then(layout.updateLeftList.bind(layout));
+                    ok();
+                }
+                else
+                {
+                    _controller.hide();
+                    ok();
+                }
+            });
         });
     };
 
     this.bind= function()
     {
         var self=this;
-        this.form.addEventListener('submit', function(e) { return self.login(e); }, false);
-        this.login_link.addEventListener('submit', function(e) { return self.login(e); }, false);
-        this.logout_link.addEventListener('click', function(e) { return self.logout(e); }, false);
-        this.register_link.addEventListener('click', function(e) { return self.register(e); });
-
-        this.register_link.addEventListener('click', function(e) { return self.register(e); });
         this.view_read.addEventListener('click', function(e) { return self.toggleViewRead(e); });
         this.view_list.addEventListener('click', function(e) { return self.toggleViewList(e); });
     };
@@ -71,13 +97,10 @@ var Settings = function()
 
     this.logout= function(e)
     {
-        console.log('logout');
-        this.controller.deleteAccount(this.loggedout.bind(this));
-
+        this.loggedin=false;
         layout.clear();
         layout.clearLeft();
-
-        e.preventDefault();
+        this.init_accounts();
     };
 
     this.register= function(e)
@@ -91,46 +114,12 @@ var Settings = function()
     {
         localStorage.setItem('viewRead', this.view_read.checked ? 1 : 0);
         layout.clearAndLoadItems();
-        console.log('toggle view read');
     };
 
     this.toggleViewList= function(e)
     {
         localStorage.setItem('viewList', this.view_list.checked ? 1 : 0);
         layout.clearAndLoadItems();
-        console.log('toggle view list');
-    };
-
-    this.login= function(e)
-    {
-        if(this.form.checkValidity())
-        {
-            e.preventDefault();
-
-            this.controller.login(this.email.value,this.password.value)
-                .then(this.init_account.bind(this));
-        }
-        else
-        {
-            e.preventDefault();
-            return false;
-        }
-    };
-
-
-    this.loggedin = function()
-    {
-        this._logged = true;
-        this.email.value = this.controller.getEmail();
-        this.form.classList.add("loggedin");
-        this.email.disabled=true;
-    };
-
-    this.loggedout = function()
-    {
-        this._logged = false;
-        this.form.classList.remove("loggedin");
-        this.email.disabled=false;
     };
 
     this.isLoggedIn = function()

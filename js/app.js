@@ -1,5 +1,6 @@
 // Init classes
 var theoldreader = new TheOldReader();
+var feedly = new Feedly();
 var layout =  new Layout();
 var settings =  new Settings();
 var activities =  new Activities();
@@ -12,10 +13,9 @@ var activities =  new Activities();
 window.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
-    layout.init(theoldreader);
+    layout.init();
+    activities.init();
 
     // Add the old reader support
-    settings.init(theoldreader);
-    activities.init(theoldreader);
-
+    settings.init([theoldreader, feedly]);
 });

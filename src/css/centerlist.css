@@ -106,7 +106,8 @@
     vertical-align:middle;
 }
 /* do not display like on list */
-.feed_flags span.flag_like
+.feed_flags span.flag_like,
+.feed_flags span.flag_share
 {
     display:none;
 }
@@ -223,7 +224,8 @@ li.feed_fullscreen .feed_flags span
     font-size:2.2rem;
     line-height:5rem;
 }
-li.feed_fullscreen .feed_flags span.flag_like
+li.feed_fullscreen .feed_flags span.flag_like,
+li.feed_fullscreen .feed_flags span.flag_share
 {
     display:inline-block;
 }

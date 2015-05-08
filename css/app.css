@@ -560,7 +560,8 @@ div.leftlist_item
     vertical-align:middle;
 }
 /* do not display like on list */
-.feed_flags span.flag_like
+.feed_flags span.flag_like,
+.feed_flags span.flag_share
 {
     display:none;
 }
@@ -693,7 +694,8 @@ li.feed_fullscreen .feed_flags span
     line-height:80px;
     line-height:5rem;
 }
-li.feed_fullscreen .feed_flags span.flag_like
+li.feed_fullscreen .feed_flags span.flag_like,
+li.feed_fullscreen .feed_flags span.flag_share
 {
     display:inline-block;
 }

@@ -3,7 +3,6 @@ var theoldreader = new TheOldReader();
 var feedly = new Feedly();
 var layout =  new Layout();
 var settings =  new Settings();
-var activities =  new Activities();
 
 
 // DOMContentLoaded is fired once the document has been loaded and parsed,
@@ -14,7 +13,6 @@ window.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
     layout.init();
-    activities.init();
 
     // Add the old reader support
     settings.init([theoldreader, feedly]);

@@ -568,6 +568,7 @@ var Layout = function()
                         }
 
                         var li = document.createElement('li');
+                        li.setAttribute('feed_link', item.canonical[0].href);
                         li.className='feed_item';
                         if(item.categories.indexOf('user/-/state/com.google/fresh')!==-1)
                         {
@@ -581,7 +582,6 @@ var Layout = function()
 
                         var p = document.createElement('p');
                         p.className='feed_title '+(viewList?'view_list':'view_full');
-                        p.setAttribute('feed_link', item.canonical[0].href);
                         p.innerHTML = item.title;
                         p.addEventListener('click', layout.openItem.bind(layout));
                         div.appendChild(p);
@@ -618,6 +618,10 @@ var Layout = function()
                         var flag_like = document.createElement('span');
                         flag_like.className='flag_like fa '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko fa-thumbs-o-up':'fa-thumbs-up');
                         p.appendChild(flag_like);
+
+                        var flag_share = document.createElement('span');
+                        flag_share.className='flag_share fa fa-share ko';
+                        p.appendChild(flag_share);
 
 
                         self.feed_contents[item.id] = content;
@@ -656,11 +660,13 @@ var Layout = function()
 
         var target=e.target;
         var li = e.target;
+
         while(li && li.tagName!=='LI')
         {
             li = li.parentNode;
         }
         this.opened_item = li;
+
         var id  = li.getAttribute('data-id');
 
         if(li.classList.contains('fresh_item'))
@@ -679,9 +685,19 @@ var Layout = function()
         var newLi = li.cloneNode(true);
         newLi.querySelector('.flag_star').addEventListener('click', layout.markStarClick.bind(layout));
         newLi.querySelector('.flag_like').addEventListener('click', layout.markLikeClick.bind(layout));
+        newLi.querySelector('.flag_share').addEventListener('click', function(e)
+        {
+            new MozActivity({
+                name: "share",
+                data: {
+                    number: 1,
+                    url: li.getAttribute('feed_link')
+                }
+            });
+        });
         newLi.querySelector('.feed_title').addEventListener('click', function(e)
         {
-            window.open(e.target.getAttribute('feed_link'));
+            window.open(li.getAttribute('feed_link'));
         });
 
         newLi.className='feed_fullscreen';

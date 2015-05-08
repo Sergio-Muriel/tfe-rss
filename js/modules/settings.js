@@ -58,7 +58,6 @@ var Settings = function()
 
                     // Send controller to objects
                     layout.setController(_controller);
-                    activities.setController(_controller);
 
                     // Save used current controller
                     self.controller  = _controller;

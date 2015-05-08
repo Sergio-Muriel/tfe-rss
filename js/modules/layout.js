@@ -581,6 +581,7 @@ var Layout = function()
 
                         var p = document.createElement('p');
                         p.className='feed_title '+(viewList?'view_list':'view_full');
+                        p.setAttribute('feed_link', item.canonical[0].href);
                         p.innerHTML = item.title;
                         p.addEventListener('click', layout.openItem.bind(layout));
                         div.appendChild(p);
@@ -678,6 +679,10 @@ var Layout = function()
         var newLi = li.cloneNode(true);
         newLi.querySelector('.flag_star').addEventListener('click', layout.markStarClick.bind(layout));
         newLi.querySelector('.flag_like').addEventListener('click', layout.markLikeClick.bind(layout));
+        newLi.querySelector('.feed_title').addEventListener('click', function(e)
+        {
+            window.open(e.target.getAttribute('feed_link'));
+        });
 
         newLi.className='feed_fullscreen';
         full_container.appendChild(newLi);

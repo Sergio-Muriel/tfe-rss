@@ -1,6 +1,7 @@
 var Feedly = function()
 {
     var self=this;
+    this.type='feedly';
     this.username = null;
     this.password = null;
     this.token = null;
@@ -23,14 +24,6 @@ var Feedly = function()
     db_request.onerror = function (e) { console.log(e); };
 };
 
-Feedly.prototype.hide = function()
-{
-    this.form.style.display='none';
-};
-Feedly.prototype.show = function()
-{
-    this.form.style.display='block';
-};
 
 
 Feedly.prototype.init = function()

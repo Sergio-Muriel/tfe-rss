@@ -36,12 +36,31 @@ var Settings = function()
             {
                 if(!self.loggedin)
                 {
+                    document.querySelector('.loggedout').classList.remove('hidden');
                     self.controllers.forEach(function(_controller)
                     {
-                        _controller.show();
+                        self.set_api(_controller.type);
                     });
                 }
+                else
+                {
+                    document.querySelector('.loggedout').classList.add('hidden');
+                }
             });
+    };
+
+    this.set_api=function(api)
+    {
+        console.log('set api ',api);
+        var layer = document.querySelector('#register_layer');
+        var select = document.querySelector('#api');
+        var options=[];
+        Array.forEach(select.options, function(option)
+        {
+            options.push(option.value);
+        });
+        select.selectedIndex = options.indexOf(api);
+        layer.setAttribute('data-api', api);
     };
 
     this.init_account=function(_controller)
@@ -74,7 +93,6 @@ var Settings = function()
                 }
                 else
                 {
-                    _controller.hide();
                     ok();
                 }
             });
@@ -86,6 +104,8 @@ var Settings = function()
         var self=this;
         this.view_read.addEventListener('click', function(e) { return self.toggleViewRead(e); });
         this.view_list.addEventListener('click', function(e) { return self.toggleViewList(e); });
+
+        document.querySelector('#api').addEventListener('change', function(e) { return self.set_api(e.target.value); });
     };
 
     this.restoreSettings= function()

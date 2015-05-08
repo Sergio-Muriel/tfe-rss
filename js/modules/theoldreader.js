@@ -1,6 +1,7 @@
 var TheOldReader = function()
 {
     var self=this;
+    this.type='theoldreader';
     this.username = null;
     this.password = null;
 
@@ -22,14 +23,6 @@ var TheOldReader = function()
     db_request.onerror = function (e) { console.log(e); };
 };
 
-TheOldReader.prototype.hide = function()
-{
-    this.form.style.display='none';
-};
-TheOldReader.prototype.show = function()
-{
-    this.form.style.display='block';
-};
 
 TheOldReader.prototype.init = function()
 {

@@ -145,20 +145,6 @@
     bottom:0px;
     background:white;
 }
-form
-{
-    font-size:27px;
-    font-size:1.7rem;
-}
-
-
-#register_layer.hidden
-{
-    display:none;
-}
-
-
-
 form, fieldset, legend
 {
     display:block;
@@ -168,6 +154,13 @@ form, fieldset, legend
     padding:0px;
     white-space:normal;
     text-align:left;
+}
+
+form
+{
+    font-size:27px;
+    font-size:1.7rem;
+    padding: 0px 20px;
 }
 legend
 {
@@ -193,20 +186,18 @@ legend
     border-radius: 0px;
 }
 
-form
-{
-    padding:20px;
-}
 .form_text
 {
-    font-size:0.8em;
+    font-size:20px;
+    font-size:1.3rem;
 }
 form p
 {
     position:relative;
 }
 
-form input
+form input,
+form select
 {
     display:block;
     line-height:1.5em;
@@ -217,7 +208,8 @@ input:invalid
     color:#b90000;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="search"], input[type="url"], input[type="number"], textarea
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="search"],
+input[type="url"], input[type="number"], textarea, select
 {
     width:100%;
     height:64px;
@@ -287,6 +279,16 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
     font-size:24px;
     font-size:1.5rem;
     width:calc(100% - 4rem);
+}
+
+[data-api="theoldreader"] .feedly
+{
+    display:none;
+}
+
+[data-api="feedly"] .theoldreader
+{
+    display:none;
 }
 .logout_link
 {

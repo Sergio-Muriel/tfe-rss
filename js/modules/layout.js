@@ -688,10 +688,11 @@ var Layout = function()
         newLi.querySelector('.flag_share').addEventListener('click', function(e)
         {
             new MozActivity({
-                name: "share",
+                name: "new",
                 data: {
                     number: 1,
-                    url: li.getAttribute('feed_link')
+                    url: "mailto:?subject="+encodeURIComponent(li.querySelector('.feed_title').innerHTML)+
+                        "&body=" + encodeURIComponent(li.getAttribute('feed_link'))
                 }
             });
         });

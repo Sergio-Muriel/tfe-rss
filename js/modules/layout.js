@@ -479,6 +479,7 @@ var Layout = function()
     this.loadFeed = function(e)
     {
         var li = e.target;
+        this.display_center();
         while(li && li.tagName!=='LI' && li.tagName!=='DIV')
         {
             li = li.parentNode;

@@ -15,10 +15,13 @@
   },
   "type": "privileged",
   "permissions": {
-      "systemXHR": {
-	  "description": "Required to request the api"
-	  }
+      "desktop-notification": {
+          "description": "To show notifications"
       },
+      "systemXHR": {
+          "description": "Required to request the api"
+      }
+  },
   "installs_allowed_from": [
     "*"
   ],

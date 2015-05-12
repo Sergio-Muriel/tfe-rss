@@ -248,7 +248,7 @@ Feedly.prototype._query = function(method,url,data,callback)
         r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         if(self.account)
         {
-            r.setRequestHeader("authorization","GoogleLogin auth="+self.account.token);
+            r.setRequestHeader("authorization","OAuth "+self.account.access_token);
         }
 
         r.onreadystatechange = function () {
@@ -325,7 +325,7 @@ Feedly.prototype.updateLabelsList = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/tag/list?output=json';
+        var url = self.host+'/v3/categories';
         self._query.bind(self)("GET", url, null)
             .then(function(text)
             {

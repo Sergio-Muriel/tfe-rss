@@ -280,14 +280,14 @@ Feedly.prototype.updateSubscriptionList = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/subscription/list?output=json';
+        var url = self.host+'/v3/subscriptions';
         self._query.bind(self)("GET", url, null)
             .then(function(text)
             {
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    self.addSubscriptions(data.subscriptions)
+                    self.addSubscriptions(data)
                         .then(ok, reject);
                 }
                 else
@@ -332,7 +332,9 @@ Feedly.prototype.updateLabelsList = function()
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    self.addLabels(data.tags)
+                    console.log('add lables',data);
+                    // Modify to fit theoldreader
+                    self.addLabels(data)
                         .then(ok, reject);
                 }
                 else

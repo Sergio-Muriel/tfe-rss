@@ -353,10 +353,10 @@ var Layout = function()
             Array.forEach(labels, function(label)
             {
                 // Add only real labels
-                if(/label/.test(label.id))
+                if(/(label|user)/.test(label.id))
                 {
                     var li = document.createElement('li');
-                    var name = label.id.replace(/.*label\//,'');
+                    var name = label.label || label.id.replace(/.*label\//,'');
                     li.className='leftlist_item';
                     li.setAttribute('data-id',label.id);
 

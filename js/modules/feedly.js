@@ -6,6 +6,7 @@ var Feedly = function()
     this.password = null;
     this.token = null;
 
+
     this.form = document.querySelector('.feedly form');
     this.login_link = document.querySelector('.feedly .login_link');
     this.logout_link = document.querySelector('.feedly .logout_link');
@@ -16,11 +17,13 @@ var Feedly = function()
     this.host = 'https://sandbox.feedly.com/';
     this.clientid ='sandbox';
     this.clientsecret ='4205DQXBAP99S8SUHXI3';
+    this.redirect_url ='http://localhost/';
 
     // Init XHR object
     this.xhr = new XMLHttpRequest({ mozSystem: true });
 
     // Init indexed DB
+    var translate = navigator.mozL10n.get;
     var db_request = indexedDB.open('feedly');
     db_request.onsuccess = function (e) { self.db = e.target.result; };
     db_request.onerror = function (e) { console.log(e); };
@@ -34,7 +37,8 @@ Feedly.prototype.init = function()
     if(!self.inited)
     {
         // Bind
-        document.querySelector('.login_feedly').addEventListener('click', this.login.bind(this));
+        self.form.querySelector('.login_link').addEventListener('click', this.login.bind(this));
+        this.logout_link.addEventListener('click', function(e) { return self.logout(e); }, false);
     }
     self.inited=1;
 
@@ -63,16 +67,32 @@ Feedly.prototype.login= function(e)
 };
 Feedly.prototype.callback = function(url)
 {
-    console.log('url ',url);
+    var self=this;
+    console.log('Callback url: ',url);
     var reCode = /code=([^&]+)/;
     var reError = /error=([^&]+)/;
     if(result = url.match(reError))
     {
-        console.log('error',result);
+        alert(translate('login_feedly_error'));
     }
     else if(result = url.match(reCode))
     {
-        console.log('ok',result);
+        var code=result[1];
+        var data  = 'code='+encodeURIComponent(code)+'&';
+        data += 'client_id='+encodeURIComponent(this.clientid)+'&';
+        data += 'client_secret='+encodeURIComponent(this.clientsecret)+'&';
+        data += 'redirect_uri='+encodeURIComponent(this.redirect_url)+'&';
+        data += 'state=1&';
+        data += 'grant_type='+encodeURIComponent('authorization_code');
+
+        this._query.bind(this)("POST", this.host+'/v3/auth/token', data)
+        .then(function(text)
+        {
+            var data = JSON.parse(text);
+            self.create_account(data.access_token, data.refresh_token)
+            .then(settings.init_accounts.bind(settings));
+        });
+        console.log('received',data);
     }
 };
 
@@ -125,64 +145,19 @@ Feedly.prototype.initDb = function()
 
 };
 
-// Methodes
-Feedly.prototype._login = function(email, password)
-{
-    var self=this;
-    return new Promise(function(ok, reject)
-    {
-        var r = self.xhr;
-        r.open("POST", self.host+"/accounts/ClientLogin", true);
-        r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        r.onreadystatechange = function () {
-            if (r.readyState == 4)
-            {
-                var auth_token;
-                if(r.status == 200 && (auth_token = r.responseText.match(/Auth=(.*)/)))
-                {
-                    // Save token and call callbak
-                    self.token = auth_token[1];
-                    self.create_account(email,self.token)
-                        .then(ok);
-                }
-                else if(r.status===0)
-                {
-                    alert(navigator.mozL10n.get('network_error'));
-                    reject();
-                }
-                else
-                {
-                    alert(navigator.mozL10n.get('login_fail'));
-                    // Bad identification, return callback
-                    reject();
-                }
-            }
-        };
-
-        // Send xhr request
-        r.send('client=Rssclient&'+
-                'accountType=HOSTED_OR_GOOGLE&'+
-                'service=reader&'+
-                'Email='+encodeURIComponent(email)+'&'+
-                'Passwd='+encodeURIComponent(password)
-        );
-    });
-};
-
 Feedly.prototype.loggedin = function()
 {
-    //this.email.value = this.getEmail();
-    //this.form.classList.add("loggedin");
-    //this.email.disabled=true;
+    console.log('logged in  feedly');
+    this.form.classList.add("loggedin");
 };
 
 Feedly.prototype.loggedout = function()
 {
-    //this.form.classList.remove("loggedin");
-    //this.email.disabled=false;
+    console.log('loggedout  feedly');
+    this.form.classList.remove("loggedin");
 };
 
-Feedly.prototype.create_account = function(email, token)
+Feedly.prototype.create_account = function(access_token, refresh_token)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -190,8 +165,8 @@ Feedly.prototype.create_account = function(email, token)
         var transaction = self.db.transaction([ 'accounts' ], 'readwrite');
         //Create the Object to be saved i.e. our Note
         var value = {};
-        value.email = email;
-        value.token = token;
+        value.access_token = access_token;
+        value.refresh_token = refresh_token;
 
         var accounts = transaction.objectStore('accounts');
         var request = accounts.add(value);
@@ -271,7 +246,10 @@ Feedly.prototype._query = function(method,url,data,callback)
         var r = new XMLHttpRequest({ mozSystem: true });
         r.open(method, url, true);
         r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        r.setRequestHeader("authorization","GoogleLogin auth="+self.account.token);
+        if(self.account)
+        {
+            r.setRequestHeader("authorization","GoogleLogin auth="+self.account.token);
+        }
 
         r.onreadystatechange = function () {
             if (r.readyState == 4)

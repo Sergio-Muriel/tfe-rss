@@ -36,15 +36,15 @@ var Settings = function()
             {
                 if(!self.loggedin)
                 {
-                    document.querySelector('.loggedout').classList.remove('hidden');
                     self.controllers.forEach(function(_controller)
                     {
                         self.set_api(_controller.type);
                     });
+                    Array.forEach(document.querySelectorAll('.loggedout'),function(item) { item.classList.remove('hidden'); });
                 }
                 else
                 {
-                    document.querySelector('.loggedout').classList.add('hidden');
+                    Array.forEach(document.querySelectorAll('.loggedout'),function(item) {  item.classList.add('hidden'); });
                 }
             });
     };
@@ -77,6 +77,8 @@ var Settings = function()
 
                     // Send controller to objects
                     layout.setController(_controller);
+                    // Set selected item
+                    self.set_api(_controller.type);
 
                     // Save used current controller
                     self.controller  = _controller;

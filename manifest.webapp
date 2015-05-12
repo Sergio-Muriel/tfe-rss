@@ -28,8 +28,14 @@
   "default_locale": "es",
 
   "redirects": [
-  {"from": "https://cloud.feedly.com/subscriptions",
-      "to": "/app/index.html"}
+      {
+          "from": "https://cloud.feedly.com/subscriptions",
+          "to": "/app/index.html"
+      },
+      {
+          "from": "http://localhost",
+          "to": "/callback_feedly.html"
+      }
   ],
 
   "activities":

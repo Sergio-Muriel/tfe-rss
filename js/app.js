@@ -15,5 +15,5 @@ window.addEventListener('DOMContentLoaded', function() {
     layout.init();
 
     // Add the old reader support
-    settings.init([feedly,theoldreader]);
+    settings.init([theoldreader, feedly]);
 });

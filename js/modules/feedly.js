@@ -13,7 +13,9 @@ var Feedly = function()
     this.email = this.form.querySelector('.feedly input[name=email]');
     this.password = this.form.querySelector('.feedly input[name=password]');
 
-    this.host = 'https://feedly.com/';
+    this.host = 'https://sandbox.feedly.com/';
+    this.clientid ='sandbox';
+    this.clientsecret ='4205DQXBAP99S8SUHXI3';
 
     // Init XHR object
     this.xhr = new XMLHttpRequest({ mozSystem: true });
@@ -32,6 +34,7 @@ Feedly.prototype.init = function()
     if(!self.inited)
     {
         // Bind
+        document.querySelector('.login_feedly').addEventListener('click', this.login.bind(this));
     }
     self.inited=1;
 
@@ -48,17 +51,28 @@ Feedly.prototype.logout = function(e)
 
 Feedly.prototype.login= function(e)
 {
-    if(this.form.checkValidity())
-    {
-        e.preventDefault();
+    var url=this.host+'/v3/auth/auth';
+    url+='?response_type=code&';
+    url+='client_id='+this.clientid+'&';
+    url+='redirect_uri='+encodeURIComponent('http://localhost')+'&';
+    url+='scope='+encodeURIComponent('https://cloud.feedly.com/subscriptions')+'&';
 
-        this._login(this.email.value,this.password.value)
-            .then(settings.init_accounts.bind(settings));
-    }
-    else
+    window.open(url);
+    e.preventDefault();
+    return false;
+};
+Feedly.prototype.callback = function(url)
+{
+    console.log('url ',url);
+    var reCode = /code=([^&]+)/;
+    var reError = /error=([^&]+)/;
+    if(result = url.match(reError))
     {
-        e.preventDefault();
-        return false;
+        console.log('error',result);
+    }
+    else if(result = url.match(reCode))
+    {
+        console.log('ok',result);
     }
 };
 

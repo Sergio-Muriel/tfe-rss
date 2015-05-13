@@ -87,15 +87,44 @@ Feedly.prototype.callback = function(url)
         data += 'state=1&';
         data += 'grant_type='+encodeURIComponent('authorization_code');
 
-        this._query.bind(this)("POST", this.host+'/v3/auth/token', data)
+        this.getToken(data).
+            then(this.getProfile.bind(this));
+        console.log('received',data);
+    }
+};
+
+Feedly.prototype.getToken = function(data)
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        self._query.bind(self)("POST", self.host+'/v3/auth/token', data)
         .then(function(text)
         {
             var data = JSON.parse(text);
-            self.create_account(data.access_token, data.refresh_token)
-            .then(settings.init_accounts.bind(settings));
+            self.account=data;
+            self.getProfile()
+            .then(self.create_account.bind(self,data.access_token, data.refresh_token))
+            .then(settings.init_accounts.bind(settings))
+            .then(ok);
         });
-        console.log('received',data);
-    }
+    });
+};
+
+Feedly.prototype.getProfile = function()
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        self._query.bind(self)("GET", self.host+'/v3/profile', null)
+        .then(function(text)
+        {
+            var data = JSON.parse(text);
+            self.userid = data.id;
+            self.email = data.email;
+            ok();
+        });
+    });
 };
 
 Feedly.prototype.initDb = function()
@@ -169,6 +198,8 @@ Feedly.prototype.create_account = function(access_token, refresh_token)
         var value = {};
         value.access_token = access_token;
         value.refresh_token = refresh_token;
+        value.userid = self.userid;
+        value.email = self.email;
 
         var accounts = transaction.objectStore('accounts');
         var request = accounts.add(value);
@@ -194,6 +225,9 @@ Feedly.prototype.getAccount = function(callback)
         var cursor = e.target.result;
         if (cursor) {
             self.account = cursor.value;
+            console.log('userid ', self.account);
+            self.all_id = 'user/'+self.account.userid+'/category/global.all';
+            self.starred_id = 'user/'+self.account.userid+'/category/global.saved';
             cursor.continue();
         }
         else

@@ -5,6 +5,11 @@ var TheOldReader = function()
     this.username = null;
     this.password = null;
 
+    this.all_id  = 'user/-/state/com.google/reading-list';
+    this.starred_id  = 'user/-/state/com.google/starred';
+    this.liked_id = 'user/-/state/com.google/like';
+    this.shared_id = 'user/-/state/com.google/broadcast';
+
     this.form = document.querySelector('.theoldreader form');
     this.login_link = document.querySelector('.theoldreader .login_link');
     this.logout_link = document.querySelector('.theoldreader .logout_link');

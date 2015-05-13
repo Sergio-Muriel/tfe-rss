@@ -283,7 +283,7 @@ var Layout = function()
             // All items
             var li = document.createElement('li');
             li.className='leftlist_item';
-            li.setAttribute('data-id','user/-/state/com.google/reading-list');
+            li.setAttribute('data-id', self.controller.all_id);
             var label_toggle = document.createElement('p');
             label_toggle.className='label_toggle fa fa-home';
             li.appendChild(label_toggle);
@@ -297,56 +297,65 @@ var Layout = function()
             li.appendChild(label_num);
             leftlist.appendChild(li);
 
-            // Starred items
-            var li = document.createElement('li');
-            li.className='leftlist_item';
-            li.setAttribute('data-id','user/-/state/com.google/starred');
-            var label_toggle = document.createElement('p');
-            label_toggle.className='label_toggle fa fa-star';
-            li.appendChild(label_toggle);
-            var label = document.createElement('p');
-            label.className='label';
-            label.innerHTML = translate('state_starred');
-            label.addEventListener('click', layout.loadFeed.bind(layout));
-            li.appendChild(label);
-            var label_num = document.createElement('p');
-            label_num.className='label_num';
-            li.appendChild(label_num);
-            leftlist.appendChild(li);
+            if(self.controller.starred_id)
+            {
+                // Starred items
+                var li = document.createElement('li');
+                li.className='leftlist_item';
+                li.setAttribute('data-id', self.controller.starred_id);
+                var label_toggle = document.createElement('p');
+                label_toggle.className='label_toggle fa fa-star';
+                li.appendChild(label_toggle);
+                var label = document.createElement('p');
+                label.className='label';
+                label.innerHTML = translate('state_starred');
+                label.addEventListener('click', layout.loadFeed.bind(layout));
+                li.appendChild(label);
+                var label_num = document.createElement('p');
+                label_num.className='label_num';
+                li.appendChild(label_num);
+                leftlist.appendChild(li);
+            }
 
-            // Liked items
-            var li = document.createElement('li');
-            li.className='leftlist_item';
-            li.setAttribute('data-id','user/-/state/com.google/like');
-            var label_toggle = document.createElement('p');
-            label_toggle.className='label_toggle fa fa-heart';
-            li.appendChild(label_toggle);
-            var label = document.createElement('p');
-            label.className='label';
-            label.innerHTML = translate('state_liked');
-            label.addEventListener('click', layout.loadFeed.bind(layout));
-            li.appendChild(label);
-            var label_num = document.createElement('p');
-            label_num.className='label_num';
-            li.appendChild(label_num);
-            leftlist.appendChild(li);
+            if(self.controller.liked_id)
+            {
+                // Liked items
+                var li = document.createElement('li');
+                li.className='leftlist_item';
+                li.setAttribute('data-id',self.controller.liked_id);
+                var label_toggle = document.createElement('p');
+                label_toggle.className='label_toggle fa fa-heart';
+                li.appendChild(label_toggle);
+                var label = document.createElement('p');
+                label.className='label';
+                label.innerHTML = translate('state_liked');
+                label.addEventListener('click', layout.loadFeed.bind(layout));
+                li.appendChild(label);
+                var label_num = document.createElement('p');
+                label_num.className='label_num';
+                li.appendChild(label_num);
+                leftlist.appendChild(li);
+            }
 
-            // Shared items
-            var li = document.createElement('li');
-            li.className='leftlist_item';
-            li.setAttribute('data-id','user/-/state/com.google/broadcast');
-            var label_toggle = document.createElement('p');
-            label_toggle.className='label_toggle fa fa-share-alt';
-            li.appendChild(label_toggle);
-            var label = document.createElement('p');
-            label.className='label';
-            label.innerHTML = translate('state_shared');
-            label.addEventListener('click', layout.loadFeed.bind(layout));
-            li.appendChild(label);
-            var label_num = document.createElement('p');
-            label_num.className='label_num';
-            li.appendChild(label_num);
-            leftlist.appendChild(li);
+            if(self.controller.shared_id)
+            {
+                // Shared items
+                var li = document.createElement('li');
+                li.className='leftlist_item';
+                li.setAttribute('data-id',self.controller.shared_id);
+                var label_toggle = document.createElement('p');
+                label_toggle.className='label_toggle fa fa-share-alt';
+                li.appendChild(label_toggle);
+                var label = document.createElement('p');
+                label.className='label';
+                label.innerHTML = translate('state_shared');
+                label.addEventListener('click', layout.loadFeed.bind(layout));
+                li.appendChild(label);
+                var label_num = document.createElement('p');
+                label_num.className='label_num';
+                li.appendChild(label_num);
+                leftlist.appendChild(li);
+            }
 
 
             // Append all items

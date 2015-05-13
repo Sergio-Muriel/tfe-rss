@@ -46,6 +46,7 @@ Feedly.prototype.init = function()
             this.initDb()
     ]);
 };
+
 Feedly.prototype.logout = function(e)
 {
     this.deleteAccount(this.loggedout.bind(this));
@@ -65,6 +66,7 @@ Feedly.prototype.login= function(e)
     e.preventDefault();
     return false;
 };
+
 Feedly.prototype.callback = function(url)
 {
     var self=this;
@@ -245,7 +247,15 @@ Feedly.prototype._query = function(method,url,data,callback)
         // Init XHR object
         var r = new XMLHttpRequest({ mozSystem: true });
         r.open(method, url, true);
-        r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        if(!data || typeof data ==='string')
+        {
+            r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        }
+        else
+        {
+            data = JSON.stringify(data);
+            r.setRequestHeader("Content-type","application/json");
+        }
         if(self.account)
         {
             r.setRequestHeader("authorization","OAuth "+self.account.access_token);
@@ -509,14 +519,14 @@ Feedly.prototype.getItems = function(id, viewRead, next)
     {
         var items=[];
         var ids=[];
-        var url = self.host+'/reader/api/0/stream/items/ids?output=json&s='+id;
+        var url = self.host+'/v3/streams/ids?streamId='+id;
         if(!viewRead)
         {
-            url+='&xt=user/-/state/com.google/read';
+            url+='&unreadOnly=true';
         }
         if(next)
         {
-            url+='&c='+next;
+            url+='&continuation='+next;
         }
         console.log('fetch ',url);
 
@@ -526,21 +536,17 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                 var items = JSON.parse(text);
                 if(items)
                 {
-                    var itemids = items.itemRefs;
-                    var url = self.host+'/reader/api/0/stream/items/contents?output=json';
-                    itemids.forEach(function(item)
-                    {
-                        url+='&i='+item.id;
-                    });
+                    var itemids = items.ids;
+                    var url = self.host+'/v3/entries/.mget';
+                    console.log('itemids ',itemids);
                     console.log('fetch ',url);
-                    self._query.bind(self)("GET", url, null)
+                    self._query.bind(self)("POST", url, itemids)
                         .then(function(text)
                         {
                             var data = JSON.parse(text);
                             if(data)
                             {
-                                data.continuation = items.continuation;
-                                ok(data);
+                                ok({ items:data, continuation: items.continuation});
                             }
                             else
                             {

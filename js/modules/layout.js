@@ -80,9 +80,14 @@ var Layout = function()
         {
             next = this.opened_item.nextElementSibling;
         }
-        if(this.opened_item!=next)
+
+        if(this.opened_item!=next && next.classList.contains('feed_item'))
         {
             this.openItem({ target: next});
+        }
+        else
+        {
+            this.closeItem();
         }
     };
     this.openPrev = function(e)
@@ -96,9 +101,13 @@ var Layout = function()
         {
             next = this.opened_item.previousElementSibling ||  document.querySelector('.feed_item');
         }
-        if(this.opened_item!=next)
+        if(this.opened_item!=next && next.classList.contains('feed_item'))
         {
             this.openItem({ target: next});
+        }
+        else
+        {
+            this.closeItem();
         }
     };
 

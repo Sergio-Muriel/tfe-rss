@@ -452,7 +452,10 @@ TheOldReader.prototype.getFeeds = function()
        c.onsuccess = function (e) {
             var cursor = e.target.result;
             if (cursor) {
-                feeds.push(cursor.value);
+                if(!/sponsored/.test(cursor.value.id))
+                {
+                    feeds.push(cursor.value);
+                }
                 cursor.continue();
             }
             else
@@ -480,7 +483,10 @@ TheOldReader.prototype.getLabels = function()
        c.onsuccess = function (e) {
             var cursor = e.target.result;
             if (cursor) {
-                labels.push(cursor.value);
+                if(/label/.test(cursor.value.id))
+                {
+                    labels.push(cursor.value);
+                }
                 cursor.continue();
             }
             else

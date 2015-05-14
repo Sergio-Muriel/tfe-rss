@@ -410,29 +410,26 @@ var Layout = function()
                 }
 
 
-                if(!/sponsored/.test(feed.id))
-                {
-                    var div  =document.createElement('div');
-                    div.className='leftlist_item';
-                    div.setAttribute('data-id', feed_id);
+                var div  =document.createElement('div');
+                div.className='leftlist_item';
+                div.setAttribute('data-id', feed_id);
 
-                    var feed_icon = document.createElement('p');
-                    feed_icon.className='feed_icon';
-                    feed_icon.innerHTML = '<img src="https://'+feed.iconUrl+'" alt="" />';
-                    div.appendChild(feed_icon);
+                var feed_icon = document.createElement('p');
+                feed_icon.className='feed_icon';
+                feed_icon.innerHTML = '<img src="https://'+feed.iconUrl+'" alt="" />';
+                div.appendChild(feed_icon);
 
-                    var feed_name = document.createElement('p');
-                    feed_name.className='feed_name';
-                    feed_name.innerHTML = feed.title;
-                    feed_name.addEventListener('click', layout.loadFeed.bind(layout));
-                    div.appendChild(feed_name);
+                var feed_name = document.createElement('p');
+                feed_name.className='feed_name';
+                feed_name.innerHTML = feed.title;
+                feed_name.addEventListener('click', layout.loadFeed.bind(layout));
+                div.appendChild(feed_name);
 
-                    var label_num = document.createElement('p');
-                    label_num.className='label_num';
-                    div.appendChild(label_num);
+                var label_num = document.createElement('p');
+                label_num.className='label_num';
+                div.appendChild(label_num);
 
-                    items.appendChild(div);
-                }
+                items.appendChild(div);
             });
             self.updateCount();
         });

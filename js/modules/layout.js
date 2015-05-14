@@ -586,7 +586,7 @@ var Layout = function()
                         var li = document.createElement('li');
                         li.setAttribute('feed_link', item.canonical[0].href);
                         li.className='feed_item';
-                        if(item.categories.indexOf('user/-/state/com.google/fresh')!==-1)
+                        if(item.unread)
                         {
                             li.className='fresh_item';
                         }
@@ -627,12 +627,12 @@ var Layout = function()
                         div.appendChild(p)
 
                         var flag_star = document.createElement('span');
-                        flag_star.className='flag_star fa '+(item.categories.indexOf('user/-/state/com.google/starred')===-1?'ko fa-star-o':'fa-star');
+                        flag_star.className='flag_star fa '+(!item.starred?'ko fa-star-o':'fa-star');
                         flag_star.addEventListener('click', layout.markStarClick.bind(layout));
                         p.appendChild(flag_star);
 
                         var flag_like = document.createElement('span');
-                        flag_like.className='flag_like fa '+(item.categories.indexOf('user/-/state/com.google/like')===-1?'ko fa-thumbs-o-up':'fa-thumbs-up');
+                        flag_like.className='flag_like fa '+(!item.liked?'ko fa-thumbs-o-up':'fa-thumbs-up');
                         p.appendChild(flag_like);
 
                         var flag_share = document.createElement('span');

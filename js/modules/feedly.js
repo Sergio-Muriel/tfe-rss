@@ -227,7 +227,8 @@ Feedly.prototype.getAccount = function(callback)
             self.account = cursor.value;
             console.log('userid ', self.account);
             self.all_id = 'user/'+self.account.userid+'/category/global.all';
-            self.starred_id = 'user/'+self.account.userid+'/category/global.saved';
+            self.starred_id = 'user/'+self.account.userid+'/tag/global.must';
+            self.liked_id = 'user/'+self.account.userid+'/tag/global.saved';
             cursor.continue();
         }
         else
@@ -376,7 +377,6 @@ Feedly.prototype.updateLabelsList = function()
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    console.log('add lables',data);
                     // Modify to fit theoldreader
                     self.addLabels(data)
                         .then(ok, reject);
@@ -572,14 +572,32 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                 {
                     var itemids = items.ids;
                     var url = self.host+'/v3/entries/.mget';
-                    console.log('itemids ',itemids);
-                    console.log('fetch ',url);
                     self._query.bind(self)("POST", url, itemids)
                         .then(function(text)
                         {
                             var data = JSON.parse(text);
                             if(data)
                             {
+                                Array.forEach(data, function(item)
+                                {
+                                    item.liked=false;
+                                    item.starred=false;
+                                    if(item.tags)
+                                    {
+                                        item.tags.forEach(function(tag)
+                                        {
+                                            if(/global.must/.test(tag.id))
+                                            {
+                                                item.starred=true;
+                                            }
+                                            console.log(item);
+                                            if(/global.saved/.test(tag.id))
+                                            {
+                                                item.liked=true;
+                                            }
+                                        });
+                                    }
+                                });
                                 ok({ items:data, continuation: items.continuation});
                             }
                             else
@@ -602,12 +620,13 @@ Feedly.prototype.markRead= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/edit-tag?output=json';
+        var tag = encodeURIComponent('user/'+self.account.userid+'/tag/global.read');
+        var url = self.host+'/v3/tags/'+tag+'/'+encodeURIComponent(item_id);
 
-        var data='i='+item_id;
-        data+= (state ? '&a=' : '&r=');
-        data+= 'user/-/state/com.google/read';
-        self._query.bind(self)("POST", url, data)
+        var command = state ? 'PUT' : 'DELETE';
+        var params = state ? { entryId : item_id } : null;
+        console.log('command ',command,url);
+        self._query.bind(self)(command, url, params)
             .then(function(text)
             {
                 ok(text);
@@ -620,12 +639,13 @@ Feedly.prototype.markLike= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/edit-tag?output=json';
+        var tag = encodeURIComponent('user/'+self.account.userid+'/tag/global.saved');
+        var url = self.host+'/v3/tags/'+tag+'/'+encodeURIComponent(item_id);
 
-        var data='i='+item_id;
-        data+= (state ? '&a=' : '&r=');
-        data+= 'user/-/state/com.google/like';
-        self._query.bind(self)("POST", url, data)
+        var command = state ? 'PUT' : 'DELETE';
+        var params = state ? { entryId : item_id } : null;
+        console.log('command ',command,url);
+        self._query.bind(self)(command, url, params)
             .then(function(text)
             {
                 ok(text);
@@ -638,18 +658,19 @@ Feedly.prototype.markStar= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/edit-tag?output=json';
+        var tag = encodeURIComponent('user/'+self.account.userid+'/tag/global.must');
+        var url = self.host+'/v3/tags/'+tag+'/'+encodeURIComponent(item_id);
 
-        var data='i='+item_id;
-        data+= (state ? '&a=' : '&r=');
-        data+= 'user/-/state/com.google/starred';
-        self._query.bind(self)("POST", url, data)
+        var command = state ? 'PUT' : 'DELETE';
+        var params = state ? { entryId : item_id } : null;
+        console.log('command ',command,url);
+        self._query.bind(self)(command, url, params)
             .then(function(text)
             {
                 ok(text);
             }, reject);
     });
-}
+};
 
 Feedly.prototype.readAll= function(item_id)
 {

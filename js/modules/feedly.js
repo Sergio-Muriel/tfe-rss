@@ -415,7 +415,7 @@ Feedly.prototype.updateCount = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/unread-count?output=json';
+        var url = self.host+'/v3/markers/counts';
         self._query.bind(self)("GET", url, null)
             .then(function(text)
             {

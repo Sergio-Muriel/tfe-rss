@@ -6,6 +6,8 @@ var Layout = function()
     var center = document.querySelector('.slide.center');
     var left = document.querySelector('.slide.left')
     var right = document.querySelector('.slide.right')
+    var center_scroll_container = center.querySelector('.slide_content');
+    var center_scroll = center.querySelector('.slide_content ul');
 
     var full_container = document.querySelector('.feed_fullscreen-container')
     var center_menu_single = document.querySelector('.center_menu_single')
@@ -22,6 +24,19 @@ var Layout = function()
     {
         this.controller = controller;
         this.bind();
+        this.init_scroll();
+    };
+
+    this.init_scroll= function()
+    {
+        center_scroll_container.addEventListener('scroll', this.onscroll.bind(this));
+    };
+    this.onscroll= function(e)
+    {
+        if(center_scroll_container.scrollTop + window.outerHeight > center_scroll.offsetHeight)
+        {
+            this.loadMore();
+        }
     };
 
     this.setController= function(_controller)
@@ -482,12 +497,17 @@ var Layout = function()
 
     this.loadMore = function()
     {
-        return this.displayItems(document.querySelector('.no_items').getAttribute('data-continuation'));
+        if(!this.loading_more)
+        {
+            console.log('load more!');
+            this.loading_more=1;
+            return this.displayItems(document.querySelector('.no_items').getAttribute('data-continuation'));
+        }
     };
 
     this.gotoTop=function()
     {
-        center.querySelector('.slide_content').scrollTop=0;
+        center_scroll_container.scrollTop=0;
     };
 
     this.loadFeed = function(e)
@@ -509,7 +529,7 @@ var Layout = function()
         this.wait_loading = 0;
         this.opened_item=null;
         this.feed_contents=[];
-        var ul = center.querySelector('.slide_content ul');
+        var ul = center_scroll;
         ul.innerHTML='';
     };
 
@@ -533,7 +553,7 @@ var Layout = function()
         var viewList = settings.getViewList();
         var id = this.display_id;
 
-        var ul = center.querySelector('.slide_content ul');
+        var ul = center_scroll;
         var li;
 
         // Remove previous load more  if present
@@ -548,7 +568,7 @@ var Layout = function()
         this.controller.getItems(id, viewRead, continuation)
             .then(function(r)
             {
-                var ul = center.querySelector('.slide_content ul');
+                var ul = center_scroll;
 
                 // Remove previous loading item
                 if(remove = ul.querySelector('li.no_items'))
@@ -558,7 +578,7 @@ var Layout = function()
                 var items = r.items;
 
                 // Build new list of items
-                var ul = center.querySelector('.slide_content ul');
+                var ul = center_scroll;
 
                 // Clear previous list
                 if(!items)
@@ -665,6 +685,7 @@ var Layout = function()
                     li.addEventListener('click', layout.loadMore.bind(layout));
                     ul.appendChild(li);
                 }
+                self.loading_more=0;
             });
     };
 

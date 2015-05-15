@@ -686,8 +686,8 @@ Feedly.prototype.addFeed= function(url)
     var addurl = url;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/subscription/quickadd';
-        var data = 'quickadd='+encodeURIComponent(addurl);
+        var url = self.host+'/v3/subscriptions';
+        var data = {  id : 'feed/'+addurl, categories:  [  ], title: addurl.replace(/.*\/\/([^\/]+).*/,'$1') };
 
         self._query.bind(self)("POST", url, data)
             .then(function(text)

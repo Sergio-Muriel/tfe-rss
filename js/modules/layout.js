@@ -609,8 +609,20 @@ var Layout = function()
                         if(viewList)
                         {
                             p = document.createElement('p');
+                            // Preload image and display only if big enough
+                            (function(p)
+                            {
+                                var img = new Image;
+                                img.onload=function()
+                                {
+                                    if(img.width>50 && img.height>0)
+                                    {
+                                        p.style.backgroundImage = 'url('+first_image+')';
+                                    }
+                                };
+                                img.src = first_image;
+                            })(p);
                             p.className='feed_image';
-                            p.style.backgroundImage = 'url('+first_image+')';
                             div.appendChild(p);
                         }
                         else

@@ -480,10 +480,9 @@ var Layout = function()
         leftlist.innerHTML='';
     };
 
-    this.loadMore = function(e)
+    this.loadMore = function()
     {
-        var li = e.target;
-        return this.displayItems(li.getAttribute('data-continuation'));
+        return this.displayItems(document.querySelector('.no_items').getAttribute('data-continuation'));
     };
 
     this.gotoTop=function()
@@ -682,6 +681,14 @@ var Layout = function()
             li = li.parentNode;
         }
         this.opened_item = li;
+
+        next = li.nextElementSibling;
+        console.log('next',next);
+        if(next && next.getAttribute('data-continuation'))
+        {
+            this.loadMore();
+        }
+
 
         var id  = li.getAttribute('data-id');
 

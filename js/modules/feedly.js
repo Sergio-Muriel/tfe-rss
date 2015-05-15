@@ -178,13 +178,11 @@ Feedly.prototype.initDb = function()
 
 Feedly.prototype.loggedin = function()
 {
-    console.log('logged in  feedly');
     this.form.classList.add("loggedin");
 };
 
 Feedly.prototype.loggedout = function()
 {
-    console.log('loggedout  feedly');
     this.form.classList.remove("loggedin");
 };
 
@@ -225,7 +223,6 @@ Feedly.prototype.getAccount = function(callback)
         var cursor = e.target.result;
         if (cursor) {
             self.account = cursor.value;
-            console.log('userid ', self.account);
             self.all_id = 'user/'+self.account.userid+'/category/global.all';
             self.starred_id = 'user/'+self.account.userid+'/tag/global.must';
             self.liked_id = 'user/'+self.account.userid+'/tag/global.saved';
@@ -270,7 +267,6 @@ Feedly.prototype.isLoggedIn = function(callback)
     {
         return false;
     }
-    console.log('token ',this.account.token);
     return true;
 };
 
@@ -590,7 +586,6 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                                             {
                                                 item.starred=true;
                                             }
-                                            console.log(item);
                                             if(/global.saved/.test(tag.id))
                                             {
                                                 item.liked=true;
@@ -625,7 +620,6 @@ Feedly.prototype.markRead= function(item_id, state)
 
         var command = state ? 'PUT' : 'DELETE';
         var params = state ? { entryId : item_id } : null;
-        console.log('command ',command,url);
         self._query.bind(self)(command, url, params)
             .then(function(text)
             {
@@ -644,7 +638,6 @@ Feedly.prototype.markLike= function(item_id, state)
 
         var command = state ? 'PUT' : 'DELETE';
         var params = state ? { entryId : item_id } : null;
-        console.log('command ',command,url);
         self._query.bind(self)(command, url, params)
             .then(function(text)
             {
@@ -663,7 +656,6 @@ Feedly.prototype.markStar= function(item_id, state)
 
         var command = state ? 'PUT' : 'DELETE';
         var params = state ? { entryId : item_id } : null;
-        console.log('command ',command,url);
         self._query.bind(self)(command, url, params)
             .then(function(text)
             {
@@ -677,9 +669,9 @@ Feedly.prototype.readAll= function(item_id)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/mark-all-as-read';
+        var url = self.host+'/v3/markers';
 
-        var data='s='+item_id;
+        var data= { action : "markAsRead", categoryIds : [item_id], type: 'categories' };
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {

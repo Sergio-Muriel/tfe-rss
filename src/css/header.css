@@ -15,6 +15,11 @@
     font-style: italic;
     text-align: center;
 }
+.header h1
+{
+    font-size:2rem;
+    font-weight:bold;
+}
 
 .header button
 {

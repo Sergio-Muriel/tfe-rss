@@ -96,7 +96,7 @@ var Layout = function()
             next = this.opened_item.nextElementSibling;
         }
 
-        if(this.opened_item!=next && next.classList.contains('feed_item'))
+        if(this.opened_item!=next && !next.classList.contains('feed_item'))
         {
             this.openItem({ target: next});
         }
@@ -116,7 +116,7 @@ var Layout = function()
         {
             next = this.opened_item.previousElementSibling ||  document.querySelector('.feed_item');
         }
-        if(this.opened_item!=next && next.classList.contains('feed_item'))
+        if(this.opened_item!=next && !next.classList.contains('feed_item'))
         {
             this.openItem({ target: next});
         }

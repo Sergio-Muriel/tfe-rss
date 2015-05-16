@@ -25,6 +25,8 @@ var Layout = function()
         this.controller = controller;
         this.bind();
         this.init_scroll();
+
+        this.clear();
     };
 
     this.init_scroll= function()
@@ -531,18 +533,33 @@ var Layout = function()
 
     this.clear= function()
     {
+        if(!navigator.mozL10n.ctx.isReady)
+        {
+            return setTimeout(this.clear.bind(this), 10);
+        }
         this.closeItem();
         this.wait_loading = 0;
         this.opened_item=null;
         this.feed_contents=[];
         var ul = center_scroll;
         ul.innerHTML='';
+
+        // If not loggedin, create empty item to advice
+        if(!settings.loggedin)
+        {
+            li = document.createElement('li');
+            li.className='not_loggedin';
+            li.innerHTML=translate('login_to_use');
+            li.addEventListener('click', this.display_right.bind(this));
+            ul.appendChild(li);
+        }
     };
 
     this.clearAndLoadItems = function()
     {
         this.clear();
         this.gotoTop();
+
         this.displayItems();
     },
 

@@ -596,6 +596,7 @@ div.leftlist_item
     white-space:normal;
 }
 
+.slide.center li.not_loggedin,
 .slide.center li.no_items,
 .slide.center li.loading
 {
@@ -608,6 +609,14 @@ div.leftlist_item
     text-shadow:1px 1px 1px #000;
     color:#828282;
 }
+.slide.center li.not_loggedin
+{
+    line-height:2em;
+    padding:48px 0px;
+    padding:3rem 0px;
+    white-space:normal;
+}
+
 
 
 

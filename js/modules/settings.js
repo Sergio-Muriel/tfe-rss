@@ -9,7 +9,6 @@ var Settings = function()
         var self=this;
         this.controllers = controllers;
 
-
         this.view_read = document.querySelector('#view_read');
         this.view_list = document.querySelector('#view_list');
 

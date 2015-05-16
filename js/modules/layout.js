@@ -63,6 +63,12 @@ var Layout = function()
     this.addFeed = function()
     {
         var url = prompt(translate('add_feed'));
+
+        // Do nothing if not logged in
+        if(!settings.loggedin)
+        {
+            return;
+        }
         var self=this;
         if(url)
         {
@@ -543,6 +549,12 @@ var Layout = function()
     this.displayItems = function(continuation)
     {
         var self=this;
+        // Do nothing if not logged in
+        if(!settings.loggedin)
+        {
+            return;
+        }
+
         this.controller.updateCount()
         .then(function()
         {

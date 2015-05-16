@@ -563,12 +563,15 @@ TheOldReader.prototype.getItems = function(id, viewRead, next)
                             if(data)
                             {
                                 data.continuation = items.continuation;
-                                Array.forEach(data.items, function(item)
+                                if(data.items)
                                 {
-                                    item.starred = item.categories.indexOf('user/-/state/com.google/starred')!==-1;
-                                    item.liked = item.categories.indexOf('user/-/state/com.google/like')!==-1;
-                                    item.unread = item.categories.indexOf('user/-/state/com.google/fresh')!==-1;
-                                });
+                                    Array.forEach(data.items, function(item)
+                                    {
+                                        item.starred = item.categories.indexOf('user/-/state/com.google/starred')!==-1;
+                                        item.liked = item.categories.indexOf('user/-/state/com.google/like')!==-1;
+                                        item.unread = item.categories.indexOf('user/-/state/com.google/fresh')!==-1;
+                                    });
+                                }
                                 ok(data);
                             }
                             else

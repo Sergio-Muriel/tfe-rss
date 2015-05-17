@@ -75,6 +75,19 @@ input[type="url"], input[type="number"], textarea, select
     background:var(--inputBg);
     color:var(--inputColor);
 }
+.line_select select
+{
+    padding-right:3em;
+}
+.line_select span::before
+{
+    position:absolute;
+    top:50%;
+    right:10px;
+    transform:translateY(-50%);
+    font-size:1.3em;
+    color:var(--menuBg);
+}
 
 .bb-button
 {

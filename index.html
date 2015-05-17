@@ -94,10 +94,14 @@
                                         <div class="loggedout">
                                             <form>
                                                 <p class="form_text" data-l10n-id="select_api"></p>
-                                                <select name="api" id="api">
-                                                    <option value="theoldreader">The Old Reader</option>
-                                                    <option value="feedly">Feedly</option>
-                                                </select>
+                                                <p class="line_select">
+                                                    <span class="fa fa-toggle-down">
+                                                        <select name="api" id="api">
+                                                            <option value="theoldreader">The Old Reader</option>
+                                                            <option value="feedly">Feedly</option>
+                                                        </select>
+                                                    </span>
+                                                </p>
                                             </form>
                                         </div>
 
@@ -127,7 +131,7 @@
                                 </form>
                             </div>
 
-                            <form>
+                            <form class="loggedin hidden">
                                 <fieldset>
                                     <legend data-l10n-id="general_settings"></legend>
 
@@ -141,9 +145,18 @@
                                         <label for="view_list" data-l10n-id="view_list_type"></label>
                                     </p>
 
-                                    <p class="line_number">
-                                        <input type="number" class="update_time" id="update_time">
+                                    <p class="line_select">
                                         <label for="update_time" data-l10n-id="update_time"></label>
+                                        <span class="fa fa-toggle-down">
+                                            <select class="update_time" id="update_time">
+                                                <option value="5" data-l10n-id="time_5m" />
+                                                <option value="10" data-l10n-id="time_10m" />
+                                                <option value="15" data-l10n-id="time_15m" />
+                                                <option value="30" data-l10n-id="time_30m" />
+                                                <option value="60" data-l10n-id="time_60m" />
+                                                <option value="120" data-l10n-id="time_120m" />
+                                            </select>
+                                        </span>
                                     </p>
                                 </fieldset>
                             </form>

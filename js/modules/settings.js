@@ -40,13 +40,26 @@ var Settings = function()
                         self.set_api(_controller.type);
                     });
                     Array.forEach(document.querySelectorAll('.loggedout'),function(item) { item.classList.remove('hidden'); });
+                    Array.forEach(document.querySelectorAll('.loggedin'),function(item) { item.classList.add('hidden'); });
                 }
                 else
                 {
                     layout.clear();
                     Array.forEach(document.querySelectorAll('.loggedout'),function(item) {  item.classList.add('hidden'); });
+                    Array.forEach(document.querySelectorAll('.loggedin'),function(item) {  item.classList.remove('hidden'); });
                 }
             });
+    };
+
+    this.set_update_time=function(time)
+    {
+        var options=[];
+        var select = document.querySelector('#update_time');
+        Array.forEach(select.options, function(option)
+        {
+            options.push(option.value);
+        });
+        select.selectedIndex = options.indexOf(time+'');
     };
 
     this.set_api=function(api)
@@ -114,6 +127,9 @@ var Settings = function()
     {
         this.view_read.checked =  this.getViewRead();
         this.view_list.checked =  this.getViewList();
+        this.view_list.checked =  this.getViewList();
+
+        this.set_update_time(this.getUpdateTime());
     };
 
     this.logout= function(e)
@@ -155,6 +171,10 @@ var Settings = function()
     this.getViewList = function()
     {
         return localStorage.getItem('viewList') !== "0" ? true : false;
+    };
+    this.getUpdateTime = function()
+    {
+        return localStorage.getItem('updateTime') || 15;
     };
 
 };

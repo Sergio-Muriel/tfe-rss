@@ -239,6 +239,21 @@ input[type="url"], input[type="number"], textarea, select
     background:#fff;
     color:#000;
 }
+.line_select select
+{
+    padding-right:3em;
+}
+.line_select span:before
+{
+    position:absolute;
+    top:50%;
+    right:10px;
+    -webkit-transform:translateY(-50%);
+        -ms-transform:translateY(-50%);
+            transform:translateY(-50%);
+    font-size:1.3em;
+    color:#333;
+}
 
 .bb-button
 {

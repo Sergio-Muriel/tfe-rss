@@ -470,6 +470,10 @@ div.leftlist_item
 {
     width:calc(80% - 1px);
 }
+.slide.right .slide_content
+{
+    bottom:0px;
+}
 .slide.center
 {
     position:relative;

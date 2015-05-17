@@ -127,7 +127,7 @@
     font-size:1.4rem;
     line-height:1.5rem;
     padding:1rem;
-    overflow-x:hidden;
+    overflow:hidden;
     white-space:normal;
 }
 .feed_content *
@@ -135,6 +135,7 @@
     max-width: 100%;
     height:auto;
     white-space:normal;
+    line-height:1em;
 }
 
 .slide.center li.not_loggedin,

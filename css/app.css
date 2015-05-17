@@ -209,9 +209,13 @@ form select
     line-height:1.5em;
     margin:0.5em auto;
 }
-input:invalid
+
+input:invalid,
+input[type="email"]:invalid,
+input[type="number"]:invalid
 {
     color:#b90000;
+    border:1px solid #b90000;
 }
 
 input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="search"],

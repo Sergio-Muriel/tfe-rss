@@ -3,6 +3,7 @@ var theoldreader = new TheOldReader();
 var feedly = new Feedly();
 var layout =  new Layout();
 var settings =  new Settings();
+var translate = navigator.mozL10n.get;
 
 
 // DOMContentLoaded is fired once the document has been loaded and parsed,

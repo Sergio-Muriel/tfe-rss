@@ -23,7 +23,6 @@ var Feedly = function()
     this.xhr = new XMLHttpRequest({ mozSystem: true });
 
     // Init indexed DB
-    var translate = navigator.mozL10n.get;
     var db_request = indexedDB.open('feedly');
     db_request.onsuccess = function (e) { self.db = e.target.result; };
     db_request.onerror = function (e) { console.log(e); };
@@ -107,7 +106,7 @@ Feedly.prototype.getToken = function(data)
             .then(self.create_account.bind(self,data.access_token, data.refresh_token))
             .then(settings.init_accounts.bind(settings))
             .then(ok);
-        });
+        }, reject);
     });
 };
 
@@ -123,7 +122,7 @@ Feedly.prototype.getProfile = function()
             self.userid = data.id;
             self.email = data.email;
             ok();
-        });
+        }, reject);
     });
 };
 
@@ -299,11 +298,6 @@ Feedly.prototype._query = function(method,url,data,callback)
                 {
                     return ok(r.responseText);
                 }
-                else if(r.status===0)
-                {
-                    alert(navigator.mozL10n.get('network_error'));
-                    return reject(null);
-                }
                 else
                 {
                     return reject(null);
@@ -381,7 +375,7 @@ Feedly.prototype.updateLabelsList = function()
                 {
                     reject();
                 }
-            });
+            } ,reject);
     });
 }
 Feedly.prototype.addLabels = function(labels)
@@ -425,7 +419,7 @@ Feedly.prototype.updateCount = function()
                 {
                     reject();
                 }
-            });
+            }, reject);
     });
 }
 

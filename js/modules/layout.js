@@ -1,6 +1,5 @@
 var Layout = function()
 {
-    var translate = navigator.mozL10n.get;
     var buttons=  document.querySelectorAll('.header button');
 
     var center = document.querySelector('.slide.center');
@@ -8,6 +7,9 @@ var Layout = function()
     var right = document.querySelector('.slide.right')
     var center_scroll_container = center.querySelector('.slide_content');
     var center_scroll = center.querySelector('.slide_content ul');
+
+    var alert_container = center.querySelector('.alert_container');
+    var alert_msg = center.querySelector('.alert');
 
     var full_container = document.querySelector('.feed_fullscreen-container')
     var center_menu_single = document.querySelector('.center_menu_single')
@@ -25,8 +27,6 @@ var Layout = function()
         this.controller = controller;
         this.bind();
         this.init_scroll();
-
-        this.clear();
     };
 
     this.init_scroll= function()
@@ -39,6 +39,19 @@ var Layout = function()
         {
             this.loadMore();
         }
+    };
+
+    this.alert=function(msg,time)
+    {
+        if(!time) { time= 2000; }
+        alert_msg.innerHTML=msg;
+        alert_container.classList.add('visible');
+        clearTimeout(this.alert_timeout);
+        this.alert_timeout = setTimeout(this.alert_hide.bind(this), time);
+    };
+    this.alert_hide = function()
+    {
+        alert_container.classList.remove('visible');
     };
 
     this.setController= function(_controller)
@@ -78,7 +91,6 @@ var Layout = function()
             .then(
             function(result)
             {
-                var translate = navigator.mozL10n.get;
                 self.controller.fullupdate()
                     .then(layout.updateLeftList.bind(layout));
 
@@ -86,7 +98,6 @@ var Layout = function()
             },
             function(result)
             {
-                var translate = navigator.mozL10n.get;
                 alert(translate('feed_added_error'));
             });
         }
@@ -223,11 +234,17 @@ var Layout = function()
 
     this.markRead=function(li,item_id)
     {
+        var self=this;
         li.classList.add('updating');
         this.controller.markRead(item_id, true)
             .then(function(result)
             {
+                li.classList.remove('updating');
                 li.classList.remove('fresh_item');
+            }, function()
+            {
+                li.classList.remove('updating');
+                self.alert(translate('network_error'));
             });
 
         return true;
@@ -235,6 +252,7 @@ var Layout = function()
 
     this.markStarClick=function(e)
     {
+        var self=this;
         var span = e.target;
         var li = e.target;
         while(li && li.tagName!=='LI')
@@ -259,12 +277,18 @@ var Layout = function()
             .then(function(result)
             {
                 span.classList.remove('updating');
+            }, function()
+            {
+                span.classList.remove('updating');
+                self.alert(translate('network_error'));
             });
 
         return true;
     };
+
     this.markLikeClick=function(e)
     {
+        var self=this;
         var span = e.target;
         var li = e.target;
         while(li && li.tagName!=='LI')
@@ -285,6 +309,10 @@ var Layout = function()
             .then(function(result)
             {
                 span.classList.remove('updating');
+            }, function()
+            {
+                span.classList.remove('updating');
+                self.alert(translate('network_error'));
             });
 
         return true;
@@ -464,6 +492,9 @@ var Layout = function()
                 items.appendChild(div);
             });
             self.updateCount();
+        }, function()
+        {
+            self.alert(translate('network_error'));
         });
     };
 
@@ -494,6 +525,9 @@ var Layout = function()
                         }
                     }
                 });
+            }, function()
+            {
+                self.alert(translate('network_error'));
             });
     };
 
@@ -509,7 +543,11 @@ var Layout = function()
         {
             console.log('load more!');
             this.loading_more=1;
-            return this.displayItems(document.querySelector('.no_items').getAttribute('data-continuation'));
+            var no_items = document.querySelector('.no_items');
+            if(no_items)
+            {
+                return this.displayItems(document.querySelector('.no_items').getAttribute('data-continuation'));
+            }
         }
     };
 
@@ -576,6 +614,9 @@ var Layout = function()
         .then(function()
         {
             self.updateCount();
+        }, function()
+        {
+            self.alert(translate('error_update_count'));
         });
 
         var viewRead = settings.getViewRead();
@@ -715,6 +756,9 @@ var Layout = function()
                     ul.appendChild(li);
                 }
                 self.loading_more=0;
+            }, function()
+            {
+                self.alert(translate('error_get_items'));
             });
     };
 
@@ -745,7 +789,6 @@ var Layout = function()
         this.opened_item = li;
 
         next = li.nextElementSibling;
-        console.log('next',next);
         if(next && next.getAttribute('data-continuation'))
         {
             this.loadMore();

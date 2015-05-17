@@ -43,6 +43,7 @@ var Settings = function()
                 }
                 else
                 {
+                    layout.clear();
                     Array.forEach(document.querySelectorAll('.loggedout'),function(item) {  item.classList.add('hidden'); });
                 }
             });

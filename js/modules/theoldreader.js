@@ -36,9 +36,9 @@ TheOldReader.prototype.init = function()
     {
         // Bind buttons
         this.form.addEventListener('submit', function(e) { return self.login(e); }, false);
-        this.login_link.addEventListener('submit', function(e) { return self.login(e); }, false);
-        this.logout_link.addEventListener('click', function(e) { return self.logout(e); }, false);
-        this.register_link.addEventListener('click', function(e) { return self.register(e); });
+        this.login_link.addEventListener('submit', function(e) { return self.login.bind(self)(e); }, false);
+        this.logout_link.addEventListener('click', function(e) { return self.logout.bind(self)(e); }, false);
+        this.register_link.addEventListener('click', function(e) { return self.register.bind(self)(e); });
     }
     self.inited=1;
 
@@ -61,7 +61,12 @@ TheOldReader.prototype.login= function(e)
         e.preventDefault();
 
         this._login(this.email.value,this.password.value)
-            .then(settings.init_accounts.bind(settings));
+            .then(
+                settings.init_accounts.bind(settings),
+                function()
+                {
+                    alert(translate('login_fail'));
+                });
     }
     else
     {
@@ -140,12 +145,10 @@ TheOldReader.prototype._login = function(email, password)
                 }
                 else if(r.status===0)
                 {
-                    alert(navigator.mozL10n.get('network_error'));
                     reject();
                 }
                 else
                 {
-                    alert(navigator.mozL10n.get('login_fail'));
                     // Bad identification, return callback
                     reject();
                 }
@@ -277,15 +280,13 @@ TheOldReader.prototype._query = function(method,url,data,callback)
                 {
                     return ok(r.responseText);
                 }
-                else if(r.status===0)
-                {
-                    alert(navigator.mozL10n.get('network_error'));
-                    return reject(null);
-                }
                 else
                 {
                     return reject(null);
                 }
+            }
+            else
+            {
             }
         };
         r.send(data);
@@ -358,7 +359,7 @@ TheOldReader.prototype.updateLabelsList = function()
                 {
                     reject();
                 }
-            });
+            }, reject);
     });
 }
 TheOldReader.prototype.addLabels = function(labels)
@@ -402,7 +403,7 @@ TheOldReader.prototype.updateCount = function()
                 {
                     reject();
                 }
-            });
+            }, reject);
     });
 }
 
@@ -541,7 +542,6 @@ TheOldReader.prototype.getItems = function(id, viewRead, next)
         {
             url+='&c='+next;
         }
-        console.log('fetch ',url);
 
         self._query.bind(self)("GET", url, null)
             .then(function(text)
@@ -578,7 +578,7 @@ TheOldReader.prototype.getItems = function(id, viewRead, next)
                             {
                                 reject();
                             }
-                        });
+                        }, reject);
 
                 }
                 else

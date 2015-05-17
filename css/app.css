@@ -717,6 +717,45 @@ li.feed_fullscreen .feed_flags span.flag_share
     display:inline-block;
 }
 
+.alert_container
+{
+    position:absolute;
+    bottom:20%;
+    z-index:6;
+    width:100%;
+    text-align:center;
+    visibility:hidden;
+    opacity:0;
+    -webkit-transition:opacity 0.5s ease 0s;
+            transition:opacity 0.5s ease 0s;
+}
+.alert_container.visible
+{
+    visibility:visible;
+    opacity:1;
+}
+.alert
+{
+    width:70%;
+    margin:auto;
+    font-size:27px;
+    font-size:1.7rem;
+    white-space:normal;
+    line-height:1.4em;
+    padding:16px;
+    padding:1rem;
+    background:#2b2b2b;
+    text-shadow:1px 1px 1px #000;
+    color:#828282;
+    border:1px solid white;
+    text-align:center;
+}
+.alert_container.visible.error .alert
+{
+    color:red;
+    border:1px solid red;
+}
+
 html, body {
     font-size:10px;
     font-family:sans-serif;

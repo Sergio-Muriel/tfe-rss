@@ -1,4 +1,5 @@
 - Fix double click on refresh items cause duplicated items
 - Better settings pages
-- Load images on javascript before adding to DOM
+- Update timer (update_time)
+- Sort items by (select in settings) (date, popular, alphabetical?) / ASC-DESC
 

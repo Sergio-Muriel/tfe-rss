@@ -422,7 +422,7 @@ var Layout = function()
             Array.forEach(labels, function(label)
             {
                 // Add only real labels
-                if(/(label|user)/.test(label.id))
+                if(/(label|user|^\-?\d+)/.test(label.id))
                 {
                     var li = document.createElement('li');
                     var name = label.label || label.id.replace(/.*label\//,'');
@@ -468,6 +468,7 @@ var Layout = function()
                 {
                     items = leftlist;
                 }
+                console.log('TEST FEED',feed);
 
 
                 var div  =document.createElement('div');

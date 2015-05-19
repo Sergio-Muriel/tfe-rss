@@ -6,9 +6,9 @@ var Tinytinyrss = function()
     this.password = null;
 
     this.all_id  = 'user/-/state/com.google/reading-list';
-    this.starred_id  = 'user/-/state/com.google/starred';
-    this.liked_id = 'user/-/state/com.google/like';
-    this.shared_id = 'user/-/state/com.google/broadcast';
+    //this.starred_id  = 'user/-/state/com.google/starred';
+    //this.liked_id = 'user/-/state/com.google/like';
+    //this.shared_id = 'user/-/state/com.google/broadcast';
 
     this.form = document.querySelector('.tinytinyrss form');
     this.login_link = document.querySelector('.tinytinyrss .login_link');
@@ -296,14 +296,14 @@ Tinytinyrss.prototype.updateSubscriptionList = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/subscription/list?output=json';
-        self._query.bind(self)("GET", url, null)
+        var url = self.host+'/api/';
+        self._query.bind(self)("POST", url, { op : 'getFeedTree' })
             .then(function(text)
             {
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    self.addSubscriptions(data.subscriptions)
+                    self.addSubscriptions(data.content)
                         .then(ok, reject);
                 }
                 else
@@ -327,11 +327,18 @@ Tinytinyrss.prototype.addSubscriptions = function(subscriptions)
         allfeeds.clear();
 
         //Create the Object to be saved i.e. our Note
-        subscriptions.forEach(function(data)
+        subscriptions.categories.items.forEach(function(category)
         {
-            var feeds = transaction_feeds.objectStore('feeds');
-            data.category = data.categories.length>0 ?  data.categories[0].id : '';
-            var request = feeds.add(data);
+            if(category.items)
+            {
+                category.items.forEach(function(feed)
+                {
+                    var feeds = transaction_feeds.objectStore('feeds');
+                    feed.category = category.id.replace('CAT:','');
+                    feed.title = feed.name;
+                    var request = feeds.add(feed);
+                });
+            }
         });
     });
 };
@@ -348,7 +355,7 @@ Tinytinyrss.prototype.updateLabelsList = function()
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    self.addLabels(data.tags)
+                    self.addLabels(data.content)
                         .then(ok, reject);
                 }
                 else
@@ -375,6 +382,7 @@ Tinytinyrss.prototype.addLabels = function(labels)
         labels.forEach(function(data)
         {
             var labels = transaction_labels.objectStore('labels');
+            data.label = data.title;
             var request = labels.add(data);
         });
     });
@@ -480,14 +488,12 @@ Tinytinyrss.prototype.getLabels = function()
        c.onsuccess = function (e) {
             var cursor = e.target.result;
             if (cursor) {
-                if(/label/.test(cursor.value.id))
-                {
-                    labels.push(cursor.value);
-                }
+                labels.push(cursor.value);
                 cursor.continue();
             }
             else
             {
+                console.log('labels',labels);
                 ok(labels);
             }
         };

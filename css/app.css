@@ -623,7 +623,7 @@ div.leftlist_item
     max-width: 100%;
     height:auto;
     white-space:normal;
-    line-height:1em;
+    line-height:1.1em;
 }
 
 .slide.center li.not_loggedin,

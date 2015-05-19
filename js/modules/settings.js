@@ -60,6 +60,9 @@ var Settings = function()
             options.push(option.value);
         });
         select.selectedIndex = options.indexOf(time+'');
+
+        clearInterval(this.update_time_timer);
+        this.update_time_timer = setInterval(layout.clearAndLoadItems.bind(layout),  time*60*1000);
     };
 
     this.set_api=function(api)
@@ -121,6 +124,7 @@ var Settings = function()
         this.view_list.addEventListener('click', function(e) { return self.toggleViewList(e); });
 
         document.querySelector('#api').addEventListener('change', function(e) { return self.set_api(e.target.value); });
+        document.querySelector('#update_time').addEventListener('change', function(e) { return self.set_update_time(e.target.value); });
     };
 
     this.restoreSettings= function()

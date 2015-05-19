@@ -1,5 +1,6 @@
 // Init classes
 var theoldreader = new TheOldReader();
+var tinytinyrss = new Tinytinyrss();
 var feedly = new Feedly();
 var layout =  new Layout();
 var settings =  new Settings();
@@ -16,5 +17,5 @@ window.addEventListener('DOMContentLoaded', function() {
     layout.init();
 
     // Add the old reader support
-    settings.init([theoldreader, feedly]);
+    settings.init([theoldreader, feedly, tinytinyrss]);
 });

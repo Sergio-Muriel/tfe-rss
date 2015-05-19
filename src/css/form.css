@@ -133,13 +133,22 @@ input[type="url"], input[type="number"], textarea, select
     width:calc(100% - 4rem);
 }
 
-[data-api="theoldreader"] .feedly
+[data-api="theoldreader"] .feedly,
+[data-api="tinytinyrss"] .feedly
 {
     display:none;
 }
 
-[data-api="feedly"] .theoldreader
+[data-api="feedly"] .theoldreader,
+[data-api="tinytinyrss"] .theoldreader
 {
     display:none;
 }
+
+[data-api="theoldreader"] .tinytinyrss,
+[data-api="feedly"] .tinytinyrss
+{
+    display:none;
+}
+
 

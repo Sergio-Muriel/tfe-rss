@@ -18,6 +18,7 @@
 
         <script type="text/javascript" src="js/modules/theoldreader.js" defer></script>
         <script type="text/javascript" src="js/modules/feedly.js" defer></script>
+        <script type="text/javascript" src="js/modules/tinytinyrss.js" defer></script>
 
 
         <!-- Main initialisation -->
@@ -99,6 +100,7 @@
                                                         <select name="api" id="api">
                                                             <option value="theoldreader">The Old Reader</option>
                                                             <option value="feedly">Feedly</option>
+                                                            <option value="tinytinyrss">Tiny Tiny RSS</option>
                                                         </select>
                                                     </span>
                                                 </p>
@@ -126,6 +128,21 @@
                                                     <p><button class="login_link bb-button bb-recommend" data-l10n-id="login_with_feedly"></button></p>
                                                     <p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>
                                                 </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="tinytinyrss">
+                                            <form>
+                                                <p class="form_text loggedin" data-l10n-id="connected_with"></p>
+                                                <p class="form_text loggedout" data-l10n-id="enter_account_information"></p>
+
+                                                <p>
+                                                    <input type="url" name="url" data-l10n-placeholder="form_url" required>
+                                                    <input type="text" name="user" data-l10n-placeholder="form_user" required>
+                                                    <input type="password" name="password" data-l10n-placeholder="form_password" required>
+                                                </p>
+                                                <p><button class="login_link bb-button bb-recommend" data-l10n-id="login_link"></button></p>
+                                                <p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>
                                             </form>
                                         </div>
                                 </fieldset>

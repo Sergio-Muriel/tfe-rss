@@ -38,9 +38,14 @@
     height:80px;
     height:5rem;
 }
+
 .header button span
 {
     color:#000;
+}
+.header button:active span
+{
+    color:#727272;
 }
 .header button.selected
 {
@@ -678,6 +683,10 @@ div.leftlist_item
     height:5rem;
     line-height:80px;
     line-height:5rem;
+}
+.center_menu span:active
+{
+    color:white;
 }
 .center_menu_single
 {

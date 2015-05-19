@@ -26,9 +26,14 @@
     width:5rem;
     height:5rem;
 }
+
 .header button span
 {
     color:var(--headerColor);
+}
+.header button:active span
+{
+    color:#727272;
 }
 .header button.selected
 {

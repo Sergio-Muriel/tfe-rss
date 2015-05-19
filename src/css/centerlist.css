@@ -183,6 +183,10 @@
     height:5rem;
     line-height:5rem;
 }
+.center_menu span:active
+{
+    color:white;
+}
 .center_menu_single
 {
     z-index:5;

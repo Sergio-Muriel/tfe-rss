@@ -1,5 +1,9 @@
+.slide.right
+{
+    border-left:1px solid var(--menulistItemBorder);
+}
+
 .slide.right .slide_content
 {
     bottom:0px;
 }
-

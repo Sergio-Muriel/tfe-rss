@@ -475,6 +475,11 @@ div.leftlist_item
 {
     width:calc(80% - 1px);
 }
+.slide.right
+{
+    border-left:1px solid #c2c2c2;
+}
+
 .slide.right .slide_content
 {
     bottom:0px;

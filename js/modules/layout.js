@@ -115,7 +115,7 @@ var Layout = function()
             next = this.opened_item.nextElementSibling;
         }
 
-        if(this.opened_item!=next && next.classList.contains('feed_item'))
+        if(next && this.opened_item!=next && next.getAttribute('feed_link'))
         {
             this.openItem({ target: next});
         }
@@ -135,7 +135,7 @@ var Layout = function()
         {
             next = this.opened_item.previousElementSibling ||  document.querySelector('.feed_item');
         }
-        if(this.opened_item!=next && next.classList.contains('feed_item'))
+        if(next && this.opened_item!=next && next.getAttribute('feed_link'))
         {
             this.openItem({ target: next});
         }
@@ -542,10 +542,10 @@ var Layout = function()
         if(!this.loading_items)
         {
             console.log('load more!');
-            this.loading_items=1;
             var no_items = document.querySelector('.no_items');
             if(no_items)
             {
+                this.loading_items=1;
                 return this.displayItems(document.querySelector('.no_items').getAttribute('data-continuation'));
             }
         }
@@ -605,9 +605,11 @@ var Layout = function()
     this.displayItems = function(continuation)
     {
         var self=this;
+        console.log('display items');
         // Do nothing if not logged in
         if(!settings.loggedin)
         {
+            this.loading_items=0;
             return;
         }
 
@@ -659,102 +661,102 @@ var Layout = function()
                     li.className='no_items';
                     li.innerHTML=translate('no_items');
                     ul.appendChild(li);
-                    return;
-
                 }
-                items.forEach(function(item)
+                else
                 {
-                        var content = item.summary.content;
-                        content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
-                        content = content.replace(/<\/script[^>]*>/,'');
-                        var first_image =null;
-                        if(re=content.match(/<img[^>]+src=["']([^"']+)/))
-                        {
-                            first_image=re[1];
-                        }
-
-                        var li = document.createElement('li');
-                        li.setAttribute('feed_link', item.canonical[0].href);
-                        li.className='feed_item';
-                        if(item.unread)
-                        {
-                            li.className='fresh_item';
-                        }
-                        li.setAttribute('data-id',item.id);
-
-                        var div = document.createElement('div');
-                        div.className='feed_header';
-                        li.appendChild(div);
-
-                        var p = document.createElement('p');
-                        p.className='feed_title '+(viewList?'view_list':'view_full');
-                        p.innerHTML = item.title;
-                        p.addEventListener('click', layout.openItem.bind(layout));
-                        div.appendChild(p);
-
-                        p = document.createElement('p');
-                        p.className='feed_origin';
-                        p.innerHTML = item.origin.title;
-                        div.appendChild(p);
-
-                        if(viewList)
-                        {
-                            p = document.createElement('p');
-                            // Preload image and display only if big enough
-                            (function(p)
+                    items.forEach(function(item)
+                    {
+                            var content = item.summary.content;
+                            content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
+                            content = content.replace(/<\/script[^>]*>/,'');
+                            var first_image =null;
+                            if(re=content.match(/<img[^>]+src=["']([^"']+)/))
                             {
-                                var img = new Image;
-                                img.onload=function()
-                                {
-                                    if(img.width>50 && img.height>0)
-                                    {
-                                        p.style.backgroundImage = 'url('+first_image+')';
-                                    }
-                                };
-                                img.src = first_image;
-                            })(p);
-                            p.className='feed_image';
+                                first_image=re[1];
+                            }
+
+                            var li = document.createElement('li');
+                            li.setAttribute('feed_link', item.canonical[0].href);
+                            li.className='feed_item';
+                            if(item.unread)
+                            {
+                                li.className='fresh_item';
+                            }
+                            li.setAttribute('data-id',item.id);
+
+                            var div = document.createElement('div');
+                            div.className='feed_header';
+                            li.appendChild(div);
+
+                            var p = document.createElement('p');
+                            p.className='feed_title '+(viewList?'view_list':'view_full');
+                            p.innerHTML = item.title;
+                            p.addEventListener('click', layout.openItem.bind(layout));
                             div.appendChild(p);
-                        }
-                        else
-                        {
-                            div_content = document.createElement('div');
-                            div_content.className='feed_content';
-                            div_content.innerHTML = content;
-                            li.appendChild(div_content);
-                        }
 
-                        p = document.createElement('p');
-                        p.className='feed_flags';
-                        div.appendChild(p)
+                            p = document.createElement('p');
+                            p.className='feed_origin';
+                            p.innerHTML = item.origin.title;
+                            div.appendChild(p);
 
-                        var flag_star = document.createElement('span');
-                        flag_star.className='flag_star fa '+(!item.starred?'ko fa-star-o':'fa-star');
-                        flag_star.addEventListener('click', layout.markStarClick.bind(layout));
-                        p.appendChild(flag_star);
+                            if(viewList)
+                            {
+                                p = document.createElement('p');
+                                // Preload image and display only if big enough
+                                (function(p)
+                                {
+                                    var img = new Image;
+                                    img.onload=function()
+                                    {
+                                        if(img.width>50 && img.height>0)
+                                        {
+                                            p.style.backgroundImage = 'url('+first_image+')';
+                                        }
+                                    };
+                                    img.src = first_image;
+                                })(p);
+                                p.className='feed_image';
+                                div.appendChild(p);
+                            }
+                            else
+                            {
+                                div_content = document.createElement('div');
+                                div_content.className='feed_content';
+                                div_content.innerHTML = content;
+                                li.appendChild(div_content);
+                            }
 
-                        var flag_like = document.createElement('span');
-                        flag_like.className='flag_like fa '+(!item.liked?'ko fa-thumbs-o-up':'fa-thumbs-up');
-                        p.appendChild(flag_like);
+                            p = document.createElement('p');
+                            p.className='feed_flags';
+                            div.appendChild(p)
 
-                        var flag_share = document.createElement('span');
-                        flag_share.className='flag_share fa fa-share ko';
-                        p.appendChild(flag_share);
+                            var flag_star = document.createElement('span');
+                            flag_star.className='flag_star fa '+(!item.starred?'ko fa-star-o':'fa-star');
+                            flag_star.addEventListener('click', layout.markStarClick.bind(layout));
+                            p.appendChild(flag_star);
+
+                            var flag_like = document.createElement('span');
+                            flag_like.className='flag_like fa '+(!item.liked?'ko fa-thumbs-o-up':'fa-thumbs-up');
+                            p.appendChild(flag_like);
+
+                            var flag_share = document.createElement('span');
+                            flag_share.className='flag_share fa fa-share ko';
+                            p.appendChild(flag_share);
 
 
-                        self.feed_contents[item.id] = content;
+                            self.feed_contents[item.id] = content;
+                            ul.appendChild(li);
+                    });
+                    if(r.continuation)
+                    {
+                        // Add load more items
+                        var li = document.createElement('li');
+                        li.className='no_items';
+                        li.innerHTML=translate('load_more');
+                        li.setAttribute('data-continuation', r.continuation);
+                        li.addEventListener('click', layout.loadMore.bind(layout));
                         ul.appendChild(li);
-                });
-
-                if(r.continuation)
-                {
-                    // Add load more items
-                    var li = document.createElement('li');
-                    li.className='no_items';
-                    li.innerHTML=translate('load_more');
-                    li.setAttribute('data-continuation', r.continuation);
-                    li.addEventListener('click', layout.loadMore.bind(layout));
-                    ul.appendChild(li);
+                    }
                 }
                 self.loading_items=0;
             }, function()

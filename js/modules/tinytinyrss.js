@@ -209,6 +209,7 @@ Tinytinyrss.prototype.getAccount = function(callback)
         var cursor = e.target.result;
         if (cursor) {
             self.account = cursor.value;
+            self.host =  self.account.host;
             cursor.continue();
         }
         else
@@ -254,16 +255,22 @@ Tinytinyrss.prototype._query = function(method,url,data,callback)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        if(!self.account || !self.account.token)
-        {
-            reject();
-        }
-
         // Init XHR object
         var r = new XMLHttpRequest({ mozSystem: true });
         r.open(method, url, true);
-        r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        r.setRequestHeader("authorization","GoogleLogin auth="+self.account.token);
+        if(!data || typeof data ==='string')
+        {
+            r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        }
+        else
+        {
+            if(self.account)
+            {
+                data.sid = self.account.session;
+            }
+            data = JSON.stringify(data);
+            r.setRequestHeader("Content-type","application/json");
+        }
 
         r.onreadystatechange = function () {
             if (r.readyState == 4)
@@ -276,9 +283,6 @@ Tinytinyrss.prototype._query = function(method,url,data,callback)
                 {
                     return reject(null);
                 }
-            }
-            else
-            {
             }
         };
         r.send(data);
@@ -337,8 +341,8 @@ Tinytinyrss.prototype.updateLabelsList = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/tag/list?output=json';
-        self._query.bind(self)("GET", url, null)
+        var url = self.host+'/api/';
+        self._query.bind(self)("POST", url, { op: 'getCategories' })
             .then(function(text)
             {
                 var data = JSON.parse(text);

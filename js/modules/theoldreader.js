@@ -10,12 +10,6 @@ var TheOldReader = function()
     this.liked_id = 'user/-/state/com.google/like';
     this.shared_id = 'user/-/state/com.google/broadcast';
 
-    this.form = document.querySelector('.theoldreader form');
-    this.login_link = document.querySelector('.theoldreader .login_link');
-    this.logout_link = document.querySelector('.theoldreader .logout_link');
-    this.register_link = document.querySelector('.theoldreader .register_link');
-    this.email = this.form.querySelector('input[name=email]');
-    this.password = this.form.querySelector('input[name=password]');
 
     this.host = 'https://theoldreader.com/';
 
@@ -29,16 +23,41 @@ var TheOldReader = function()
 };
 
 
+TheOldReader.prototype.create_form = function()
+{
+    var form = document.createElement('form');
+    form.id=this.type;
+    form.innerHTML='<p class="form_text loggedin" data-l10n-id="connected_with"></p>'+
+        '<p class="form_text loggedout" data-l10n-id="enter_account_information"></p>'+
+        '<p>'+
+        '<input type="email" name="email" data-l10n-placeholder="form_email" required>'+
+        '<input type="password" name="password" data-l10n-placeholder="form_password" required>'+
+        '</p>'+
+        '<p><button class="login_link bb-button bb-recommend" data-l10n-id="login_link"></button></p>'+
+        '<p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>'+
+        '<p><button class="register_link bb-button" data-l10n-id="register_link"></button></p>'
+    return form;
+};
+
 TheOldReader.prototype.init = function()
 {
     var self=this;
     if(!self.inited)
     {
         // Bind buttons
+        this.form = this.create_form();
+        this.login_link = this.form.querySelector('.login_link');
+        this.logout_link = this.form.querySelector('.logout_link');
+        this.register_link = this.form.querySelector('.register_link');
+        this.email = this.form.querySelector('input[name=email]');
+        this.password = this.form.querySelector('input[name=password]');
+
         this.form.addEventListener('submit', function(e) { return self.login(e); }, false);
         this.login_link.addEventListener('submit', function(e) { return self.login.bind(self)(e); }, false);
         this.logout_link.addEventListener('click', function(e) { return self.logout.bind(self)(e); }, false);
         this.register_link.addEventListener('click', function(e) { return self.register.bind(self)(e); });
+
+        settings.add_api(this.type, 'The Old Reader', this.form);
     }
     self.inited=1;
 

@@ -20,6 +20,17 @@ var Settings = function()
 
     }; 
 
+    this.add_api = function(id, text, form)
+    {
+        var layer = document.querySelector('#register_layer');
+        var select = document.querySelector('#api');
+        var option = document.createElement('option');
+        option.value=id;
+        option.innerHTML=text;
+        select.appendChild(option);
+        layer.appendChild(form);
+    };
+
     this.init_accounts=function()
     {
         var self=this;
@@ -76,7 +87,17 @@ var Settings = function()
             options.push(option.value);
         });
         select.selectedIndex = options.indexOf(api);
-        layer.setAttribute('data-api', api);
+        Array.forEach(layer.querySelectorAll('#register_layer>form'), function(form)
+        {
+            if(form.id!==api)
+            {
+                form.classList.add('hidden');
+            }
+            else
+            {
+                form.classList.remove('hidden');
+            }
+        });
     };
 
     this.init_account=function(_controller)

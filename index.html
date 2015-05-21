@@ -88,7 +88,7 @@
 
                     <!-- Register form -->
                     <div role="main">
-                        <div class="main_layer" id="register_layer" data-api="theoldreader">
+                        <div class="main_layer" id="register_layer">
                                     <fieldset>
                                         <legend data-l10n-id="account_information"></legend>
 
@@ -98,53 +98,13 @@
                                                 <p class="line_select">
                                                     <span class="fa fa-toggle-down">
                                                         <select name="api" id="api">
-                                                            <option value="theoldreader">The Old Reader</option>
-                                                            <option value="feedly">Feedly</option>
-                                                            <option value="tinytinyrss">Tiny Tiny RSS</option>
                                                         </select>
                                                     </span>
                                                 </p>
                                             </form>
                                         </div>
 
-                                        <div class="theoldreader">
-                                            <form>
-                                                <p class="form_text loggedin" data-l10n-id="connected_with"></p>
-                                                <p class="form_text loggedout" data-l10n-id="enter_account_information"></p>
 
-                                                <p>
-                                                    <input type="email" name="email" data-l10n-placeholder="form_email" required>
-                                                    <input type="password" name="password" data-l10n-placeholder="form_password" required>
-                                                </p>
-                                                <p><button class="login_link bb-button bb-recommend" data-l10n-id="login_link"></button></p>
-                                                <p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>
-                                                <p><button class="register_link bb-button" data-l10n-id="register_link"></button></p>
-                                            </form>
-                                        </div>
-                                        <div class="feedly">
-                                            <form>
-                                                <p class="form_text" data-l10n-id="login_feedly_text"></p>
-                                                <div class="feedly">
-                                                    <p><button class="login_link bb-button bb-recommend" data-l10n-id="login_with_feedly"></button></p>
-                                                    <p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                        <div class="tinytinyrss">
-                                            <form>
-                                                <p class="form_text loggedin" data-l10n-id="connected_with"></p>
-                                                <p class="form_text loggedout" data-l10n-id="enter_account_information"></p>
-
-                                                <p>
-                                                    <input type="url" name="url" data-l10n-placeholder="form_url" required>
-                                                    <input type="text" name="user" data-l10n-placeholder="form_user" required>
-                                                    <input type="password" name="password" data-l10n-placeholder="form_password" required>
-                                                </p>
-                                                <p><button class="login_link bb-button bb-recommend" data-l10n-id="login_link"></button></p>
-                                                <p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>
-                                            </form>
-                                        </div>
                                 </fieldset>
                                 </form>
                             </div>

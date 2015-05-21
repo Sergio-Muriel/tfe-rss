@@ -7,12 +7,6 @@ var Feedly = function()
     this.token = null;
 
 
-    this.form = document.querySelector('.feedly form');
-    this.login_link = document.querySelector('.feedly .login_link');
-    this.logout_link = document.querySelector('.feedly .logout_link');
-    this.register_link = document.querySelector('.feedly .register_link');
-    this.email = this.form.querySelector('.feedly input[name=email]');
-    this.password = this.form.querySelector('.feedly input[name=password]');
 
     this.host = 'https://sandbox.feedly.com/';
     this.clientid ='sandbox';
@@ -29,15 +23,33 @@ var Feedly = function()
 };
 
 
+Feedly.prototype.create_form = function()
+{
+    var form = document.createElement('form');
+    form.id=this.type;
+    form.innerHTML=
+        '<form>'+
+        '<p class="form_text" data-l10n-id="login_feedly_text"></p>'+
+        '<div class="feedly">'+
+        '<p><button class="login_link bb-button bb-recommend" data-l10n-id="login_with_feedly"></button></p>'+
+        '<p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>'+
+        '</div>';
+    return form;
+};
 
 Feedly.prototype.init = function()
 {
     var self=this;
     if(!self.inited)
     {
+        this.form = this.create_form();
+        this.login_link = this.form.querySelector('.login_link');
+        this.logout_link = this.form.querySelector('.logout_link');
+
         // Bind
         self.form.querySelector('.login_link').addEventListener('click', this.login.bind(this));
         this.logout_link.addEventListener('click', function(e) { return self.logout(e); }, false);
+        settings.add_api(this.type, 'Feedly', this.form);
     }
     self.inited=1;
 

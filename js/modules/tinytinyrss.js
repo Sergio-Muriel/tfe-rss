@@ -552,13 +552,15 @@ Tinytinyrss.prototype.getCounts = function()
     });
 };
 
-Tinytinyrss.prototype.getItems = function(id, viewRead, next)
+Tinytinyrss.prototype.getItems = function(id, viewRead, next, limit)
 {
     var self=this;
 
     return new Promise(function(ok, reject)
     {
+        console.log('get limit ',limit);
         if(!next) { next= 0; }
+        if(!limit) { limit= 20; }
         var items=[];
         var ids=[];
         var url = self.host+'/api/';
@@ -566,9 +568,10 @@ Tinytinyrss.prototype.getItems = function(id, viewRead, next)
            op : 'getHeadlines',
            feed_id: id.replace(/(CAT|FEED):/,''),
            skip: next,
+           is_cat: /CAT/.test(id),
            show_content: true,
            view_mode : viewRead ?  'all_articles' : 'unread',
-           limit:20,
+           limit:limit,
         };
 
         self._query.bind(self)("POST", url, data)
@@ -680,14 +683,28 @@ Tinytinyrss.prototype.readAll= function(item_id)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/mark-all-as-read';
-
-        var data='s='+item_id;
-        self._query.bind(self)("POST", url, data)
-            .then(function(text)
+        self.getItems(item_id, false, 0, 99999)
+        .then(function(r)
+        {
+            var ids = [];
+            r.items.forEach(function(item)
             {
-                ok(text);
-            }, reject);
+                ids.push(item.id);
+            });
+            var url = self.host+'/api/';
+            var data= {
+                op: 'updateArticle',
+                article_ids: ids.join(','),
+                mode: 0,
+                field: 2 // unread
+            };
+
+            self._query.bind(self)("POST", url, data)
+                .then(function(text)
+                {
+                    ok(text);
+                }, reject);
+        });
     });
 };
 
@@ -697,8 +714,8 @@ Tinytinyrss.prototype.addFeed= function(url)
     var addurl = url;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/subscription/quickadd';
-        var data = 'quickadd='+encodeURIComponent(addurl);
+        var url = self.host+'/api/';
+        var data = { op: 'subscribeToFeed',  category_id: 0, feed_url: addurl, login: 'tfe', password: 'tfe' } ;
 
         self._query.bind(self)("POST", url, data)
             .then(function(text)

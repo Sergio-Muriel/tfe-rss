@@ -63,7 +63,7 @@ Feedly.prototype.logout = function(e)
     this.deleteAccount(this.loggedout.bind(this));
     settings.logout();
     e.preventDefault();
-}
+};
 
 Feedly.prototype.login= function(e)
 {
@@ -84,11 +84,11 @@ Feedly.prototype.callback = function(url)
     console.log('Callback url: ',url);
     var reCode = /code=([^&]+)/;
     var reError = /error=([^&]+)/;
-    if(result = url.match(reError))
+    if((result = url.match(reError)))
     {
         alert(translate('login_feedly_error'));
     }
-    else if(result = url.match(reCode))
+    else if((result = url.match(reCode)))
     {
         var code=result[1];
         var data  = 'code='+encodeURIComponent(code)+'&';
@@ -147,7 +147,7 @@ Feedly.prototype.initDb = function()
         request.onsuccess = function (e) {
             self.db = e.target.result;
             ok();
-        }
+        };
         request.onerror = function (e) {
             console.log(e);
             reject();
@@ -173,13 +173,13 @@ Feedly.prototype.initDb = function()
 
             var objectStore = self.db.createObjectStore('accounts', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('counts', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('counts', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('items', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('items', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
             objectStore.createIndex("sortid", "sortid", { unique: false });
             objectStore.createIndex("id", "id", { unique: false });
         };
@@ -217,7 +217,7 @@ Feedly.prototype.create_account = function(access_token, refresh_token)
         };
         request.onerror = function (e) {
             reject();
-        }
+        };
     });
 };
 
@@ -244,7 +244,7 @@ Feedly.prototype.getAccount = function(callback)
             callback(self.account);
         }
     };
-}
+};
 
 Feedly.prototype.getEmail = function()
 {
@@ -267,7 +267,7 @@ Feedly.prototype.deleteAccount = function(callback)
             .delete(this.account.id);
         request.onsuccess = function(event) {
             callback();
-        }
+        };
         this.account=null;
     }
 };
@@ -343,7 +343,8 @@ Feedly.prototype.updateSubscriptionList = function()
                 }   
             }, reject);
     });
-}
+};
+
 Feedly.prototype.addSubscriptions = function(subscriptions)
 {
     var self=this;
@@ -389,7 +390,8 @@ Feedly.prototype.updateLabelsList = function()
                 }
             } ,reject);
     });
-}
+};
+
 Feedly.prototype.addLabels = function(labels)
 {
     var self=this;
@@ -433,7 +435,7 @@ Feedly.prototype.updateCount = function()
                 }
             }, reject);
     });
-}
+};
 
 Feedly.prototype.addCounts = function(counts)
 {
@@ -491,7 +493,7 @@ Feedly.prototype.getFeeds = function()
         };
        c.onerror = reject;
     });
-}
+};
 
 Feedly.prototype.getLabels = function()
 {
@@ -546,7 +548,7 @@ Feedly.prototype.getCounts = function()
         };
        c.onerror = reject;
     });
-}
+};
 
 Feedly.prototype.getItems = function(id, viewRead, next)
 {
@@ -614,7 +616,7 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                 }
             }, reject);
     });
-}
+};
 
 Feedly.prototype.markRead= function(item_id, state)
 {
@@ -684,7 +686,7 @@ Feedly.prototype.readAll= function(item_id)
                 ok(text);
             }, reject);
     });
-}
+};
 
 Feedly.prototype.addFeed= function(url)
 {

@@ -61,12 +61,13 @@ Tinytinyrss.prototype.init = function()
             this.initDb()
     ]);
 };
+
 Tinytinyrss.prototype.logout = function(e)
 {
     this.deleteAccount(this.loggedout.bind(this));
     settings.logout();
     e.preventDefault();
-}
+};
 
 Tinytinyrss.prototype.login= function(e)
 {
@@ -99,7 +100,7 @@ Tinytinyrss.prototype.initDb = function()
         request.onsuccess = function (e) {
             self.db = e.target.result;
             ok();
-        }
+        };
         request.onerror = function (e) {
             console.log(e);
             reject();
@@ -125,13 +126,13 @@ Tinytinyrss.prototype.initDb = function()
 
             var objectStore = self.db.createObjectStore('accounts', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('counts', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('counts', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('items', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('items', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
             objectStore.createIndex("sortid", "sortid", { unique: false });
             objectStore.createIndex("id", "id", { unique: false });
         };
@@ -209,7 +210,7 @@ Tinytinyrss.prototype.create_account = function(host, user, session)
         };
         request.onerror = function (e) {
             reject();
-        }
+        };
     });
 };
 
@@ -234,7 +235,7 @@ Tinytinyrss.prototype.getAccount = function(callback)
             callback(self.account);
         }
     };
-}
+};
 
 Tinytinyrss.prototype.getUser = function()
 {
@@ -253,7 +254,7 @@ Tinytinyrss.prototype.deleteAccount = function(callback)
             .delete(this.account.id);
         request.onsuccess = function(event) {
             callback();
-        }
+        };
         this.account=null;
     }
 };
@@ -329,7 +330,8 @@ Tinytinyrss.prototype.updateSubscriptionList = function()
                 }   
             }, reject);
     });
-}
+};
+
 Tinytinyrss.prototype.addSubscriptions = function(subscriptions)
 {
     var self=this;
@@ -385,7 +387,8 @@ Tinytinyrss.prototype.updateLabelsList = function()
                 }
             }, reject);
     });
-}
+};
+
 Tinytinyrss.prototype.addLabels = function(labels)
 {
     var self=this;
@@ -431,7 +434,7 @@ Tinytinyrss.prototype.updateCount = function()
                 }
             }, reject);
     });
-}
+};
 
 Tinytinyrss.prototype.addCounts = function(counts)
 {
@@ -492,7 +495,7 @@ Tinytinyrss.prototype.getFeeds = function()
         };
        c.onerror = reject;
     });
-}
+};
 
 Tinytinyrss.prototype.getLabels = function()
 {
@@ -547,7 +550,7 @@ Tinytinyrss.prototype.getCounts = function()
         };
        c.onerror = reject;
     });
-}
+};
 
 Tinytinyrss.prototype.getItems = function(id, viewRead, next)
 {
@@ -571,7 +574,7 @@ Tinytinyrss.prototype.getItems = function(id, viewRead, next)
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {
-                var items = JSON.parse(text);
+                items = JSON.parse(text);
                 if(items)
                 {
                     var itemids = items.itemRefs;
@@ -581,7 +584,7 @@ Tinytinyrss.prototype.getItems = function(id, viewRead, next)
                         data = { continuation: (items.length==20 ? next+20 : null), items: [] }; 
                         Array.forEach(items.content, function(item)
                         {
-                            var item= {
+                            var newitem= {
                                 category:  id,
                                 id: item.id,
                                 title: item.title,
@@ -591,13 +594,13 @@ Tinytinyrss.prototype.getItems = function(id, viewRead, next)
                                 origin: { title: item.feed_title },
                                 starred: item.marked,
                                 liked: item.published
-                            }
-                            data.items.push(item);
+                            };
+                            data.items.push(newitem);
                         });
                     }
                     else
                     {
-                        data = { error: 'x' }
+                        data = { error: 'x' };
                     }
                     ok(data);
                 }
@@ -607,7 +610,7 @@ Tinytinyrss.prototype.getItems = function(id, viewRead, next)
                 }
             }, reject);
     });
-}
+};
 
 Tinytinyrss.prototype.markRead= function(item_id, state)
 {
@@ -686,7 +689,7 @@ Tinytinyrss.prototype.readAll= function(item_id)
                 ok(text);
             }, reject);
     });
-}
+};
 
 Tinytinyrss.prototype.addFeed= function(url)
 {

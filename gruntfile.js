@@ -26,11 +26,15 @@ module.exports = function(grunt) {
                     }
                 ]
             }
+        },
+         jshint: {
+             all: ['Gruntfile.js', 'js/**/*.js']
         }
     });
 
     grunt.loadNpmTasks('grunt-cssnext');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.registerTask('build', ['cssnext']);
     grunt.registerTask('default', ['cssnext']);

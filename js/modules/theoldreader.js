@@ -35,7 +35,7 @@ TheOldReader.prototype.create_form = function()
         '</p>'+
         '<p><button class="login_link bb-button bb-recommend" data-l10n-id="login_link"></button></p>'+
         '<p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>'+
-        '<p><button class="register_link bb-button" data-l10n-id="register_link"></button></p>'
+        '<p><button class="register_link bb-button" data-l10n-id="register_link"></button></p>';
     return form;
 };
 
@@ -65,12 +65,13 @@ TheOldReader.prototype.init = function()
             this.initDb()
     ]);
 };
+
 TheOldReader.prototype.logout = function(e)
 {
     this.deleteAccount(this.loggedout.bind(this));
     settings.logout();
     e.preventDefault();
-}
+};
 
 TheOldReader.prototype.login= function(e)
 {
@@ -103,7 +104,7 @@ TheOldReader.prototype.initDb = function()
         request.onsuccess = function (e) {
             self.db = e.target.result;
             ok();
-        }
+        };
         request.onerror = function (e) {
             console.log(e);
             reject();
@@ -129,13 +130,13 @@ TheOldReader.prototype.initDb = function()
 
             var objectStore = self.db.createObjectStore('accounts', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('feeds', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('counts', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('counts', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('items', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('items', { keyPath: 'id', autoIncrement: true });
 
-            var objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
+            objectStore = self.db.createObjectStore('labels', { keyPath: 'id', autoIncrement: true });
             objectStore.createIndex("sortid", "sortid", { unique: false });
             objectStore.createIndex("id", "id", { unique: false });
         };
@@ -215,7 +216,7 @@ TheOldReader.prototype.create_account = function(email, token)
         };
         request.onerror = function (e) {
             reject();
-        }
+        };
     });
 };
 
@@ -239,7 +240,7 @@ TheOldReader.prototype.getAccount = function(callback)
             callback(self.account);
         }
     };
-}
+};
 
 TheOldReader.prototype.getEmail = function()
 {
@@ -262,7 +263,7 @@ TheOldReader.prototype.deleteAccount = function(callback)
             .delete(this.account.id);
         request.onsuccess = function(event) {
             callback();
-        }
+        };
         this.account=null;
     }
 };
@@ -335,7 +336,8 @@ TheOldReader.prototype.updateSubscriptionList = function()
                 }   
             }, reject);
     });
-}
+};
+
 TheOldReader.prototype.addSubscriptions = function(subscriptions)
 {
     var self=this;
@@ -381,7 +383,8 @@ TheOldReader.prototype.updateLabelsList = function()
                 }
             }, reject);
     });
-}
+};
+
 TheOldReader.prototype.addLabels = function(labels)
 {
     var self=this;
@@ -425,7 +428,7 @@ TheOldReader.prototype.updateCount = function()
                 }
             }, reject);
     });
-}
+};
 
 TheOldReader.prototype.addCounts = function(counts)
 {
@@ -486,7 +489,7 @@ TheOldReader.prototype.getFeeds = function()
         };
        c.onerror = reject;
     });
-}
+};
 
 TheOldReader.prototype.getLabels = function()
 {
@@ -544,7 +547,7 @@ TheOldReader.prototype.getCounts = function()
         };
        c.onerror = reject;
     });
-}
+};
 
 TheOldReader.prototype.getItems = function(id, viewRead, next)
 {
@@ -607,7 +610,7 @@ TheOldReader.prototype.getItems = function(id, viewRead, next)
                 }
             }, reject);
     });
-}
+};
 
 TheOldReader.prototype.markRead= function(item_id, state)
 {
@@ -661,7 +664,7 @@ TheOldReader.prototype.markStar= function(item_id, state)
                 ok(text);
             }, reject);
     });
-}
+};
 
 TheOldReader.prototype.readAll= function(item_id)
 {
@@ -677,7 +680,7 @@ TheOldReader.prototype.readAll= function(item_id)
                 ok(text);
             }, reject);
     });
-}
+};
 
 TheOldReader.prototype.addFeed= function(url)
 {

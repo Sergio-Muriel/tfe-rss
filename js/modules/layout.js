@@ -3,17 +3,17 @@ var Layout = function()
     var buttons=  document.querySelectorAll('.header button');
 
     var center = document.querySelector('.slide.center');
-    var left = document.querySelector('.slide.left')
-    var right = document.querySelector('.slide.right')
+    var left = document.querySelector('.slide.left');
+    var right = document.querySelector('.slide.right');
     var center_scroll_container = center.querySelector('.slide_content');
     var center_scroll = center.querySelector('.slide_content ul');
 
     var alert_container = center.querySelector('.alert_container');
     var alert_msg = center.querySelector('.alert');
 
-    var full_container = document.querySelector('.feed_fullscreen-container')
-    var center_menu_single = document.querySelector('.center_menu_single')
-    var center_menu_all = document.querySelector('.center_menu_all')
+    var full_container = document.querySelector('.feed_fullscreen-container');
+    var center_menu_single = document.querySelector('.center_menu_single');
+    var center_menu_all = document.querySelector('.center_menu_all');
 
     var slides = document.querySelector('.slides');
     var button_left = document.querySelector('.button_left');
@@ -270,7 +270,7 @@ var Layout = function()
         else
         {
             span.classList.remove('fa-star');
-            span.classList.add('ko')
+            span.classList.add('ko');
             span.classList.add('fa-star-o');
         }
         this.controller.markStar(item_id, !span.classList.contains('ko'))
@@ -336,7 +336,6 @@ var Layout = function()
             var feeds = values[0];
             var labels = values[1];
             var counts = values[2];
-            console.log(feeds, labels, counts);
 
             // @TODO do not remove all, only update...
             self.clearLeft();
@@ -361,18 +360,20 @@ var Layout = function()
             if(self.controller.starred_id)
             {
                 // Starred items
-                var li = document.createElement('li');
+                li = document.createElement('li');
                 li.className='leftlist_item';
                 li.setAttribute('data-id', self.controller.starred_id);
-                var label_toggle = document.createElement('p');
+                label_toggle = document.createElement('p');
                 label_toggle.className='label_toggle fa fa-star';
                 li.appendChild(label_toggle);
-                var label = document.createElement('p');
+
+                label = document.createElement('p');
                 label.className='label';
                 label.innerHTML = translate('state_starred');
                 label.addEventListener('click', layout.loadFeed.bind(layout));
                 li.appendChild(label);
-                var label_num = document.createElement('p');
+
+                label_num = document.createElement('p');
                 label_num.className='label_num';
                 li.appendChild(label_num);
                 leftlist.appendChild(li);
@@ -381,18 +382,21 @@ var Layout = function()
             if(self.controller.liked_id)
             {
                 // Liked items
-                var li = document.createElement('li');
+                li = document.createElement('li');
                 li.className='leftlist_item';
                 li.setAttribute('data-id',self.controller.liked_id);
-                var label_toggle = document.createElement('p');
+
+                label_toggle = document.createElement('p');
                 label_toggle.className='label_toggle fa fa-heart';
                 li.appendChild(label_toggle);
-                var label = document.createElement('p');
+
+                label = document.createElement('p');
                 label.className='label';
                 label.innerHTML = translate('state_liked');
                 label.addEventListener('click', layout.loadFeed.bind(layout));
                 li.appendChild(label);
-                var label_num = document.createElement('p');
+
+                label_num = document.createElement('p');
                 label_num.className='label_num';
                 li.appendChild(label_num);
                 leftlist.appendChild(li);
@@ -401,18 +405,21 @@ var Layout = function()
             if(self.controller.shared_id)
             {
                 // Shared items
-                var li = document.createElement('li');
+                li = document.createElement('li');
                 li.className='leftlist_item';
                 li.setAttribute('data-id',self.controller.shared_id);
-                var label_toggle = document.createElement('p');
+
+                label_toggle = document.createElement('p');
                 label_toggle.className='label_toggle fa fa-share-alt';
                 li.appendChild(label_toggle);
-                var label = document.createElement('p');
+
+                label = document.createElement('p');
                 label.className='label';
                 label.innerHTML = translate('state_shared');
                 label.addEventListener('click', layout.loadFeed.bind(layout));
                 li.appendChild(label);
-                var label_num = document.createElement('p');
+
+                label_num = document.createElement('p');
                 label_num.className='label_num';
                 li.appendChild(label_num);
                 leftlist.appendChild(li);
@@ -436,7 +443,7 @@ var Layout = function()
                     label_toggle.addEventListener('click',self.toggleLabel.bind(self), false);
                     li.appendChild(label_toggle);
 
-                    var label = document.createElement('p');
+                    label = document.createElement('p');
                     label.className='label';
                     label.innerHTML = name;
                     label.addEventListener('click', layout.loadFeed.bind(layout));
@@ -544,7 +551,6 @@ var Layout = function()
     {
         if(!this.loading_items)
         {
-            console.log('load more!');
             var no_items = document.querySelector('.no_items');
             if(no_items)
             {
@@ -570,7 +576,7 @@ var Layout = function()
         this.display_id = li.getAttribute('data-id');
         this.display_name = li.querySelector('.label, .feed_name').innerHTML;
         return this.clearAndLoadItems();
-    }
+    };
 
     this.clear= function()
     {
@@ -603,12 +609,11 @@ var Layout = function()
         this.clear();
         this.gotoTop();
         this.displayItems();
-    },
+    };
 
     this.displayItems = function(continuation)
     {
         var self=this;
-        console.log('display items');
         // Do nothing if not logged in
         if(!settings.loggedin)
         {
@@ -647,14 +652,11 @@ var Layout = function()
                 var ul = center_scroll;
 
                 // Remove previous loading item
-                if(remove = ul.querySelector('li.no_items'))
+                if((remove = ul.querySelector('li.no_items')))
                 {
                     ul.removeChild(remove);
                 }
                 var items = r.items;
-
-                // Build new list of items
-                var ul = center_scroll;
 
                 // Clear previous list
                 if(!items)
@@ -673,7 +675,7 @@ var Layout = function()
                             content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
                             content = content.replace(/<\/script[^>]*>/,'');
                             var first_image =null;
-                            if(re=content.match(/<img[^>]+src=["']([^"']+)/))
+                            if((re=content.match(/<img[^>]+src=["']([^"']+)/)))
                             {
                                 first_image=re[1];
                             }
@@ -708,7 +710,7 @@ var Layout = function()
                                 // Preload image and display only if big enough
                                 (function(p)
                                 {
-                                    var img = new Image;
+                                    var img = new Image();
                                     img.onload=function()
                                     {
                                         if(img.width>50 && img.height>0)
@@ -731,7 +733,7 @@ var Layout = function()
 
                             p = document.createElement('p');
                             p.className='feed_flags';
-                            div.appendChild(p)
+                            div.appendChild(p);
 
                             var flag_star = document.createElement('span');
                             flag_star.className='flag_star fa '+(!item.starred?'ko fa-star-o':'fa-star');
@@ -753,12 +755,12 @@ var Layout = function()
                     if(r.continuation)
                     {
                         // Add load more items
-                        var li = document.createElement('li');
-                        li.className='no_items';
-                        li.innerHTML=translate('load_more');
-                        li.setAttribute('data-continuation', r.continuation);
-                        li.addEventListener('click', layout.loadMore.bind(layout));
-                        ul.appendChild(li);
+                        var loadi = document.createElement('li');
+                        loadi.className='no_items';
+                        loadi.innerHTML=translate('load_more');
+                        loadi.setAttribute('data-continuation', r.continuation);
+                        loadi.addEventListener('click', layout.loadMore.bind(layout));
+                        ul.appendChild(loadi);
                     }
                 }
                 self.loading_items=0;

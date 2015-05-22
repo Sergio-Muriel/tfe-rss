@@ -659,7 +659,7 @@ var Layout = function()
                 var items = r.items;
 
                 // Clear previous list
-                if(!items)
+                if(!items || items.length===0)
                 {
                     // No items (returned error...)
                     var li = document.createElement('li');

@@ -330,12 +330,13 @@ var Layout = function()
     {
         var self=this;
 
-        return Promise.all([ this.controller.getFeeds(), this.controller.getLabels()])
+        return Promise.all([ this.controller.getFeeds(), this.controller.getLabels(), this.controller.getCounts() ])
         .then(function(values)
         {
             var feeds = values[0];
             var labels = values[1];
             var counts = values[2];
+            console.log(feeds, labels, counts);
 
             // @TODO do not remove all, only update...
             self.clearLeft();
@@ -422,7 +423,7 @@ var Layout = function()
             Array.forEach(labels, function(label)
             {
                 // Add only real labels
-                if(/(label|user|^\-?\d+)/.test(label.id))
+                if(/(label|user|CAT)/.test(label.id))
                 {
                     var li = document.createElement('li');
                     var name = label.label || label.id.replace(/.*label\//,'');
@@ -468,8 +469,6 @@ var Layout = function()
                 {
                     items = leftlist;
                 }
-                console.log('TEST FEED',feed);
-
 
                 var div  =document.createElement('div');
                 div.className='leftlist_item';

@@ -5,7 +5,7 @@ var Tinytinyrss = function()
     this.username = null;
     this.password = null;
 
-    this.all_id  = 'user/-/state/com.google/reading-list';
+    this.all_id  = 'FEED:-4';
     //this.starred_id  = 'user/-/state/com.google/starred';
     //this.liked_id = 'user/-/state/com.google/like';
     //this.shared_id = 'user/-/state/com.google/broadcast';
@@ -147,7 +147,6 @@ Tinytinyrss.prototype._login = function(user, password)
     {
         var r = self.xhr;
         r.open("POST", self.url.value+'/api/', true);
-        console.log(self.url.value);
         r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         r.onreadystatechange = function () {
             if (r.readyState == 4)
@@ -352,11 +351,11 @@ Tinytinyrss.prototype.addSubscriptions = function(subscriptions)
                 category.items.forEach(function(feed)
                 {
                     var feeds = transaction_feeds.objectStore('feeds');
-                    feed.category = category.id.replace('CAT:','');
+                    feed.category = category.id;
                     feed.title = feed.name;
                     if(feed.icon)
                     {
-                        feed.iconUrl = 'img/tt-rss/'+feed.icon;
+                        feed.iconUrl = self.host+'/'+feed.icon;
                     }
                     var request = feeds.add(feed);
                 });
@@ -405,6 +404,7 @@ Tinytinyrss.prototype.addLabels = function(labels)
         {
             var labels = transaction_labels.objectStore('labels');
             data.label = data.title;
+            data.id ='CAT:'+data.id;
             var request = labels.add(data);
         });
     });
@@ -415,14 +415,14 @@ Tinytinyrss.prototype.updateCount = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/unread-count?output=json';
-        self._query.bind(self)("GET", url, null)
+        var url = self.host+'/api/';
+        self._query.bind(self)("POST", url, { op: 'getCounters' })
             .then(function(text)
             {
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    self.addCounts(data.unreadcounts)
+                    self.addCounts(data.content)
                         .then(ok, reject);
                 }
                 else
@@ -450,6 +450,9 @@ Tinytinyrss.prototype.addCounts = function(counts)
         counts.forEach(function(data)
         {
             var counts = transaction_counts.objectStore('counts');
+            data.count = data.counter;
+            if(data.kind=='cat') { data.id='CAT:'+data.id; }
+            else  { data.id = 'FEED:'+data.id; }
             var request = counts.add(data);
         });
     });
@@ -479,10 +482,7 @@ Tinytinyrss.prototype.getFeeds = function()
        c.onsuccess = function (e) {
             var cursor = e.target.result;
             if (cursor) {
-                if(!/sponsored/.test(cursor.value.id))
-                {
-                    feeds.push(cursor.value);
-                }
+                feeds.push(cursor.value);
                 cursor.continue();
             }
             else
@@ -515,7 +515,6 @@ Tinytinyrss.prototype.getLabels = function()
             }
             else
             {
-                console.log('labels',labels);
                 ok(labels);
             }
         };
@@ -553,57 +552,53 @@ Tinytinyrss.prototype.getCounts = function()
 Tinytinyrss.prototype.getItems = function(id, viewRead, next)
 {
     var self=this;
+
     return new Promise(function(ok, reject)
     {
+        if(!next) { next= 0; }
         var items=[];
         var ids=[];
-        var url = self.host+'/reader/api/0/stream/items/ids?output=json&s='+id;
-        if(!viewRead)
-        {
-            url+='&xt=user/-/state/com.google/read';
-        }
-        if(next)
-        {
-            url+='&c='+next;
-        }
+        var url = self.host+'/api/';
+        var data = {
+           op : 'getHeadlines',
+           feed_id: id.replace(/(CAT|FEED):/,''),
+           skip: next,
+           show_content: true,
+           view_mode : viewRead ?  'all_articles' : 'unread',
+           limit:20,
+        };
 
-        self._query.bind(self)("GET", url, null)
+        self._query.bind(self)("POST", url, data)
             .then(function(text)
             {
                 var items = JSON.parse(text);
                 if(items)
                 {
                     var itemids = items.itemRefs;
-                    var url = self.host+'/reader/api/0/stream/items/contents?output=json';
-                    itemids.forEach(function(item)
+                    var data;
+                    if(items.content)
                     {
-                        url+='&i='+item.id;
-                    });
-                    console.log('fetch ',url);
-                    self._query.bind(self)("GET", url, null)
-                        .then(function(text)
+                        data = { continuation: next+20, items: [] }; 
+                        Array.forEach(items.content, function(item)
                         {
-                            var data = JSON.parse(text);
-                            if(data)
-                            {
-                                data.continuation = items.continuation;
-                                if(data.items)
-                                {
-                                    Array.forEach(data.items, function(item)
-                                    {
-                                        item.starred = item.categories.indexOf('user/-/state/com.google/starred')!==-1;
-                                        item.liked = item.categories.indexOf('user/-/state/com.google/like')!==-1;
-                                        item.unread = item.categories.indexOf('user/-/state/com.google/fresh')!==-1;
-                                    });
-                                }
-                                ok(data);
+                            var item= {
+                                category:  id,
+                                id: item.id,
+                                title: item.title,
+                                summary : { content: item.content },
+                                canonical: [ { href: item.link } ],
+                                unread: item.unread,
+                                origin: { title: item.feed_title },
+                                starred: item.marked
                             }
-                            else
-                            {
-                                reject();
-                            }
-                        }, reject);
-
+                            data.items.push(item);
+                        });
+                    }
+                    else
+                    {
+                        data = { error: 'x' }
+                    }
+                    ok(data);
                 }
                 else
                 {

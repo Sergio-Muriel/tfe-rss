@@ -71,7 +71,12 @@
 .feed_icon
 {
     display:inline-block;
-    width:2rem;
+    width:4rem;
+    vertical-align:middle;
+}
+.feed_icon img
+{
+    width:60%;
     vertical-align:middle;
 }
 
@@ -99,7 +104,7 @@ div.leftlist_item
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
-    width:calc(100% - 7rem);
+    width:calc(100% - 8rem);
 }
 
 

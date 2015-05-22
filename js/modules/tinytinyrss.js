@@ -578,7 +578,7 @@ Tinytinyrss.prototype.getItems = function(id, viewRead, next)
                     var data;
                     if(items.content)
                     {
-                        data = { continuation: next+20, items: [] }; 
+                        data = { continuation: (items.length==20 ? next+20 : null), items: [] }; 
                         Array.forEach(items.content, function(item)
                         {
                             var item= {

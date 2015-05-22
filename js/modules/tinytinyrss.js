@@ -354,6 +354,10 @@ Tinytinyrss.prototype.addSubscriptions = function(subscriptions)
                     var feeds = transaction_feeds.objectStore('feeds');
                     feed.category = category.id.replace('CAT:','');
                     feed.title = feed.name;
+                    if(feed.icon)
+                    {
+                        feed.iconUrl = 'img/tt-rss/'+feed.icon;
+                    }
                     var request = feeds.add(feed);
                 });
             }

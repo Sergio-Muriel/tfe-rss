@@ -475,10 +475,13 @@ var Layout = function()
                 div.className='leftlist_item';
                 div.setAttribute('data-id', feed_id);
 
-                var feed_icon = document.createElement('p');
-                feed_icon.className='feed_icon';
-                feed_icon.innerHTML = '<img src="https://'+feed.iconUrl+'" alt="" />';
-                div.appendChild(feed_icon);
+                if(feed.iconUrl)
+                {
+                    var feed_icon = document.createElement('p');
+                    feed_icon.className='feed_icon';
+                    feed_icon.innerHTML = '<img src="'+feed.iconUrl+'" alt="" />';
+                    div.appendChild(feed_icon);
+                }
 
                 var feed_name = document.createElement('p');
                 feed_name.className='feed_name';

@@ -354,6 +354,7 @@ TheOldReader.prototype.addSubscriptions = function(subscriptions)
         {
             var feeds = transaction_feeds.objectStore('feeds');
             data.category = data.categories.length>0 ?  data.categories[0].id : '';
+            data.iconUrl = 'https://'+data.iconUrl;
             var request = feeds.add(data);
         });
     });

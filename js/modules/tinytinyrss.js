@@ -589,7 +589,8 @@ Tinytinyrss.prototype.getItems = function(id, viewRead, next)
                                 canonical: [ { href: item.link } ],
                                 unread: item.unread,
                                 origin: { title: item.feed_title },
-                                starred: item.marked
+                                starred: item.marked,
+                                liked: item.published
                             }
                             data.items.push(item);
                         });
@@ -634,11 +635,14 @@ Tinytinyrss.prototype.markLike= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/edit-tag?output=json';
+        var url = self.host+'/api/';
+        var data= {
+            op: 'updateArticle',
+            article_ids: item_id,
+            mode: state ? 1 : 0,
+            field:  1 // like (published)
+        };
 
-        var data='i='+item_id;
-        data+= (state ? '&a=' : '&r=');
-        data+= 'user/-/state/com.google/like';
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {
@@ -652,18 +656,21 @@ Tinytinyrss.prototype.markStar= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/edit-tag?output=json';
+        var url = self.host+'/api/';
+        var data= {
+            op: 'updateArticle',
+            article_ids: item_id,
+            mode: state ? 1 : 0,
+            field:  0 // star
+        };
 
-        var data='i='+item_id;
-        data+= (state ? '&a=' : '&r=');
-        data+= 'user/-/state/com.google/starred';
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {
                 ok(text);
             }, reject);
     });
-}
+};
 
 Tinytinyrss.prototype.readAll= function(item_id)
 {

@@ -613,11 +613,14 @@ Tinytinyrss.prototype.markRead= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/reader/api/0/edit-tag?output=json';
+        var url = self.host+'/api/';
+        var data= {
+            op: 'updateArticle',
+            article_ids: item_id,
+            mode: state ? 0 : 1,
+            field: 2 // unread
+        };
 
-        var data='i='+item_id;
-        data+= (state ? '&a=' : '&r=');
-        data+= 'user/-/state/com.google/read';
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {

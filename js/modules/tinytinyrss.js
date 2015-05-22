@@ -29,7 +29,7 @@ Tinytinyrss.prototype.create_form = function()
         '<p class="form_text loggedin" data-l10n-id="connected_with"></p>'+
         '<p class="form_text loggedout" data-l10n-id="enter_account_information"></p>'+
         '<p>'+
-        '<input type="url" name="url" data-l10n-placeholder="form_url" required>'+
+        '<input type="url" name="url" data-l10n-placeholder="form_url_ttrss" required>'+
         '<input type="text" name="user" data-l10n-placeholder="form_user" required>'+
         '<input type="password" name="password" data-l10n-placeholder="form_password" required>'+
         '</p>'+

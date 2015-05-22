@@ -179,6 +179,7 @@ Tinytinyrss.prototype._login = function(user, password)
 Tinytinyrss.prototype.loggedin = function()
 {
     this.user.value = this.getUser();
+    this.url.value = this.getHost();
     this.form.classList.add("loggedin");
     this.user.disabled=true;
     this.url.disabled=true;
@@ -240,6 +241,10 @@ Tinytinyrss.prototype.getAccount = function(callback)
 Tinytinyrss.prototype.getUser = function()
 {
     return this.account  ? this.account.user : '';
+};
+Tinytinyrss.prototype.getHost = function()
+{
+    return this.account  ? this.account.host : '';
 };
 
 

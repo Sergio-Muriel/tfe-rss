@@ -1,7 +1,7 @@
 // Init classes
 var theoldreader = new TheOldReader();
 var tinytinyrss = new Tinytinyrss();
-var feedly = new Feedly();
+//var feedly = new Feedly();
 var layout =  new Layout();
 var settings =  new Settings();
 var translate = navigator.mozL10n.get;
@@ -17,5 +17,5 @@ window.addEventListener('DOMContentLoaded', function() {
     layout.init();
 
     // Add the old reader support
-    settings.init([theoldreader, feedly, tinytinyrss]);
+    settings.init([theoldreader, tinytinyrss]);
 });

@@ -1,7 +1,6 @@
 {
   "version": "0.1.0",
   "name": "Tfe RSS",
-  "
   "description": "RSS App that display feeds from the old reader.",
   "launch_path": "/index.html",
   "icons": {

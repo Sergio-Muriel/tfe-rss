@@ -65,6 +65,11 @@
     color:var(--mainlistColorOrigin);
 
 }
+.feed_date
+{
+    display:none;
+    margin:0.5rem 0px;
+}
 .feed_image
 {
     position:absolute;
@@ -241,6 +246,10 @@ li.feed_fullscreen .feed_flags span.flag_like,
 li.feed_fullscreen .feed_flags span.flag_share
 {
     display:inline-block;
+}
+li.feed_fullscreen .feed_date
+{
+    display:block;
 }
 
 .alert_container

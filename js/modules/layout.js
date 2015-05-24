@@ -700,9 +700,15 @@ var Layout = function()
                             div.appendChild(p);
 
                             p = document.createElement('p');
+                            p.className='feed_date';
+                            p.innerHTML = new Date(item.published*1000).toLocaleFormat(translate("date_format"));
+                            div.appendChild(p);
+
+                            p = document.createElement('p');
                             p.className='feed_origin';
                             p.innerHTML = item.origin.title;
                             div.appendChild(p);
+
 
                             if(viewList)
                             {

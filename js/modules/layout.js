@@ -74,13 +74,14 @@ var Layout = function()
 
         document.querySelector('.addfeed_btn').addEventListener('click', this.addFeed.bind(this));
 
-        // swipe init on fullscreen
-        document.addeventlistener('touchstart', this.startswipe.bind(this), false);
-        document.addeventlistener('touchend', this.endswipe.bind(this), false);
+        // Swipe init on fullscreen
+        document.addEventListener('touchstart', this.startSwipe.bind(this), false);
+        document.addEventListener('touchend', this.endSwipe.bind(this), false);
     };
 
     this.startSwipe = function(evt)
     {
+        if(!evt.touches || evt.touches.length===0) { return; }
         this.swipe_x = evt.touches[0].clientX;
         this.swipe_y = evt.touches[0].clientY;
         this.swipe_fromtop = center_scroll_container.scrollTop;
@@ -88,6 +89,7 @@ var Layout = function()
 
     this.endSwipe = function(evt)
     {
+        if(!evt.touches || evt.touches.length===0) { return; }
         var end_swipe_x = evt.touches[0].clientX;
         var end_swipe_y = evt.touches[0].clientY;
 

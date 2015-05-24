@@ -52,6 +52,7 @@ var Settings = function()
                     });
                     Array.forEach(document.querySelectorAll('.loggedout'),function(item) { item.classList.remove('hidden'); });
                     Array.forEach(document.querySelectorAll('.loggedin'),function(item) { item.classList.add('hidden'); });
+                    layout.display_right();
                 }
                 else
                 {

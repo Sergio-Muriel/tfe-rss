@@ -81,17 +81,17 @@ var Layout = function()
 
     this.startSwipe = function(evt)
     {
-        if(!evt.touches || evt.touches.length===0) { return; }
-        this.swipe_x = evt.touches[0].clientX;
-        this.swipe_y = evt.touches[0].clientY;
+        if(!evt.changedTouches || evt.changedTouches.length===0) { return; }
+        this.swipe_x = evt.changedTouches[0].clientX;
+        this.swipe_y = evt.changedTouches[0].clientY;
         this.swipe_fromtop = center_scroll_container.scrollTop;
     };
 
     this.endSwipe = function(evt)
     {
-        if(!evt.touches || evt.touches.length===0) { return; }
-        var end_swipe_x = evt.touches[0].clientX;
-        var end_swipe_y = evt.touches[0].clientY;
+        if(!evt.changedTouches || evt.changedTouches.length===0) { return; }
+        var end_swipe_x = evt.changedTouches[0].clientX;
+        var end_swipe_y = evt.changedTouches[0].clientY;
 
         var xDiff = this.swipe_x - end_swipe_x;
         var yDiff = this.swipe_y - end_swipe_y;

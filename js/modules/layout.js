@@ -73,6 +73,51 @@ var Layout = function()
         document.querySelector('.close_btn').addEventListener('click', this.closeItem.bind(this));
 
         document.querySelector('.addfeed_btn').addEventListener('click', this.addFeed.bind(this));
+
+        // swipe init on fullscreen
+        document.addeventlistener('touchstart', this.startswipe.bind(this), false);
+        document.addeventlistener('touchend', this.endswipe.bind(this), false);
+    };
+
+    this.startSwipe = function(evt)
+    {
+        this.swipe_x = evt.touches[0].clientX;
+        this.swipe_y = evt.touches[0].clientY;
+        this.swipe_fromtop = center_scroll_container.scrollTop;
+    };
+
+    this.endSwipe = function(evt)
+    {
+        var end_swipe_x = evt.touches[0].clientX;
+        var end_swipe_y = evt.touches[0].clientY;
+
+        var xDiff = this.swipe_x - end_swipe_x;
+        var yDiff = this.swipe_y - end_swipe_y;
+
+        if(this.opened_item)
+        {
+            // Swipe left right for previous and next items
+            if ( Math.abs( xDiff ) > Math.abs( yDiff ) && Math.abs(xDiff)>20)
+            {
+                 if ( xDiff > 0 )
+                 {
+                     this.openNext();
+                 }
+                 else
+                 {
+                     this.openPrev();
+                 }
+            }
+        }
+
+        // Swipe top to refresh
+        else
+        {
+            if(this.swipe_fromtop ===0 && center_scroll_container.scrollTop===0 &&  Math.abs( xDiff ) < Math.abs( yDiff ) &&  Math.abs( yDiff )>20)
+            {
+                this.clearAndLoadItems();
+            }
+        }
     };
 
     this.addFeed = function()
@@ -779,6 +824,7 @@ var Layout = function()
 
     this.closeItem = function()
     {
+        this.opened_item=null;
         center_menu_all.classList.remove('hidden');
         center_menu_single.classList.add('hidden');
 

@@ -702,8 +702,8 @@ Tinytinyrss.prototype.readAll= function(item_id)
         var url = self.host+'/api/';
         var data= {
             op: 'catchupFeed',
-            feed_id: id.replace(/(CAT|FEED):/,''),
-            is_cat: /CAT/.test(id)
+            feed_id: item_id.replace(/(CAT|FEED):/,''),
+            is_cat: /CAT/.test(item_id)
         };
 
         self._query.bind(self)("POST", url, data)

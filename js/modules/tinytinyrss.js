@@ -222,11 +222,13 @@ Tinytinyrss.prototype.getAccount = function(callback)
 
     var transaction = this.db.transaction([ 'accounts' ]);
     var dbaccounts = transaction.objectStore('accounts');
+    var received=false;
 
     // open a cursor to retrieve all items from the 'notes' store
     dbaccounts.openCursor().onsuccess = function (e) {
         var cursor = e.target.result;
         if (cursor) {
+            received=true;
             self.account = cursor.value;
             self.host =  self.account.host;
             cursor.continue();
@@ -236,7 +238,6 @@ Tinytinyrss.prototype.getAccount = function(callback)
                 .then(function(text)
                 {
                     var data = JSON.parse(text);
-                    console.log('status',text);
                     if(!data.content.status)
                     {
                         self.deleteAccount(function() {});
@@ -244,6 +245,10 @@ Tinytinyrss.prototype.getAccount = function(callback)
                     }
                     callback(self.account);
                 });
+        }
+        else if(!received)
+        {
+            callback(null);
         }
     };
 };
@@ -573,7 +578,6 @@ Tinytinyrss.prototype.getItems = function(id, viewRead, next, limit)
 
     return new Promise(function(ok, reject)
     {
-        console.log('get limit ',limit);
         if(!next) { next= 0; }
         if(!limit) { limit= 20; }
         var items=[];

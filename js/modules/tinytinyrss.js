@@ -230,10 +230,20 @@ Tinytinyrss.prototype.getAccount = function(callback)
             self.account = cursor.value;
             self.host =  self.account.host;
             cursor.continue();
-        }
-        else
-        {
-            callback(self.account);
+            // Test connection
+            var url = self.host+'/api/';
+            self._query.bind(self)("POST", url, { op: 'isLoggedIn' })
+                .then(function(text)
+                {
+                    var data = JSON.parse(text);
+                    console.log('status',text);
+                    if(!data.content.status)
+                    {
+                        self.deleteAccount(function() {});
+                        self.account=null;
+                    }
+                    callback(self.account);
+                });
         }
     };
 };
@@ -689,28 +699,18 @@ Tinytinyrss.prototype.readAll= function(item_id)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        self.getItems(item_id, false, 0, 99999)
-        .then(function(r)
-        {
-            var ids = [];
-            r.items.forEach(function(item)
-            {
-                ids.push(item.id);
-            });
-            var url = self.host+'/api/';
-            var data= {
-                op: 'updateArticle',
-                article_ids: ids.join(','),
-                mode: 0,
-                field: 2 // unread
-            };
+        var url = self.host+'/api/';
+        var data= {
+            op: 'catchupFeed',
+            feed_id: id.replace(/(CAT|FEED):/,''),
+            is_cat: /CAT/.test(id)
+        };
 
-            self._query.bind(self)("POST", url, data)
-                .then(function(text)
-                {
-                    ok(text);
-                }, reject);
-        });
+        self._query.bind(self)("POST", url, data)
+            .then(function(text)
+            {
+                ok(text);
+            }, reject);
     });
 };
 

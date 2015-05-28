@@ -12,14 +12,16 @@ var Notif = function()
         {
             var n = new Notification(title, {
                 body: body,
+                tag: 'tfe RSS',
                 icon: 'img/icons/icon60x60.png'
             });
-            n.onclick = this.receive;
+            n.onclick = this.receive.bind(this,n);
         }
     };
 
-    this.receive = function()
+    this.receive = function(n)
     {
+        n.close();
         navigator.mozApps.getSelf().onsuccess = function() { this.result.launch(); };
     };
 };

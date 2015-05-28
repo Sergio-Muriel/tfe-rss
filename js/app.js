@@ -1,10 +1,12 @@
 // Init classes
+var translate = navigator.mozL10n.get;
+
 var theoldreader = new TheOldReader();
 var tinytinyrss = new Tinytinyrss();
 //var feedly = new Feedly();
 var layout =  new Layout();
 var settings =  new Settings();
-var translate = navigator.mozL10n.get;
+var notif = new Notif();
 
 
 // DOMContentLoaded is fired once the document has been loaded and parsed,
@@ -18,4 +20,5 @@ window.addEventListener('DOMContentLoaded', function() {
 
     // Add the old reader support
     settings.init([theoldreader, tinytinyrss]);
+    notif.init();
 });

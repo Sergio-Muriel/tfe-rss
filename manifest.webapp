@@ -14,6 +14,11 @@
     "url": "http://tfeserver.be"
   },
   "type": "privileged",
+
+  "messages": [
+    { "notification": "/index.html" }
+  ],
+
   "permissions": {
       "desktop-notification": {
           "description": "To show notifications"

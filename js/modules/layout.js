@@ -557,13 +557,16 @@ var Layout = function()
 
     this.updateCount = function()
     {
+        var self=this;
         var viewRead = settings.getViewRead();
 
         this.controller.getCounts()
             .then(function(counts)
             {
+                var sum=0;
                 counts.forEach(function(count)
                 {
+                    sum+= count.count;
                     var name = count.id;//replace(/.*label\//,'')
 
                     var re = ".leftlist_item[data-id=\'"+name+"\']";
@@ -582,6 +585,14 @@ var Layout = function()
                         }
                     }
                 });
+                if(self.old_sum!==sum)
+                {
+                    self.old_sum=sum;
+                    if(document.hidden)
+                    {
+                        notif.send(translate('notif_unread_items'),'( '+sum+' )');
+                    }
+                }
             }, function()
             {
                 self.alert(translate('network_error'));

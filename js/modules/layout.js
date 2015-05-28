@@ -588,7 +588,7 @@ var Layout = function()
                 if(self.old_sum!==sum)
                 {
                     self.old_sum=sum;
-                    if(document.hidden)
+                    if(document.hidden && sum>0)
                     {
                         notif.send(translate('notif_unread_items'),'( '+sum+' )');
                     }

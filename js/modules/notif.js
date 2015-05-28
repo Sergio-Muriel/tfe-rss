@@ -8,7 +8,7 @@ var Notif = function()
     };
     this.send = function(title, body)
     {
-        if (Notification.permission === "granted")
+        if (settings.getViewNotification() && Notification.permission === "granted")
         {
             var n = new Notification(title, {
                 body: body,

@@ -11,6 +11,7 @@ var Settings = function()
 
         this.view_read = document.querySelector('#view_read');
         this.view_list = document.querySelector('#view_list');
+        this.view_notification = document.querySelector('#view_notification');
 
 
         this.bind();
@@ -144,6 +145,7 @@ var Settings = function()
         var self=this;
         this.view_read.addEventListener('click', function(e) { return self.toggleViewRead(e); });
         this.view_list.addEventListener('click', function(e) { return self.toggleViewList(e); });
+        this.view_notification.addEventListener('click', function(e) { return self.toggleViewNotification(e); });
 
         document.querySelector('#api').addEventListener('change', function(e) { return self.set_api(e.target.value); });
         document.querySelector('#update_time').addEventListener('change', function(e) { return self.set_update_time(e.target.value); });
@@ -153,7 +155,7 @@ var Settings = function()
     {
         this.view_read.checked =  this.getViewRead();
         this.view_list.checked =  this.getViewList();
-        this.view_list.checked =  this.getViewList();
+        this.view_notification.checked =  this.getViewNotification();
 
         this.set_update_time(this.getUpdateTime());
     };
@@ -185,6 +187,12 @@ var Settings = function()
         layout.clearAndLoadItems();
     };
 
+    this.toggleViewNotification= function(e)
+    {
+        localStorage.setItem('viewNotification', this.view_notification.checked ? 1 : 0);
+        layout.clearAndLoadItems();
+    };
+
     this.isLoggedIn = function()
     {
         return this.controller ? this.controller.isLoggedIn() : false;
@@ -197,6 +205,10 @@ var Settings = function()
     this.getViewList = function()
     {
         return localStorage.getItem('viewList') !== "0" ? true : false;
+    };
+    this.getViewNotification = function()
+    {
+        return localStorage.getItem('viewNotification') !== "0" ? true : false;
     };
     this.getUpdateTime = function()
     {

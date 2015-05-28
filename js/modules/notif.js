@@ -14,7 +14,13 @@ var Notif = function()
                 body: body,
                 icon: 'img/icons/icon60x60.png'
             });
+            n.onclick = this.receive;
         }
+    };
+
+    this.receive = function()
+    {
+        navigator.mozApps.getSelf().onsuccess = function() { this.result.launch(); };
     };
 };
 

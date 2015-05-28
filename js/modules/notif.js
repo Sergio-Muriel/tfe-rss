@@ -13,7 +13,7 @@ var Notif = function()
             var n = new Notification(title, {
                 body: body,
                 tag: 'tfe RSS',
-                icon: 'img/icons/icon60x60.png'
+                icon: location.href.replace('index.html','')+'/img/icons/icon60x60.png'
             });
             n.onclick = this.receive.bind(this,n);
         }

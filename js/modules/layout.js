@@ -66,6 +66,7 @@ var Layout = function()
         document.querySelector('.header .button_right').addEventListener('click', this.display_right.bind(this));
 
         document.querySelector('.readall_btn').addEventListener('click', this.readall.bind(this));
+        document.querySelector('.top_btn').addEventListener('click', this.gotoTop.bind(this));
         document.querySelector('.update_btn').addEventListener('click', this.clearAndLoadItems.bind(this));
 
         document.querySelector('.next_btn').addEventListener('click', this.openNext.bind(this));

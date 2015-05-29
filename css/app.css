@@ -621,10 +621,10 @@ div.leftlist_item
 {
     position:relative;
     width:100%;
-    font-size:22px;
-    font-size:1.4rem;
-    line-height:24px;
-    line-height:1.5rem;
+    font-size:25px;
+    font-size:1.6rem;
+    line-height:32px;
+    line-height:2.0rem;
     padding:16px;
     padding:1rem;
     overflow:hidden;

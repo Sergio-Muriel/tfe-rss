@@ -293,6 +293,7 @@ input[type="url"], input[type="number"], textarea, select
 .line_checkbox input
 {
     display:inline-block;
+    vertical-align:middle;
     height:32px;
     height:2rem;
     width:32px;
@@ -301,7 +302,7 @@ input[type="url"], input[type="number"], textarea, select
 .line_checkbox label
 {
     display:inline-block;
-    vertical-align:top;
+    vertical-align:middle;
     margin-left:16px;
     margin-left:1rem;
     line-height:32px;

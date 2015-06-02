@@ -230,6 +230,7 @@ li.feed_fullscreen .feed_image
 li.feed_fullscreen .feed_title
 {
     padding-right:0px;
+    font-weight:bold;
 }
 li.feed_fullscreen .feed_flags
 {

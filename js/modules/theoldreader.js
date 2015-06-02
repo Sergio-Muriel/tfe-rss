@@ -629,6 +629,21 @@ TheOldReader.prototype.markRead= function(item_id, state)
             }, reject);
     });
 };
+TheOldReader.prototype.deleteFeed= function(item_id)
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        var url = self.host+'/reader/api/0/subscription/edit';
+
+        var data= 'ac=unsubscribe&s='+item_id;
+        self._query.bind(self)("POST", url, data)
+            .then(function(text)
+            {
+                ok(text);
+            }, reject);
+    });
+};
 
 TheOldReader.prototype.markLike= function(item_id, state)
 {

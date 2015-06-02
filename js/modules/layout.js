@@ -33,6 +33,7 @@ var Layout = function()
     {
         center_scroll_container.addEventListener('scroll', this.onscroll.bind(this));
     };
+
     this.onscroll= function(e)
     {
         if(center_scroll_container.scrollTop + window.outerHeight > center_scroll.offsetHeight)
@@ -74,10 +75,81 @@ var Layout = function()
         document.querySelector('.close_btn').addEventListener('click', this.closeItem.bind(this));
 
         document.querySelector('.addfeed_btn').addEventListener('click', this.addFeed.bind(this));
+        document.querySelector('.check_btn').addEventListener('click', this.toggleEditFeeds.bind(this));
 
         // Swipe init on fullscreen
         document.addEventListener('touchstart', this.startSwipe.bind(this), false);
         document.addEventListener('touchend', this.endSwipe.bind(this), false);
+    };
+
+    this.delete_feed= function(e)
+    {
+        var self=this;
+        e.preventDefault();
+        var label = e.target;
+        var li = e.target;
+        while(li && !li.classList.contains('leftlist_item'))
+        {
+            li = li.parentNode;
+        }
+        var original_li = li;
+        var ids=[];
+        var promises=[];
+        var childs = li.querySelectorAll('.leftlist_item');
+        if(childs.length>0)
+        {
+            if(!confirm(translate('delete_category'))) { return }
+            Array.forEach(childs, function(li)
+            {
+                var id  = li.getAttribute('data-id');
+                promises.push(self.controller.deleteFeed(id, true));
+            });
+        }
+        else
+        {
+            if(!confirm(translate('delete_feed'))) { return; }
+            var id  = li.getAttribute('data-id');
+            promises.push(this.controller.deleteFeed(id, true));
+        }
+
+        label.classList.add('updating');
+        Promise.all(promises)
+            .then(function()
+            {
+                original_li.parentNode.removeChild(original_li);
+            }, function()
+            {
+                label.classList.remove('updating');
+                self.alert(translate('network_error'));
+            });
+    };
+
+    this.toggleEditFeeds = function()
+    {
+        if(this.edit_opened)
+        {
+            this.edit_opened=0;
+            Array.forEach(document.querySelectorAll('.label_num'), function(label)
+            {
+                label.classList.remove('hidden');
+            });
+            Array.forEach(document.querySelectorAll('.label_delete'), function(label)
+            {
+                label.classList.add('hidden');
+            });
+        }
+        else
+        {
+            this.edit_opened=1;
+            Array.forEach(document.querySelectorAll('.label_num'), function(label)
+            {
+                label.classList.add('hidden');
+            });
+            Array.forEach(document.querySelectorAll('.label_delete'), function(label)
+            {
+                label.classList.remove('hidden');
+            });
+        }
     };
 
     this.startSwipe = function(evt)
@@ -125,6 +197,7 @@ var Layout = function()
 
     this.addFeed = function()
     {
+        var self=this;
         var url = prompt(translate('add_feed'));
 
         // Do nothing if not logged in
@@ -140,7 +213,7 @@ var Layout = function()
             function(result)
             {
                 self.controller.fullupdate()
-                    .then(layout.updateLeftList.bind(layout));
+                    .then(self.updateLeftList.bind(self));
 
                 alert(translate('feed_added'));
             },
@@ -398,11 +471,14 @@ var Layout = function()
             var label = document.createElement('p');
             label.className='label';
             label.innerHTML = translate('state_reading_list');
-            label.addEventListener('click', layout.loadFeed.bind(layout));
+            label.addEventListener('click', self.loadFeed.bind(self));
             li.appendChild(label);
+
             var label_num = document.createElement('p');
             label_num.className='label_num';
             li.appendChild(label_num);
+
+
             leftlist.appendChild(li);
 
             if(self.controller.starred_id)
@@ -418,13 +494,12 @@ var Layout = function()
                 label = document.createElement('p');
                 label.className='label';
                 label.innerHTML = translate('state_starred');
-                label.addEventListener('click', layout.loadFeed.bind(layout));
+                label.addEventListener('click', self.loadFeed.bind(self));
                 li.appendChild(label);
 
                 label_num = document.createElement('p');
-                label_num.className='label_num';
+                label_num.className='label_num fa fa-remove';
                 li.appendChild(label_num);
-                leftlist.appendChild(li);
             }
 
             if(self.controller.liked_id)
@@ -441,7 +516,7 @@ var Layout = function()
                 label = document.createElement('p');
                 label.className='label';
                 label.innerHTML = translate('state_liked');
-                label.addEventListener('click', layout.loadFeed.bind(layout));
+                label.addEventListener('click', self.loadFeed.bind(self));
                 li.appendChild(label);
 
                 label_num = document.createElement('p');
@@ -464,7 +539,7 @@ var Layout = function()
                 label = document.createElement('p');
                 label.className='label';
                 label.innerHTML = translate('state_shared');
-                label.addEventListener('click', layout.loadFeed.bind(layout));
+                label.addEventListener('click', self.loadFeed.bind(self));
                 li.appendChild(label);
 
                 label_num = document.createElement('p');
@@ -494,12 +569,17 @@ var Layout = function()
                     label = document.createElement('p');
                     label.className='label';
                     label.innerHTML = name;
-                    label.addEventListener('click', layout.loadFeed.bind(layout));
+                    label.addEventListener('click', self.loadFeed.bind(self));
                     li.appendChild(label);
 
                     var label_num = document.createElement('p');
                     label_num.className='label_num';
                     li.appendChild(label_num);
+
+                    var label_delete = document.createElement('p');
+                    label_delete.className='label_delete fa fa-remove hidden';
+                    label_delete.addEventListener('click', self.delete_feed.bind(self));
+                    li.appendChild(label_delete);
 
                     var list = document.createElement('div');
                     list.className='leftlist_items';
@@ -529,23 +609,28 @@ var Layout = function()
                 div.className='leftlist_item';
                 div.setAttribute('data-id', feed_id);
 
+                var feed_icon = document.createElement('p');
+                feed_icon.className='feed_icon';
                 if(feed.iconUrl)
                 {
-                    var feed_icon = document.createElement('p');
-                    feed_icon.className='feed_icon';
                     feed_icon.innerHTML = '<img src="'+feed.iconUrl+'" alt="" />';
-                    div.appendChild(feed_icon);
                 }
+                div.appendChild(feed_icon);
 
                 var feed_name = document.createElement('p');
                 feed_name.className='feed_name';
                 feed_name.innerHTML = feed.title;
-                feed_name.addEventListener('click', layout.loadFeed.bind(layout));
+                feed_name.addEventListener('click', self.loadFeed.bind(self));
                 div.appendChild(feed_name);
 
                 var label_num = document.createElement('p');
                 label_num.className='label_num';
                 div.appendChild(label_num);
+
+                var label_delete = document.createElement('p');
+                label_delete.className='label_delete fa fa-remove hidden';
+                label_delete.addEventListener('click', self.delete_feed.bind(self));
+                div.appendChild(label_delete);
 
                 items.appendChild(div);
             });
@@ -755,7 +840,7 @@ var Layout = function()
                             var p = document.createElement('p');
                             p.className='feed_title '+(viewList?'view_list':'view_full');
                             p.innerHTML = item.title;
-                            p.addEventListener('click', layout.openItem.bind(layout));
+                            p.addEventListener('click', self.openItem.bind(self));
                             div.appendChild(p);
 
                             p = document.createElement('p');
@@ -802,7 +887,7 @@ var Layout = function()
 
                             var flag_star = document.createElement('span');
                             flag_star.className='flag_star fa '+(!item.starred?'ko fa-star-o':'fa-star');
-                            flag_star.addEventListener('click', layout.markStarClick.bind(layout));
+                            flag_star.addEventListener('click', self.markStarClick.bind(self));
                             p.appendChild(flag_star);
 
                             var flag_like = document.createElement('span');
@@ -824,7 +909,7 @@ var Layout = function()
                         loadi.className='no_items';
                         loadi.innerHTML=translate('load_more');
                         loadi.setAttribute('data-continuation', r.continuation);
-                        loadi.addEventListener('click', layout.loadMore.bind(layout));
+                        loadi.addEventListener('click', self.loadMore.bind(self));
                         ul.appendChild(loadi);
                     }
                 }
@@ -874,7 +959,7 @@ var Layout = function()
 
         if(li.classList.contains('fresh_item'))
         {
-            layout.markRead(li,id);
+            this.markRead(li,id);
             li.classList.remove('fresh_item');
         }
 
@@ -886,8 +971,8 @@ var Layout = function()
         }
 
         var newLi = li.cloneNode(true);
-        newLi.querySelector('.flag_star').addEventListener('click', layout.markStarClick.bind(layout));
-        newLi.querySelector('.flag_like').addEventListener('click', layout.markLikeClick.bind(layout));
+        newLi.querySelector('.flag_star').addEventListener('click', this.markStarClick.bind(this));
+        newLi.querySelector('.flag_like').addEventListener('click', this.markLikeClick.bind(this));
         newLi.querySelector('.flag_share').addEventListener('click', function(e)
         {
             new MozActivity({

@@ -68,6 +68,17 @@
     font-size:1em;
     width:3rem;
 }
+.label_delete
+{
+    display:inline-block;
+    vertical-align:middle;
+    text-align:right;
+    padding:0px 0.5rem 0px 1rem;
+    top:0px;
+    height:100%;
+    font-size:1em;
+    width:3rem;
+}
 .feed_icon
 {
     display:inline-block;

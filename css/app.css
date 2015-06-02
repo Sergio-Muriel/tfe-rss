@@ -408,6 +408,19 @@ input[type="url"], input[type="number"], textarea, select
     width:48px;
     width:3rem;
 }
+.label_delete
+{
+    display:inline-block;
+    vertical-align:middle;
+    text-align:right;
+    padding:0px 8px 0px 16px;
+    padding:0px 0.5rem 0px 1rem;
+    top:0px;
+    height:100%;
+    font-size:1em;
+    width:48px;
+    width:3rem;
+}
 .feed_icon
 {
     display:inline-block;
@@ -737,6 +750,7 @@ li.feed_fullscreen .feed_image
 li.feed_fullscreen .feed_title
 {
     padding-right:0px;
+    font-weight:bold;
 }
 li.feed_fullscreen .feed_flags
 {

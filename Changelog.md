@@ -1,3 +1,8 @@
+# 0.2.0
+
+- Delete feeds
+- Bold feed title when displayed fullscreen
+
 # 0.1.9
 
 - Fix save update time

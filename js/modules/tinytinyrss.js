@@ -656,6 +656,24 @@ Tinytinyrss.prototype.markRead= function(item_id, state)
     });
 };
 
+Tinytinyrss.prototype.deleteFeed= function(item_id)
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        var url = self.host+'/api/';
+        var data= {
+            op: 'unsubscribeFeed',
+            feed_id: item_id.replace(/(CAT|FEED):/,''),
+        };
+        self._query.bind(self)("POST", url, data)
+            .then(function(text)
+            {
+                ok(text);
+            }, reject);
+    });
+};
+
 Tinytinyrss.prototype.markLike= function(item_id, state)
 {
     var self=this;

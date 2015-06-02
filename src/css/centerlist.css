@@ -45,6 +45,7 @@
     padding:0px;
     white-space:normal;
     color:var(--mainlistColor);
+    font-size:1.4rem;
 }
 .feed_title.view_list
 {
@@ -63,12 +64,14 @@
     margin:0px;
     font-size:1.3rem;
     color:var(--mainlistColorOrigin);
+    line-height:0.5em;
 
 }
 .feed_date
 {
-    display:none;
+    font-size:1.3rem;
     margin:0.5rem 0px;
+    line-height:1em;
 }
 .feed_image
 {

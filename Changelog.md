@@ -2,6 +2,8 @@
 
 - Delete feeds
 - Bold feed title when displayed fullscreen
+- Add feed date in main list
+- Use css icons for checkbox button 
 
 # 0.1.9
 

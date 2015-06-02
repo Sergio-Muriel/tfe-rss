@@ -158,9 +158,38 @@ var Settings = function()
 
     this.restoreSettings= function()
     {
-        this.view_read.checked =  this.getViewRead();
-        this.view_list.checked =  this.getViewList();
-        this.view_notification.checked =  this.getViewNotification();
+        if(this.getViewRead())
+        {
+            this.view_read.classList.remove('fa-toggle-off');
+            this.view_read.classList.add('fa-toggle-on');
+        }
+        else
+        {
+            this.view_read.classList.add('fa-toggle-off');
+            this.view_read.classList.remove('fa-toggle-on');
+        }
+
+        if(this.getViewList())
+        {
+            this.view_list.classList.remove('fa-toggle-off');
+            this.view_list.classList.add('fa-toggle-on');
+        }
+        else
+        {
+            this.view_list.classList.add('fa-toggle-off');
+            this.view_list.classList.remove('fa-toggle-on');
+        }
+
+        if(this.getViewNotification())
+        {
+            this.view_notification.classList.remove('fa-toggle-off');
+            this.view_notification.classList.add('fa-toggle-on');
+        }
+        else
+        {
+            this.view_notification.classList.add('fa-toggle-off');
+            this.view_notification.classList.remove('fa-toggle-on');
+        }
 
         this.set_update_time(this.getUpdateTime());
     };
@@ -182,20 +211,26 @@ var Settings = function()
 
     this.toggleViewRead= function(e)
     {
-        localStorage.setItem('viewRead', this.view_read.checked ? 1 : 0);
+        console.log('set  to ', this.view_read.classList.contains('fa-toggle-off'));
+        localStorage.setItem('viewRead', this.view_read.classList.contains('fa-toggle-off'));
         layout.clearAndLoadItems();
+        this.restoreSettings();
     };
 
     this.toggleViewList= function(e)
     {
-        localStorage.setItem('viewList', this.view_list.checked ? 1 : 0);
+        console.log('set  to ', this.view_list.classList.contains('fa-toggle-off'));
+        localStorage.setItem('viewList', this.view_list.classList.contains('fa-toggle-off'));
         layout.clearAndLoadItems();
+        this.restoreSettings();
     };
 
     this.toggleViewNotification= function(e)
     {
-        localStorage.setItem('viewNotification', this.view_notification.checked ? 1 : 0);
+        console.log('set  to ', this.view_notification.classList.contains('fa-toggle-off'));
+        localStorage.setItem('viewNotification', this.view_notification.classList.contains('fa-toggle-off'));
         layout.clearAndLoadItems();
+        this.restoreSettings();
     };
 
     this.isLoggedIn = function()
@@ -205,15 +240,21 @@ var Settings = function()
 
     this.getViewRead = function()
     {
-        return localStorage.getItem('viewRead') !== "0" ? true : false;
+        var value= localStorage.getItem('viewRead');
+        if(value!==null) { return value==='true' ? true : false; }
+        return true; // default value, checked
     };
     this.getViewList = function()
     {
-        return localStorage.getItem('viewList') !== "0" ? true : false;
+        var value= localStorage.getItem('viewList');
+        if(value!==null) { return value==='true' ? true : false; }
+        return true; // default value, checked
     };
     this.getViewNotification = function()
     {
-        return localStorage.getItem('viewNotification') !== "0" ? true : false;
+        var value= localStorage.getItem('viewNotification');
+        if(value!==null) { return value==='true' ? true : false; }
+        return true; // default value, checked
     };
     this.getUpdateTime = function()
     {

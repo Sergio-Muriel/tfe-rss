@@ -544,6 +544,8 @@ div.leftlist_item
     padding:0px;
     white-space:normal;
     color:#000;
+    font-size:22px;
+    font-size:1.4rem;
 }
 .feed_title.view_list
 {
@@ -565,13 +567,16 @@ div.leftlist_item
     font-size:20px;
     font-size:1.3rem;
     color:#555;
+    line-height:0.5em;
 
 }
 .feed_date
 {
-    display:none;
+    font-size:20px;
+    font-size:1.3rem;
     margin:8px 0px;
     margin:0.5rem 0px;
+    line-height:1em;
 }
 .feed_image
 {

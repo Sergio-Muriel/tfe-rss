@@ -1,3 +1,8 @@
+# 0.1.9
+
+- Fix save update time
+- Share button trigger open mail popup
+
 # 0.1.7
 
 - Added Notifications

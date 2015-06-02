@@ -75,7 +75,12 @@ var Settings = function()
         select.selectedIndex = options.indexOf(time+'');
 
         clearInterval(this.update_time_timer);
-        this.update_time_timer = setInterval(layout.clearAndLoadItems.bind(layout),  time*60*1000);
+        this.update_time_timer=null;
+        localStorage.setItem('updateTime', time);
+        if(time>0)
+        {
+            this.update_time_timer = setInterval(layout.clearAndLoadItems.bind(layout),  time*60*1000);
+        }
     };
 
     this.set_api=function(api)

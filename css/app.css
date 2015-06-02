@@ -213,6 +213,7 @@ form select
     display:block;
     line-height:1.5em;
     margin:0.5em auto;
+    -moz-appearance:none;
 }
 
 input:invalid,

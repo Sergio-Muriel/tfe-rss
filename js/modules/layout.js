@@ -893,6 +893,7 @@ var Layout = function()
             new MozActivity({
                 name: "new",
                 data: {
+                    type: "mail",
                     number: 1,
                     url: "mailto:?subject="+encodeURIComponent(li.querySelector('.feed_title').innerHTML)+
                         "&body=" + encodeURIComponent(li.getAttribute('feed_link'))

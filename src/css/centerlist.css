@@ -264,6 +264,12 @@ li.feed_flags .headerintro
 {
     background:#ebebeb;
 }
+li.feed_fullscreen .feed_origin
+{
+    position:absolute;
+    top:0px;
+    right:1.5rem;
+}
 li.feed_fullscreen .feed_date
 {
     display:block;

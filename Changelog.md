@@ -1,3 +1,7 @@
+# 0.2.2
+
+- Redesign main items
+
 # 0.2.1
 
 - Fix empty buttons text

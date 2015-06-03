@@ -534,8 +534,17 @@ div.leftlist_item
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding:20px 16px 20px 80px;
-    padding:1.3rem 1rem 1.3rem 5rem;
+    padding:68px 16px 20px 20px;
+    padding:4.3rem 1rem 1.3rem 1.3rem;
+}
+.headerintro
+{
+    position:absolute;
+    top:0px;
+    width:100%;
+    white-space:nowrap;
+    padding:20px 16px 0px 20px;
+    padding:1.3rem 1rem 0rem 1.3rem;
 }
 .feed_title
 {
@@ -546,6 +555,10 @@ div.leftlist_item
     color:#000;
     font-size:22px;
     font-size:1.4rem;
+    line-height:1.3em;
+    font-weight:bold;
+    overflow:hidden;
+    letter-spacing:0.01em;
 }
 .feed_title.view_list
 {
@@ -553,74 +566,64 @@ div.leftlist_item
     padding-right:6rem;
 }
 
-.fresh_item .feed_title
-{
-    font-weight:bold;
-}
-
 .feed_origin
 {
-    padding-right:96px;
-    padding-right:6rem;
+    display:inline-block;
     font-weight:normal;
     margin:0px;
     font-size:20px;
     font-size:1.3rem;
     color:#555;
-    line-height:0.5em;
+    line-height:40px;
+    line-height:2.5rem;
 
 }
 .feed_date
 {
+    float:right;
     font-size:20px;
     font-size:1.3rem;
-    margin:8px 0px;
-    margin:0.5rem 0px;
-    line-height:1em;
+    margin:0px;
+    line-height:40px;
+    line-height:2.5rem;
 }
 .feed_image
 {
     position:absolute;
-    right:4px;
-    right:0.3rem;
-    top:0px;
+    right:16px;
+    right:1rem;
+    top:68px;
+    top:4.3rem;
     bottom:0px;
-    width:96px;
-    width:6rem;
-    background-position:center center;
+    margin:0px;
+    margin-bottom:4px;
+    margin-bottom:0.3rem;
+    width:80px;
+    width:5rem;
+    background-position:top right;
     background-repeat:no-repeat;
     background-size:contain;
 
 }
 .feed_flags
 {
-    position:absolute;
-    height:100%;
-    left:0px;
-    top:0px;
-    margin:0px;
-    padding:0px;
-    height:100%;
-    vertical-align:middle;
-    white-space:normal;
+    display:inline-block;
+    height:40px;
+    height:2.5rem;
     color:#d4cc4d;
     text-align:center;
-    width:80px;
-    width:5rem;
+    width:32px;
+    width:2rem;
+    margin:0px 16px 0px 0px;
+    margin:0px 1rem 0px 0px;
 }
 
-.feed_flags:before
-{
-    content:'';
-    height:100%;
-    display:inline-block;
-    vertical-align:middle;
-}
 .feed_flags span
 {
     display:inline-block;
     vertical-align:middle;
 }
+
 /* do not display like on list */
 .feed_flags span.flag_like,
 .feed_flags span.flag_share
@@ -654,7 +657,7 @@ div.leftlist_item
     max-width: 100%;
     height:auto;
     white-space:normal;
-    line-height:1.1em;
+    line-height:1.2em;
 }
 
 .slide.center li.not_loggedin,
@@ -742,6 +745,13 @@ div.leftlist_item
     bottom:80px;
     bottom:5rem;
 }
+li.feed_fullscreen .headerintro
+{
+    position:relative;
+    padding-top:0px;
+    background:#ebebeb;
+}
+
 li.feed_fullscreen .feed_header
 {
     background:#ebebeb;
@@ -756,11 +766,16 @@ li.feed_fullscreen .feed_title
 {
     padding-right:0px;
     font-weight:bold;
+    font-size:25px;
+    font-size:1.6rem;
 }
 li.feed_fullscreen .feed_flags
 {
     position:relative;
     width:100%;
+    height:auto;
+    padding-bottom:20px;
+    padding-bottom:1.3rem;
 }
 li.feed_fullscreen .feed_flags span
 {
@@ -768,17 +783,24 @@ li.feed_fullscreen .feed_flags span
     padding:0px 3rem;
     font-size:35px;
     font-size:2.2rem;
-    line-height:80px;
-    line-height:5rem;
+    line-height:48px;
+    line-height:3rem;
 }
 li.feed_fullscreen .feed_flags span.flag_like,
 li.feed_fullscreen .feed_flags span.flag_share
 {
     display:inline-block;
 }
+
+li.feed_flags .headerintro
+{
+    background:#ebebeb;
+}
 li.feed_fullscreen .feed_date
 {
     display:block;
+    float:none;
+    text-align:left;
 }
 
 .alert_container

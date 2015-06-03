@@ -833,6 +833,8 @@ var Layout = function()
                             }
                             li.setAttribute('data-id',item.id);
 
+
+
                             var div = document.createElement('div');
                             div.className='feed_header';
                             li.appendChild(div);
@@ -843,15 +845,7 @@ var Layout = function()
                             p.addEventListener('click', self.openItem.bind(self));
                             div.appendChild(p);
 
-                            p = document.createElement('p');
-                            p.className='feed_date';
-                            p.innerHTML = new Date(item.published*1000).toLocaleFormat(translate("date_format"));
-                            div.appendChild(p);
 
-                            p = document.createElement('p');
-                            p.className='feed_origin';
-                            p.innerHTML = item.origin.title;
-                            div.appendChild(p);
 
 
                             if(viewList)
@@ -880,10 +874,20 @@ var Layout = function()
                                 div_content.innerHTML = content;
                                 li.appendChild(div_content);
                             }
+                            
+                            var headerintro = document.createElement('div');
+                            headerintro.className='headerintro';
+                            li.appendChild(headerintro);
+
+                            p = document.createElement('p');
+                            p.className='feed_date';
+                            p.innerHTML = new Date(item.published*1000).toLocaleFormat(translate("date_format"));
+                            headerintro.appendChild(p);
+
 
                             p = document.createElement('p');
                             p.className='feed_flags';
-                            div.appendChild(p);
+                            headerintro.appendChild(p);
 
                             var flag_star = document.createElement('span');
                             flag_star.className='flag_star fa '+(!item.starred?'ko fa-star-o':'fa-star');
@@ -898,6 +902,10 @@ var Layout = function()
                             flag_share.className='flag_share fa fa-share ko';
                             p.appendChild(flag_share);
 
+                            p = document.createElement('p');
+                            p.className='feed_origin';
+                            p.innerHTML = item.origin.title;
+                            headerintro.appendChild(p);
 
                             self.feed_contents[item.id] = content;
                             ul.appendChild(li);

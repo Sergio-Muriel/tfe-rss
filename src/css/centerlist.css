@@ -57,7 +57,6 @@
     line-height:1.3em;
     font-weight:bold;
     overflow:hidden;
-    letter-spacing:0.01em;
 }
 .feed_title.view_list
 {
@@ -80,6 +79,7 @@
     font-size:1.3rem;
     margin:0px;
     line-height:2.5rem;
+    letter-spacing:-0.05em;
 }
 .feed_image
 {
@@ -230,6 +230,7 @@ li.feed_fullscreen .feed_header
 {
     background:var(--mainlistItemBg);
     padding:1rem;
+    padding-bottom:0px;
 }
 li.feed_fullscreen .feed_image
 {
@@ -275,6 +276,7 @@ li.feed_fullscreen .feed_date
     display:block;
     float:none;
     text-align:left;
+    padding-bottom:1.3rem;
 }
 
 .alert_container

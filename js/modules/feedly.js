@@ -29,10 +29,10 @@ Feedly.prototype.create_form = function()
     form.id=this.type;
     form.innerHTML=
         '<form>'+
-        '<p class="form_text" data-l10n-id="login_feedly_text"></p>'+
+        '<p class="form_text" value="'+translate('login_feedly_text')+'"></p>'+
         '<div class="feedly">'+
-        '<p><button class="login_link bb-button bb-recommend" data-l10n-id="login_with_feedly"></button></p>'+
-        '<p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>'+
+        '<p><button class="login_link bb-button bb-recommend">'+translate('login_with_feedly')+'</button></p>'+
+        '<p><button class="logout_link bb-button bb-danger">'+translate('logout_link')+'</button></p>'+
         '</div>';
     return form;
 };

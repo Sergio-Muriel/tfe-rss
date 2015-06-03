@@ -16,9 +16,11 @@ var notif = new Notif();
 window.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
-    layout.init();
-
-    // Add the old reader support
-    settings.init([theoldreader, tinytinyrss]);
-    notif.init();
+    // Once locales are loaded, load the app
+    navigator.mozL10n.ready(function()
+    {
+        layout.init();
+        settings.init([theoldreader, tinytinyrss]);
+        notif.init();
+    });
 });

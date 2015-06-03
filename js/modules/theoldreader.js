@@ -27,15 +27,15 @@ TheOldReader.prototype.create_form = function()
 {
     var form = document.createElement('form');
     form.id=this.type;
-    form.innerHTML='<p class="form_text loggedin" data-l10n-id="connected_with"></p>'+
-        '<p class="form_text loggedout" data-l10n-id="enter_account_information"></p>'+
+    form.innerHTML='<p class="form_text loggedin" value="'+translate('connected_with')+'"></p>'+
+        '<p class="form_text loggedout" value="'+translate('enter_account_information')+'"></p>'+
         '<p>'+
-        '<input type="email" name="email" data-l10n-placeholder="form_email" required>'+
-        '<input type="password" name="password" data-l10n-placeholder="form_password" required>'+
+        '<input type="email" name="email" placeholder="'+translate('form_email')+'" required>'+
+        '<input type="password" name="password" placeholder="'+translate('form_password')+'" required>'+
         '</p>'+
-        '<p><button class="login_link bb-button bb-recommend" data-l10n-id="login_link"></button></p>'+
-        '<p><button class="logout_link bb-button bb-danger" data-l10n-id="logout_link"></button></p>'+
-        '<p><button class="register_link bb-button" data-l10n-id="register_link"></button></p>';
+        '<p><button class="login_link bb-button bb-recommend">'+translate('login_link')+'</button></p>'+
+        '<p><button class="logout_link bb-button bb-danger">'+translate('logout_link')+'</button></p>'+
+        '<p><button class="register_link bb-button">'+translate('register_link')+'</button></p>';
     return form;
 };
 

@@ -1,3 +1,7 @@
+# 0.2.1
+
+- Fix empty buttons text
+
 # 0.2.0
 
 - Delete feeds

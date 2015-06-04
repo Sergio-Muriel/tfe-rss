@@ -85,8 +85,8 @@ var Layout = function()
     this.delete_feed= function(e)
     {
         var self=this;
-        e.preventDefault();
-        e.stopPropagation();
+        if(e.preventDefault) { e.preventDefault(); }
+        if(e.stopPropagation) { e.stopPropagation(); }
         var label = e.target;
         var li = e.target;
         while(li && !li.classList.contains('leftlist_item'))
@@ -331,8 +331,8 @@ var Layout = function()
 
     this.toggleLabel=function(e)
     {
-        e.preventDefault();
-        e.stopPropagation();
+        if(e.preventDefault) { e.preventDefault(); }
+        if(e.stopPropagation) { e.stopPropagation(); }
         var span = e.target;
         var li = e.target;
         while(li && li.tagName!=='LI')
@@ -376,8 +376,8 @@ var Layout = function()
     this.markStarClick=function(e)
     {
         var self=this;
-        e.preventDefault();
-        e.stopPropagation();
+        if(e.preventDefault) { e.preventDefault(); }
+        if(e.stopPropagation) { e.stopPropagation(); }
         var span = e.target;
         var li = e.target;
         while(li && li.tagName!=='LI')
@@ -950,8 +950,8 @@ var Layout = function()
     {
         center_menu_all.classList.add('hidden');
         center_menu_single.classList.remove('hidden');
-        e.preventDefault();
-        e.stopPropagation();
+        if(e.preventDefault) { e.preventDefault(); }
+        if(e.stopPropagation) { e.stopPropagation(); }
 
         var target=e.target;
         var li = e.target;

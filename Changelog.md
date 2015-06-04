@@ -2,6 +2,7 @@
 
 - UX Update
 - Bigger click zone
+- Promise polyfill for FirefoxOS 1.3 compatibility
 
 # 0.2.2
 

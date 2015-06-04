@@ -53,10 +53,11 @@
     padding:0px;
     white-space:normal;
     color:var(--mainlistColor);
-    font-size:1.4rem;
+    font-size:1.5rem;
     line-height:1.3em;
     font-weight:bold;
     overflow:hidden;
+    letter-spacing:0.01em;
 }
 .feed_title.view_list
 {

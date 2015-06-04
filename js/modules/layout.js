@@ -86,6 +86,7 @@ var Layout = function()
     {
         var self=this;
         e.preventDefault();
+        e.stopPropagation();
         var label = e.target;
         var li = e.target;
         while(li && !li.classList.contains('leftlist_item'))
@@ -331,6 +332,7 @@ var Layout = function()
     this.toggleLabel=function(e)
     {
         e.preventDefault();
+        e.stopPropagation();
         var span = e.target;
         var li = e.target;
         while(li && li.tagName!=='LI')
@@ -374,6 +376,8 @@ var Layout = function()
     this.markStarClick=function(e)
     {
         var self=this;
+        e.preventDefault();
+        e.stopPropagation();
         var span = e.target;
         var li = e.target;
         while(li && li.tagName!=='LI')
@@ -832,6 +836,7 @@ var Layout = function()
                                 li.className='fresh_item';
                             }
                             li.setAttribute('data-id',item.id);
+                            li.addEventListener('click', self.openItem.bind(self), false);
 
 
 
@@ -842,7 +847,6 @@ var Layout = function()
                             var p = document.createElement('p');
                             p.className='feed_title '+(viewList?'view_list':'view_full');
                             p.innerHTML = item.title;
-                            p.addEventListener('click', self.openItem.bind(self));
                             div.appendChild(p);
 
 
@@ -891,7 +895,7 @@ var Layout = function()
 
                             var flag_star = document.createElement('span');
                             flag_star.className='flag_star fa '+(!item.starred?'ko fa-star-o':'fa-star');
-                            flag_star.addEventListener('click', self.markStarClick.bind(self));
+                            flag_star.addEventListener('click', self.markStarClick.bind(self), false);
                             p.appendChild(flag_star);
 
                             var flag_like = document.createElement('span');
@@ -946,6 +950,8 @@ var Layout = function()
     {
         center_menu_all.classList.add('hidden');
         center_menu_single.classList.remove('hidden');
+        e.preventDefault();
+        e.stopPropagation();
 
         var target=e.target;
         var li = e.target;
@@ -979,7 +985,7 @@ var Layout = function()
         }
 
         var newLi = li.cloneNode(true);
-        newLi.querySelector('.flag_star').addEventListener('click', this.markStarClick.bind(this));
+        newLi.querySelector('.flag_star').addEventListener('click', this.markStarClick.bind(this), false);
         newLi.querySelector('.flag_like').addEventListener('click', this.markLikeClick.bind(this));
         newLi.querySelector('.flag_share').addEventListener('click', function(e)
         {

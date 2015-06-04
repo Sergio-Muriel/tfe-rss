@@ -1,3 +1,8 @@
+# 0.2.3
+
+- UX Update
+- Bigger click zone
+
 # 0.2.2
 
 - Redesign main items

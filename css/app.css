@@ -572,6 +572,11 @@ div.leftlist_item
     overflow:hidden;
     letter-spacing:0.01em;
 }
+p.feed_fulldate
+{
+    display:none;
+}
+
 .feed_smalldesc:before
 {
     content: ' - ';
@@ -768,6 +773,16 @@ div.leftlist_item
     bottom:80px;
     bottom:5rem;
 }
+.slide.center li.feed_fullscreen .feed_smalldesc,
+.slide.center li.feed_fullscreen .feed_smalldate
+{
+    display:none;
+}
+.slide.center li.feed_fullscreen .feed_fulldate
+{
+    display:block;
+}
+
 li.feed_fullscreen .headerintro
 {
     position:relative;

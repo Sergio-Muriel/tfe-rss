@@ -891,8 +891,13 @@ var Layout = function()
                             li.appendChild(headerintro);
 
                             p = document.createElement('p');
-                            p.className='feed_date';
+                            p.className='feed_date feed_smalldate';
                             p.innerHTML = new Date(item.published*1000).toLocaleFormat(translate("date_format"));
+                            headerintro.appendChild(p);
+
+                            p = document.createElement('p');
+                            p.className='feed_fulldate feed_date';
+                            p.innerHTML = new Date(item.published*1000).toLocaleFormat(translate("fulldate_format"));
                             headerintro.appendChild(p);
 
 

@@ -863,7 +863,7 @@ var Layout = function()
 
                             p = document.createElement('p');
                             p.className='feed_smalldesc';
-                            p.innerHTML = content.replace(/<[^>]+>/g,'').substr(0, 100)+'&hellip;';
+                            p.innerHTML = content.replace(/<[^>]+>/g,'').substr(0, 70)+'&hellip;';
                             div.appendChild(p);
 
 

@@ -845,39 +845,34 @@ var Layout = function()
                             li.appendChild(div);
 
                             var p = document.createElement('p');
-                            p.className='feed_title '+(viewList?'view_list':'view_full');
+                            p.className='feed_title';
                             p.innerHTML = item.title;
+                            div.appendChild(p);
+
+                            p = document.createElement('p');
+                            p.className='feed_smalldesc';
+                            p.innerHTML = content.replace(/<[^>]+>/g,'').substr(0, 100)+'&hellip;';
                             div.appendChild(p);
 
 
 
 
-                            if(viewList)
+                            p = document.createElement('p');
+                            // Preload image and display only if big enough
+                            (function(p)
                             {
-                                p = document.createElement('p');
-                                // Preload image and display only if big enough
-                                (function(p)
+                                var img = new Image();
+                                img.onload=function()
                                 {
-                                    var img = new Image();
-                                    img.onload=function()
+                                    if(img.width>50 && img.height>0)
                                     {
-                                        if(img.width>50 && img.height>0)
-                                        {
-                                            p.style.backgroundImage = 'url('+first_image+')';
-                                        }
-                                    };
-                                    img.src = first_image;
-                                })(p);
-                                p.className='feed_image';
-                                div.appendChild(p);
-                            }
-                            else
-                            {
-                                div_content = document.createElement('div');
-                                div_content.className='feed_content';
-                                div_content.innerHTML = content;
-                                li.appendChild(div_content);
-                            }
+                                        p.style.backgroundImage = 'url('+first_image+')';
+                                    }
+                                };
+                                img.src = first_image;
+                            })(p);
+                            p.className='feed_image';
+                            div.appendChild(p);
                             
                             var headerintro = document.createElement('div');
                             headerintro.className='headerintro';

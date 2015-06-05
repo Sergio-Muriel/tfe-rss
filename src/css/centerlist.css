@@ -36,7 +36,7 @@
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding:4.3rem 1rem 1.3rem 1.3rem;
+    padding:4.3rem 6rem 1.3rem 1.3rem;
 }
 .headerintro
 {
@@ -48,6 +48,7 @@
 }
 .feed_title
 {
+    display:inline;
     vertical-align:top;
     margin:0px;
     padding:0px;
@@ -59,9 +60,18 @@
     overflow:hidden;
     letter-spacing:0.01em;
 }
-.feed_title.view_list
+.feed_smalldesc::before
 {
-    padding-right:6rem;
+    content: ' - ';
+}
+.feed_smalldesc
+{
+    margin:0px;
+    display:inline;
+    color:#999;
+    font-size:1.5rem;
+    line-height:1.3em;
+    vertical-align:top;
 }
 
 .feed_origin
@@ -81,6 +91,7 @@
     margin:0px;
     line-height:2.5rem;
     letter-spacing:-0.05em;
+    color:#2d6cb3;
 }
 .feed_image
 {

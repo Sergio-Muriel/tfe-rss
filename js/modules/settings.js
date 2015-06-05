@@ -248,7 +248,7 @@ var Settings = function()
     {
         var value= localStorage.getItem('viewList');
         if(value!==null) { return value==='true' ? true : false; }
-        return true; // default value, checked
+        return false; // default value, unchecked
     };
     this.getViewNotification = function()
     {

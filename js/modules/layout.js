@@ -385,26 +385,43 @@ var Layout = function()
             li = li.parentNode;
         }
         var item_id = li.getAttribute('data-id');
+
         span.classList.add('updating');
         if(span.classList.contains('ko'))
         {
-            span.classList.remove('ko');
-            span.classList.remove('fa-star-o');
-            span.classList.add('fa-star');
+            Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
+            {
+                var span = li.querySelector('.flag_star');
+                span.classList.remove('ko');
+                span.classList.remove('fa-star-o');
+                span.classList.add('fa-star');
+            });
         }
         else
         {
-            span.classList.remove('fa-star');
-            span.classList.add('ko');
-            span.classList.add('fa-star-o');
+            Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
+            {
+                var span = li.querySelector('.flag_star');
+                span.classList.remove('fa-star');
+                span.classList.add('ko');
+                span.classList.add('fa-star-o');
+            });
         }
         this.controller.markStar(item_id, !span.classList.contains('ko'))
             .then(function(result)
             {
-                span.classList.remove('updating');
+                Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
+                {
+                    var span = li.querySelector('.flag_star');
+                    span.classList.remove('updating');
+                });
             }, function()
             {
-                span.classList.remove('updating');
+                Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
+                {
+                    var span = li.querySelector('.flag_star');
+                    span.classList.remove('updating');
+                });
                 self.alert(translate('network_error'));
             });
 

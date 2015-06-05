@@ -36,7 +36,7 @@
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding:4.3rem 6rem 1.3rem 1.3rem;
+    padding:3.1rem 7.5rem 1.3rem 1.3rem;
 }
 .headerintro
 {
@@ -44,7 +44,7 @@
     top:0px;
     width:100%;
     white-space:nowrap;
-    padding:1.3rem 1rem 0rem 1.3rem;
+    padding:0.5rem 1rem 0rem 1.3rem;
 }
 .slide.center li.feed_fulldate
 {
@@ -112,11 +112,13 @@ p.feed_fulldate
     position:absolute;
     right:1rem;
     top:4.3rem;
-    bottom:0px;
+    height:0px;
+    padding-top:18.8%;
     margin:0px;
     margin-bottom:0.3rem;
-    width:5rem;
-    background-position:top right;
+    width:6rem;
+    background-position:center center;
+    background-color:#ddd;
     background-repeat:no-repeat;
     background-size:contain;
 

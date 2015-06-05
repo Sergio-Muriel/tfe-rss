@@ -1,3 +1,7 @@
+# 0.2.5
+
+- View first word of content in main list
+
 # 0.2.4
 
 - View first word of content in main list

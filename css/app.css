@@ -534,8 +534,8 @@ div.leftlist_item
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding:68px 96px 20px 20px;
-    padding:4.3rem 6rem 1.3rem 1.3rem;
+    padding:49px 120px 20px 20px;
+    padding:3.1rem 7.5rem 1.3rem 1.3rem;
 }
 .headerintro
 {
@@ -543,8 +543,8 @@ div.leftlist_item
     top:0px;
     width:100%;
     white-space:nowrap;
-    padding:20px 16px 0px 20px;
-    padding:1.3rem 1rem 0rem 1.3rem;
+    padding:8px 16px 0px 20px;
+    padding:0.5rem 1rem 0rem 1.3rem;
 }
 .slide.center li.feed_fulldate
 {
@@ -622,13 +622,15 @@ p.feed_fulldate
     right:1rem;
     top:68px;
     top:4.3rem;
-    bottom:0px;
+    height:0px;
+    padding-top:18.8%;
     margin:0px;
     margin-bottom:4px;
     margin-bottom:0.3rem;
-    width:80px;
-    width:5rem;
-    background-position:top right;
+    width:96px;
+    width:6rem;
+    background-position:center center;
+    background-color:#ddd;
     background-repeat:no-repeat;
     background-size:contain;
 

@@ -734,6 +734,7 @@ var Layout = function()
         }
         this.closeItem();
         this.wait_loading = 0;
+        this.displayed_date = null;
         this.opened_item=null;
         this.feed_contents=[];
         var ul = center_scroll;
@@ -819,6 +820,17 @@ var Layout = function()
                 {
                     items.forEach(function(item)
                     {
+                            var li;
+                            var item_date = new Date(item.published*1000).toLocaleFormat(translate("fulldate_format"));
+                            if(item_date!== self.displayed_date)
+                            {
+                                li = document.createElement('li');
+                                li.className='feed_fulldate';
+                                li.innerHTML=item_date;
+                                ul.appendChild(li);
+                                self.displayed_date = item_date;
+                            }
+
                             var content = item.summary.content;
                             content = content.replace(/(<a[^>]+)>/ig,'$1 target="_blank">');
                             content = content.replace(/<\/script[^>]*>/,'');
@@ -828,7 +840,7 @@ var Layout = function()
                                 first_image=re[1];
                             }
 
-                            var li = document.createElement('li');
+                            li = document.createElement('li');
                             li.setAttribute('feed_link', item.canonical[0].href);
                             li.className='feed_item';
                             if(item.unread)

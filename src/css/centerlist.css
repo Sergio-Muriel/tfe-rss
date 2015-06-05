@@ -46,6 +46,15 @@
     white-space:nowrap;
     padding:1.3rem 1rem 0rem 1.3rem;
 }
+.slide.center li.feed_fulldate
+{
+    padding:0.5rem 1rem;
+    font-size:1.3rem;
+    color:#999;
+    font-weight:bold;
+    letter-spacing:0.05em;
+}
+
 .feed_title
 {
     display:inline;

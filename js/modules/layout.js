@@ -775,6 +775,7 @@ var Layout = function()
         this.clear();
         this.gotoTop();
         this.displayItems();
+        document.querySelector('h1').innerHTML=this.display_name;
     };
 
     this.displayItems = function(continuation)

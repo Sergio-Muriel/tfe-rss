@@ -4,4 +4,4 @@
 - Sort items by (select in settings) (date, popular, alphabetical?) / ASC-DESC
 - Owncloud news integration
 - Search feed to add
-
+- fix auto update when item opened

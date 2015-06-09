@@ -1,6 +1,7 @@
 # 0.2.5
 
 - View first word of content in main list
+- Add title in main list + counter
 
 # 0.2.4
 

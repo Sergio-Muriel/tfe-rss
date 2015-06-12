@@ -3,7 +3,7 @@ var translate = navigator.mozL10n.get;
 
 var theoldreader = new TheOldReader();
 var tinytinyrss = new Tinytinyrss();
-//var feedly = new Feedly();
+var feedly = new Feedly();
 var layout =  new Layout();
 var settings =  new Settings();
 var notif = new Notif();
@@ -20,7 +20,7 @@ window.addEventListener('DOMContentLoaded', function() {
     navigator.mozL10n.ready(function()
     {
         layout.init();
-        settings.init([theoldreader, tinytinyrss]);
+        settings.init([theoldreader, tinytinyrss, feedly]);
         notif.init();
     });
 });

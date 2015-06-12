@@ -8,9 +8,9 @@ var Feedly = function()
 
 
 
-    this.host = 'https://sandbox.feedly.com/';
-    this.clientid ='sandbox';
-    this.clientsecret ='4205DQXBAP99S8SUHXI3';
+    this.host = 'https://feedly.com/';
+    this.clientid ='tferss';
+    this.clientsecret ='FE01PN2RZ308KLZ07NAV5SWAF8UR';
     this.redirect_url ='http://localhost/';
 
     // Init XHR object
@@ -113,9 +113,10 @@ Feedly.prototype.getToken = function(data)
         .then(function(text)
         {
             var data = JSON.parse(text);
+            console.log('received token ',data);
             self.account=data;
             self.getProfile()
-            .then(self.create_account.bind(self,data.access_token, data.refresh_token))
+            .then(self.create_account.bind(self,data.access_token.replace(':'+self.clientid,''), data.refresh_token))
             .then(settings.init_accounts.bind(settings))
             .then(ok);
         }, reject);
@@ -300,6 +301,7 @@ Feedly.prototype._query = function(method,url,data,callback)
         }
         if(self.account)
         {
+            console.log('URL ',url,'login with ',self.account.access_token);
             r.setRequestHeader("authorization","OAuth "+self.account.access_token);
         }
 
@@ -580,12 +582,21 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                         .then(function(text)
                         {
                             var data = JSON.parse(text);
+                            console.log('data ',data);
                             if(data)
                             {
                                 Array.forEach(data, function(item)
                                 {
                                     item.liked=false;
                                     item.starred=false;
+                                    if(!item.summary)
+                                    {
+                                        item.summary = { content : '' };
+                                    }
+                                    if(!item.canonical)
+                                    {
+                                        item.canonical = [ {href : ''} ];
+                                    }
                                     if(item.tags)
                                     {
                                         item.tags.forEach(function(tag)
@@ -601,6 +612,7 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                                         });
                                     }
                                 });
+                                console.log ('ok ',data);
                                 ok({ items:data, continuation: items.continuation});
                             }
                             else

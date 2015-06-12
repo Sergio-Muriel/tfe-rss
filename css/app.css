@@ -29,6 +29,9 @@
     font-size:32px;
     font-size:2rem;
     font-weight:bold;
+    width:calc(100% - 10rem);
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .header button
@@ -620,8 +623,8 @@ p.feed_fulldate
     position:absolute;
     right:16px;
     right:1rem;
-    top:68px;
-    top:4.3rem;
+    top:48px;
+    top:3.0rem;
     height:0px;
     padding-top:18.8%;
     margin:0px;
@@ -817,6 +820,8 @@ li.feed_fullscreen .feed_flags
     height:auto;
     padding-bottom:20px;
     padding-bottom:1.3rem;
+    margin-top:16px;
+    margin-top:1rem;
 }
 li.feed_fullscreen .feed_flags span
 {
@@ -840,9 +845,10 @@ li.feed_flags .headerintro
 li.feed_fullscreen .feed_origin
 {
     position:absolute;
-    top:0px;
-    right:24px;
-    right:1.5rem;
+    top:27px;
+    top:1.7rem;
+    left:20px;
+    left:1.3rem;
 }
 li.feed_fullscreen .feed_date
 {

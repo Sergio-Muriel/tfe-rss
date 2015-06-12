@@ -19,6 +19,9 @@
 {
     font-size:2rem;
     font-weight:bold;
+    width:calc(100% - 10rem);
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .header button

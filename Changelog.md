@@ -1,5 +1,6 @@
 # 0.2.5
 
+- Feedly integration!
 - View first word of content in main list
 - Add title in main list + counter
 

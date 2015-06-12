@@ -111,7 +111,7 @@ p.feed_fulldate
 {
     position:absolute;
     right:1rem;
-    top:4.3rem;
+    top:3.0rem;
     height:0px;
     padding-top:18.8%;
     margin:0px;
@@ -286,6 +286,7 @@ li.feed_fullscreen .feed_flags
     width:100%;
     height:auto;
     padding-bottom:1.3rem;
+    margin-top:1rem;
 }
 li.feed_fullscreen .feed_flags span
 {
@@ -306,8 +307,8 @@ li.feed_flags .headerintro
 li.feed_fullscreen .feed_origin
 {
     position:absolute;
-    top:0px;
-    right:1.5rem;
+    top:1.7rem;
+    left:1.3rem;
 }
 li.feed_fullscreen .feed_date
 {

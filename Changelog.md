@@ -4,6 +4,7 @@
 - Fix feedly published date
 - Fix feedly canonical href on some feeds
 - Use embedded iframe for feedly login (avoid use of window.open on Firefox Android and Desktop)
+- Fix bug "undefined" text on title when not loggedin
 
 
 # 0.2.5

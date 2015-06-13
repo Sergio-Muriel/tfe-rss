@@ -197,8 +197,7 @@ var Settings = function()
     this.logout= function(e)
     {
         this.loggedin=false;
-        layout.clear();
-        layout.clearLeft();
+        layout.reset();
         this.init_accounts();
     };
 

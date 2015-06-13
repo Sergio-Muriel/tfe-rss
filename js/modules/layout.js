@@ -784,7 +784,22 @@ var Layout = function()
         this.clear();
         this.gotoTop();
         this.displayItems();
-        document.querySelector('h1').innerHTML=this.display_name;
+        if(this.display_name)
+        {
+            document.querySelector('h1').innerHTML=this.display_name;
+        }
+        else
+        {
+            document.querySelector('h1').innerHTML=translate('app_title');
+        }
+    };
+    this.reset=function()
+    {
+        this.display_id=null;
+        this.display_name=null;
+        this.clear();
+        this.clearLeft();
+        this.clearAndLoadItems();
     };
 
     this.displayItems = function(continuation)

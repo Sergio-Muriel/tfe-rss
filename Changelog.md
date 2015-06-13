@@ -1,3 +1,8 @@
+# 0.2.6
+
+- Font family for desktop/firefox mobile
+
+
 # 0.2.5
 
 - Feedly integration!

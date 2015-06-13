@@ -67,7 +67,6 @@
     line-height:1.3em;
     font-weight:bold;
     overflow:hidden;
-    letter-spacing:0.01em;
 }
 p.feed_fulldate
 {
@@ -353,4 +352,5 @@ li.feed_fullscreen .feed_date
     color:red;
     border:1px solid red;
 }
+
 

@@ -235,9 +235,14 @@ var Layout = function()
         else
         {
             next = this.opened_item.nextElementSibling;
+            if(next && !next.classList.contains('feed_item'))
+            {
+                next = this.opened_item.nextElementSibling;
+            }
         }
+        console.log('next is ',next);
 
-        if(next && this.opened_item!=next && next.getAttribute('feed_link'))
+        if(next && this.opened_item!=next && next.classList.contains('feed_item'))
         {
             this.openItem({ target: next});
         }
@@ -256,8 +261,12 @@ var Layout = function()
         else
         {
             next = this.opened_item.previousElementSibling ||  document.querySelector('.feed_item');
+            if(next && !next.classList.contains('feed_item'))
+            {
+                next = this.opened_item.nextElementSibling;
+            }
         }
-        if(next && this.opened_item!=next && next.getAttribute('feed_link'))
+        if(next && this.opened_item!=next && next.classList.contains('feed_item'))
         {
             this.openItem({ target: next});
         }
@@ -863,7 +872,7 @@ var Layout = function()
                             li.className='feed_item';
                             if(item.unread)
                             {
-                                li.className='fresh_item';
+                                li.className+=' fresh_item';
                             }
                             li.setAttribute('data-id',item.id);
                             li.addEventListener('click', self.openItem.bind(self), false);

@@ -2,6 +2,7 @@
 
 - Font family for desktop/firefox mobile
 - Fix feedly published date
+- Fix feedly canonical href on some feeds
 
 
 # 0.2.5

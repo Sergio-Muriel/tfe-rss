@@ -7,3 +7,25 @@
 {
     bottom:0px;
 }
+
+iframe
+{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    z-index:1000;
+    background:white;
+}
+div.iframe_close
+{
+    position:absolute;
+    top:0px;
+    right:0px;
+    z-index:1001;
+    width:6rem;
+    height:6rem;
+    background:white;
+    font-size:6rem;
+}

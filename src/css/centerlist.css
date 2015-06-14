@@ -23,6 +23,7 @@
     background:var(--mainlistItemBg);
     border-bottom:1px solid var(--mainlistItemBorder);
     color:var(--mainlistColor);
+    overflow:hidden;
 }
 .slide.center li.fresh_item
 {
@@ -36,7 +37,7 @@
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding:3.1rem 7.5rem 1.3rem 1.3rem;
+    padding:3.1rem 1.3rem 1.3rem 1.3rem;
 }
 .headerintro
 {
@@ -95,6 +96,10 @@ p.feed_fulldate
     font-size:1.3rem;
     color:var(--mainlistColorOrigin);
     line-height:2.5rem;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:calc(100% - 8.0rem);
 
 }
 .feed_date
@@ -108,23 +113,21 @@ p.feed_fulldate
 }
 .feed_image
 {
-    position:absolute;
-    right:1rem;
-    top:3.0rem;
+    float:right;
+    position:relative;
     height:0px;
-    padding-top:18.8%;
-    margin:0px;
-    margin-bottom:0.3rem;
+    margin:0px 0px 0.5rem 0.5rem;
+    height:6rem;
     width:6rem;
     background-position:center center;
     background-color:#ddd;
     background-repeat:no-repeat;
     background-size:contain;
-
 }
 .feed_flags
 {
     display:inline-block;
+    vertical-align:top;
     height:2.5rem;
     color:var(--mainFlagsFg);
     text-align:center;

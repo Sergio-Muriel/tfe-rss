@@ -307,7 +307,6 @@ Feedly.prototype._query = function(method,url,data,callback)
         }
         if(self.account)
         {
-            console.log('URL ',url,'login with ',self.account.access_token);
             r.setRequestHeader("authorization","OAuth "+self.account.access_token);
         }
 
@@ -588,7 +587,6 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                         .then(function(text)
                         {
                             var data = JSON.parse(text);
-                            console.log('data ',data);
                             if(data)
                             {
                                 Array.forEach(data, function(item)
@@ -619,7 +617,6 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                                         });
                                     }
                                 });
-                                console.log ('ok ',data);
                                 ok({ items:data, continuation: items.continuation});
                             }
                             else

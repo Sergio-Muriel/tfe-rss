@@ -782,8 +782,8 @@ var Layout = function()
         if(this.loading_items) { return; }
         this.loading_items=1;
         this.clear();
-        this.gotoTop();
         this.displayItems();
+        this.gotoTop();
         if(this.display_name)
         {
             document.querySelector('h1').innerHTML=this.display_name;
@@ -898,6 +898,28 @@ var Layout = function()
                             div.className='feed_header';
                             li.appendChild(div);
 
+                            console.log('first image',first_image);
+                            if(first_image)
+                            {
+                                console.log('append here');
+                                p = document.createElement('p');
+                                // Preload image and display only if big enough
+                                (function(p)
+                                {
+                                    var img = new Image();
+                                    img.onload=function()
+                                    {
+                                        if(img.width>50 && img.height>0)
+                                        {
+                                            p.style.backgroundImage = 'url('+first_image+')';
+                                        }
+                                    };
+                                    img.src = first_image;
+                                })(p);
+                                p.className='feed_image';
+                                div.appendChild(p);
+                            }
+
                             var p = document.createElement('p');
                             p.className='feed_title';
                             p.innerHTML = item.title;
@@ -911,22 +933,6 @@ var Layout = function()
 
 
 
-                            p = document.createElement('p');
-                            // Preload image and display only if big enough
-                            (function(p)
-                            {
-                                var img = new Image();
-                                img.onload=function()
-                                {
-                                    if(img.width>50 && img.height>0)
-                                    {
-                                        p.style.backgroundImage = 'url('+first_image+')';
-                                    }
-                                };
-                                img.src = first_image;
-                            })(p);
-                            p.className='feed_image';
-                            div.appendChild(p);
                             
                             var headerintro = document.createElement('div');
                             headerintro.className='headerintro';

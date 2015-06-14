@@ -1,3 +1,7 @@
+# 0.2.7
+
+- Ux Update
+
 # 0.2.6
 
 - Font family for desktop/firefox mobile

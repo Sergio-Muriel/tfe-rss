@@ -524,6 +524,7 @@ div.leftlist_item
     background:#ebebeb;
     border-bottom:1px solid #c2c2c2;
     color:#000;
+    overflow:hidden;
 }
 .slide.center li.fresh_item
 {
@@ -537,8 +538,8 @@ div.leftlist_item
     margin:0px;
     padding:0px;
     white-space:normal;
-    padding:49px 120px 20px 20px;
-    padding:3.1rem 7.5rem 1.3rem 1.3rem;
+    padding:49px 20px 20px 20px;
+    padding:3.1rem 1.3rem 1.3rem 1.3rem;
 }
 .headerintro
 {
@@ -604,6 +605,10 @@ p.feed_fulldate
     color:#555;
     line-height:40px;
     line-height:2.5rem;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:calc(100% - 8.0rem);
 
 }
 .feed_date
@@ -619,27 +624,24 @@ p.feed_fulldate
 }
 .feed_image
 {
-    position:absolute;
-    right:16px;
-    right:1rem;
-    top:48px;
-    top:3.0rem;
+    float:right;
+    position:relative;
     height:0px;
-    padding-top:18.8%;
-    margin:0px;
-    margin-bottom:4px;
-    margin-bottom:0.3rem;
+    margin:0px 0px 8px 8px;
+    margin:0px 0px 0.5rem 0.5rem;
+    height:96px;
+    height:6rem;
     width:96px;
     width:6rem;
     background-position:center center;
     background-color:#ddd;
     background-repeat:no-repeat;
     background-size:contain;
-
 }
 .feed_flags
 {
     display:inline-block;
+    vertical-align:top;
     height:40px;
     height:2.5rem;
     color:#d4cc4d;

@@ -34,6 +34,11 @@ Feedly.prototype.create_form = function()
         '<p><button class="login_link bb-button bb-recommend">'+translate('login_with_feedly')+'</button></p>'+
         '<p><button class="logout_link bb-button bb-danger">'+translate('logout_link')+'</button></p>'+
         '</div>';
+
+    if(location.search)
+    {
+        this.callback(location.href);
+    }
     return form;
 };
 
@@ -73,35 +78,15 @@ Feedly.prototype.login= function(e)
     url+='redirect_uri='+encodeURIComponent('http://localhost')+'&';
     url+='scope='+encodeURIComponent('https://cloud.feedly.com/subscriptions')+'&';
 
-    var iframe = document.createElement('iframe');
-    iframe.className='iframe_feedly';
-    iframe.src=url;
-    iframe.width='100%';
-    iframe.height='100%';
-    document.body.appendChild(iframe);
-
-    var iframe_close = document.createElement('div');
-    iframe_close.className='iframe_close fa fa-close';
-    iframe_close.addEventListener('click', this.close_iframe);
-    document.body.appendChild(iframe_close);
-
+    window.open(url);
     e.preventDefault();
     return false;
 };
 
-Feedly.prototype.close_iframe = function()
-{
-    var iframe= document.querySelector('.iframe_feedly');
-    iframe.parentNode.removeChild(iframe);
-
-    var iframe_close= document.querySelector('.iframe_close');
-    iframe_close.parentNode.removeChild(iframe_close);
-};
 
 Feedly.prototype.callback = function(url)
 {
     var self=this;
-    this.close_iframe();
     console.log('Callback url: ',url);
     var reCode = /code=([^&]+)/;
     var reError = /error=([^&]+)/;

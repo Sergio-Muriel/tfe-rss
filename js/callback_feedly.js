@@ -1,5 +1,13 @@
 var reCode = /code=([^&]+)/;
 var reError = /error=([^&]+)/;
 
-parent.feedly.callback(location.href);
-window.close();
+if(window.openerx)
+{
+    opener.feedly.callback(location.href);
+    window.close();
+}
+else
+{
+    location.href='/index.html'+location.search;
+}
+

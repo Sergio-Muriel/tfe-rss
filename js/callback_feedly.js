@@ -1,7 +1,7 @@
 var reCode = /code=([^&]+)/;
 var reError = /error=([^&]+)/;
 
-if(window.openerx)
+if(window.opener)
 {
     opener.feedly.callback(location.href);
     window.close();

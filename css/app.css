@@ -174,7 +174,8 @@ form
 {
     font-size:27px;
     font-size:1.7rem;
-    padding: 0px 20px;
+    padding:0px 16px;
+    padding: 0px 1rem;
 }
 legend
 {
@@ -251,6 +252,12 @@ input[type="url"], input[type="number"], textarea, select
 .line_select select
 {
     padding-right:3em;
+    line-height:56px;
+    line-height:3.5rem;
+    height:56px;
+    height:3.5rem;
+    margin-left:8px;
+    margin-left:0.5rem;
 }
 .line_select span:before
 {
@@ -303,6 +310,8 @@ input[type="url"], input[type="number"], textarea, select
     width:32px;
     width:2rem;
 }
+
+.line_select label,
 .line_checkbox label
 {
     display:inline-block;

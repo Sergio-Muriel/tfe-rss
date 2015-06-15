@@ -14,7 +14,7 @@ form, fieldset, legend
 form
 {
     font-size:1.7rem;
-    padding: 0px 20px;
+    padding: 0px 1rem;
 }
 legend
 {
@@ -79,6 +79,9 @@ input[type="url"], input[type="number"], textarea, select
 .line_select select
 {
     padding-right:3em;
+    line-height:3.5rem;
+    height:3.5rem;
+    margin-left:0.5rem;
 }
 .line_select span::before
 {
@@ -125,6 +128,8 @@ input[type="url"], input[type="number"], textarea, select
     height:2rem;
     width:2rem;
 }
+
+.line_select label,
 .line_checkbox label
 {
     display:inline-block;

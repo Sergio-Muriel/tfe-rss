@@ -8,29 +8,29 @@
 	function bind(fn, thisArg) {
 		return function() {
 			fn.apply(thisArg, arguments);
-		}
+		};
 	}
 
-	var isArray = Array.isArray || function(value) { return Object.prototype.toString.call(value) === "[object Array]" };
+	var isArray = Array.isArray || function(value) { return Object.prototype.toString.call(value) === "[object Array]"; };
 
 	function Promise(fn) {
 		if (typeof this !== 'object') throw new TypeError('Promises must be constructed via new');
 		if (typeof fn !== 'function') throw new TypeError('not a function');
 		this._state = null;
 		this._value = null;
-		this._deferreds = []
+		this._deferreds = [];
 
-		doResolve(fn, bind(resolve, this), bind(reject, this))
+		doResolve(fn, bind(resolve, this), bind(reject, this));
 	}
 
 	function handle(deferred) {
 		var me = this;
 		if (this._state === null) {
 			this._deferreds.push(deferred);
-			return
+			return;
 		}
 		asap(function() {
-			var cb = me._state ? deferred.onFulfilled : deferred.onRejected
+			var cb = me._state ? deferred.onFulfilled : deferred.onRejected;
 			if (cb === null) {
 				(me._state ? deferred.resolve : deferred.reject)(me._value);
 				return;
@@ -44,7 +44,7 @@
 				return;
 			}
 			deferred.resolve(ret);
-		})
+		});
 	}
 
 	function resolve(newValue) {
@@ -100,7 +100,7 @@
 				if (done) return;
 				done = true;
 				onRejected(reason);
-			})
+			});
 		} catch (ex) {
 			if (done) return;
 			done = true;
@@ -116,7 +116,7 @@
 		var me = this;
 		return new Promise(function(resolve, reject) {
 			handle.call(me, new Handler(onFulfilled, onRejected, resolve, reject));
-		})
+		});
 	};
 
 	Promise.all = function () {
@@ -130,7 +130,7 @@
 					if (val && (typeof val === 'object' || typeof val === 'function')) {
 						var then = val.then;
 						if (typeof then === 'function') {
-							then.call(val, function (val) { res(i, val) }, reject);
+							then.call(val, function (val) { res(i, val); }, reject);
 							return;
 						}
 					}

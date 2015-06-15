@@ -89,45 +89,45 @@
 
                     <!-- Register form -->
                     <div role="main">
-                        <div class="main_layer" id="register_layer">
-                                    <fieldset>
-                                        <legend data-l10n-id="account_information"></legend>
+                        <div class="main_layer">
+                            <fieldset>
+                                <legend data-l10n-id="account_information"></legend>
+                                <form id="register_layer">
+                                    <div class="loggedout">
+                                        <p class="form_text" data-l10n-id="select_api"></p>
+                                        <p class="line_select">
+                                            <span class="fa fa-toggle-down">
+                                                <select name="api" id="api">
+                                                </select>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </form>
+                            </fieldset>
 
-                                        <div class="loggedout">
-                                            <form>
-                                                <p class="form_text" data-l10n-id="select_api"></p>
-                                                <p class="line_select">
-                                                    <span class="fa fa-toggle-down">
-                                                        <select name="api" id="api">
-                                                        </select>
-                                                    </span>
-                                                </p>
-                                            </form>
-                                        </div>
-
-
-                                </fieldset>
-                            </div>
-
-                            <form class="loggedin hidden">
-                                <fieldset>
-                                    <legend data-l10n-id="general_settings"></legend>
-
+                            <fieldset class="loggedin hidden">
+                                <legend data-l10n-id="general_settings"></legend>
+                                <form>
                                     <p class="line_checkbox">
-                                        <span class="view_read fa fa-toggle-off" id="view_read">
+                                        <span class="view_read fa fa-toggle-off" id="view_read"></span>
                                         <label for="view_read" data-l10n-id="view_read_items"></label>
                                     </p>
 
                                     <p class="line_checkbox">
-                                        <span class="view_list fa fa-toggle-off" id="view_list">
+                                        <span class="view_list fa fa-toggle-off" id="view_list"></span>
                                         <label for="view_list" data-l10n-id="view_list_type"></label>
                                     </p>
 
                                     <p class="line_checkbox">
-                                        <span class="view_notification fa fa-toggle-off" id="view_notification">
+                                        <span class="view_notification fa fa-toggle-off" id="view_notification"></span>
                                         <label for="view_notification" data-l10n-id="view_notification"></label>
                                     </p>
+                                </form>
+                            </fieldset>
 
+                            <fieldset class="loggedin hidden">
+                                <legend data-l10n-id="update_settings"></legend>
+                                <form>
                                     <p class="line_select">
                                         <label for="update_time" data-l10n-id="update_time"></label>
                                         <span class="fa fa-toggle-down">
@@ -142,12 +142,11 @@
                                             </select>
                                         </span>
                                     </p>
-                                </fieldset>
-                            </form>
+                                </form>
+                            </fieldset>
                         </div>
                     </div>
-                    <!-- End of register form -->
-
+                </div>
             </div>
         </div>
     </body>

@@ -99,7 +99,7 @@ var Layout = function()
         var childs = li.querySelectorAll('.leftlist_item');
         if(childs.length>0)
         {
-            if(!confirm(translate('delete_category'))) { return }
+            if(!confirm(translate('delete_category'))) { return; }
             Array.forEach(childs, function(li)
             {
                 var id  = li.getAttribute('data-id');
@@ -206,7 +206,6 @@ var Layout = function()
         {
             return;
         }
-        var self=this;
         if(url)
         {
             this.controller.addFeed(url)

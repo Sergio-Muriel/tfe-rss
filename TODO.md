@@ -1,3 +1,4 @@
+- Num version and issue page
 - Feedly refresh token
 - Better settings pages
 - Add/Edit/Delete feeds

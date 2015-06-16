@@ -10,7 +10,8 @@ var Settings = function()
         this.controllers = controllers;
 
         this.view_read = document.querySelector('#view_read');
-        this.view_list = document.querySelector('#view_list');
+        this.hide_content = document.querySelector('#hide_content');
+        this.hide_image = document.querySelector('#hide_image');
         this.view_notification = document.querySelector('#view_notification');
 
 
@@ -149,7 +150,8 @@ var Settings = function()
     {
         var self=this;
         this.view_read.addEventListener('click', function(e) { return self.toggleViewRead(e); });
-        this.view_list.addEventListener('click', function(e) { return self.toggleViewList(e); });
+        this.hide_content.addEventListener('click', function(e) { return self.toggleHideContent(e); });
+        this.hide_image.addEventListener('click', function(e) { return self.toggleHideImage(e); });
         this.view_notification.addEventListener('click', function(e) { return self.toggleViewNotification(e); });
 
         document.querySelector('#api').addEventListener('change', function(e) { return self.set_api(e.target.value); });
@@ -169,15 +171,25 @@ var Settings = function()
             this.view_read.classList.remove('fa-toggle-on');
         }
 
-        if(this.getViewList())
+        if(this.getHideContent())
         {
-            this.view_list.classList.remove('fa-toggle-off');
-            this.view_list.classList.add('fa-toggle-on');
+            this.hide_content.classList.remove('fa-toggle-off');
+            this.hide_content.classList.add('fa-toggle-on');
         }
         else
         {
-            this.view_list.classList.add('fa-toggle-off');
-            this.view_list.classList.remove('fa-toggle-on');
+            this.hide_content.classList.add('fa-toggle-off');
+            this.hide_content.classList.remove('fa-toggle-on');
+        }
+        if(this.getHideImage())
+        {
+            this.hide_image.classList.remove('fa-toggle-off');
+            this.hide_image.classList.add('fa-toggle-on');
+        }
+        else
+        {
+            this.hide_image.classList.add('fa-toggle-off');
+            this.hide_image.classList.remove('fa-toggle-on');
         }
 
         if(this.getViewNotification())
@@ -216,10 +228,18 @@ var Settings = function()
         this.restoreSettings();
     };
 
-    this.toggleViewList= function(e)
+    this.toggleHideContent= function(e)
     {
-        console.log('set  to ', this.view_list.classList.contains('fa-toggle-off'));
-        localStorage.setItem('viewList', this.view_list.classList.contains('fa-toggle-off'));
+        console.log('set  to ', this.hide_content.classList.contains('fa-toggle-off'));
+        localStorage.setItem('hideContent', this.hide_content.classList.contains('fa-toggle-off'));
+        layout.clearAndLoadItems();
+        this.restoreSettings();
+    };
+
+    this.toggleHideImage= function(e)
+    {
+        console.log('set  to ', this.hide_image.classList.contains('fa-toggle-off'));
+        localStorage.setItem('hideImage', this.hide_image.classList.contains('fa-toggle-off'));
         layout.clearAndLoadItems();
         this.restoreSettings();
     };
@@ -243,9 +263,15 @@ var Settings = function()
         if(value!==null) { return value==='true' ? true : false; }
         return true; // default value, checked
     };
-    this.getViewList = function()
+    this.getHideContent = function()
     {
-        var value= localStorage.getItem('viewList');
+        var value= localStorage.getItem('hideContent');
+        if(value!==null) { return value==='true' ? true : false; }
+        return false; // default value, unchecked
+    };
+    this.getHideImage = function()
+    {
+        var value= localStorage.getItem('hideImage');
         if(value!==null) { return value==='true' ? true : false; }
         return false; // default value, unchecked
     };

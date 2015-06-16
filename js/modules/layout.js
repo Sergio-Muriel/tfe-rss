@@ -821,7 +821,8 @@ var Layout = function()
         });
 
         var viewRead = settings.getViewRead();
-        var viewList = settings.getViewList();
+        var hideContent = settings.getHideContent();
+        var hideImage = settings.getHideImage();
         var id = this.display_id;
 
         var ul = center_scroll;
@@ -898,7 +899,7 @@ var Layout = function()
                             li.appendChild(div);
 
                             console.log('first image',first_image);
-                            if(first_image)
+                            if(first_image && !hideImage)
                             {
                                 console.log('append here');
                                 p = document.createElement('p');
@@ -924,14 +925,13 @@ var Layout = function()
                             p.innerHTML = item.title;
                             div.appendChild(p);
 
-                            p = document.createElement('p');
-                            p.className='feed_smalldesc';
-                            p.innerHTML = content.replace(/<[^>]+>/g,'').substr(0, 70)+'&hellip;';
-                            div.appendChild(p);
-
-
-
-
+                            if(!hideContent)
+                            {
+                                p = document.createElement('p');
+                                p.className='feed_smalldesc';
+                                p.innerHTML = content.replace(/<[^>]+>/g,'').substr(0, 70)+'&hellip;';
+                                div.appendChild(p);
+                            }
                             
                             var headerintro = document.createElement('div');
                             headerintro.className='headerintro';

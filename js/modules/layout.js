@@ -862,7 +862,7 @@ var Layout = function()
                     items.forEach(function(item)
                     {
                             var li;
-                            var item_date = new Date(item.published*1000).toLocaleFormat(translate("fulldate_format"));
+                            var item_date = new Date(item.updated*1000).toLocaleFormat(translate("fulldate_format"));
                             if(item_date!== self.displayed_date)
                             {
                                 li = document.createElement('li');
@@ -939,12 +939,12 @@ var Layout = function()
 
                             p = document.createElement('p');
                             p.className='feed_date feed_smalldate';
-                            p.innerHTML = new Date(item.published*1000).toLocaleFormat(translate("date_format"));
+                            p.innerHTML = new Date(item.updated*1000).toLocaleFormat(translate("date_format"));
                             headerintro.appendChild(p);
 
                             p = document.createElement('p');
                             p.className='feed_fulldate feed_date';
-                            p.innerHTML = new Date(item.published*1000).toLocaleFormat(translate("fulldate_format"));
+                            p.innerHTML = new Date(item.updated*1000).toLocaleFormat(translate("fulldate_format"));
                             headerintro.appendChild(p);
 
 

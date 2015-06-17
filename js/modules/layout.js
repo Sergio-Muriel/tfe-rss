@@ -236,7 +236,7 @@ var Layout = function()
             next = this.opened_item.nextElementSibling;
             if(next && !next.classList.contains('feed_item'))
             {
-                next = this.opened_item.nextElementSibling;
+                next = next.nextElementSibling;
             }
         }
         console.log('next is ',next);
@@ -262,7 +262,7 @@ var Layout = function()
             next = this.opened_item.previousElementSibling ||  document.querySelector('.feed_item');
             if(next && !next.classList.contains('feed_item'))
             {
-                next = this.opened_item.nextElementSibling;
+                next = next.previousElementSibling;
             }
         }
         if(next && this.opened_item!=next && next.classList.contains('feed_item'))

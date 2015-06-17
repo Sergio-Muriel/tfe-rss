@@ -2,6 +2,7 @@ var TheOldReader = function()
 {
     var self=this;
     this.type='theoldreader';
+    this.typename='The Old Reader';
     this.username = null;
     this.password = null;
 
@@ -27,7 +28,8 @@ TheOldReader.prototype.create_form = function()
 {
     var form = document.createElement('form');
     form.id=this.type;
-    form.innerHTML='<p class="form_text loggedin" value="'+translate('connected_with')+'"></p>'+
+    form.innerHTML=
+        '<p class="form_text loggedin">'+translate('connected_with')+' '+this.typename+' /  <span id="loggedin_email"></span></p>'+
         '<p class="form_text loggedout" value="'+translate('enter_account_information')+'"></p>'+
         '<p>'+
         '<input type="email" name="email" placeholder="'+translate('form_email')+'" required>'+
@@ -57,7 +59,7 @@ TheOldReader.prototype.init = function()
         this.logout_link.addEventListener('click', function(e) { return self.logout.bind(self)(e); }, false);
         this.register_link.addEventListener('click', function(e) { return self.register.bind(self)(e); });
 
-        settings.add_api(this.type, 'The Old Reader', this.form);
+        settings.add_api(this.type, this.typename, this.form);
     }
     self.inited=1;
 
@@ -187,13 +189,14 @@ TheOldReader.prototype._login = function(email, password)
 
 TheOldReader.prototype.loggedin = function()
 {
-    this.email.value = this.getEmail();
+    this.form.querySelector('#loggedin_email').innerHTML= this.getEmail();
     this.form.classList.add("loggedin");
     this.email.disabled=true;
 };
 
 TheOldReader.prototype.loggedout = function()
 {
+    this.form.querySelector('#loggedin_email').innerHTML= '';
     this.form.classList.remove("loggedin");
     this.email.disabled=false;
 };

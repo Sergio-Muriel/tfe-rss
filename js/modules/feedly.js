@@ -2,6 +2,7 @@ var Feedly = function()
 {
     var self=this;
     this.type='feedly';
+    this.typename='Feedly';
     this.username = null;
     this.password = null;
     this.token = null;
@@ -28,12 +29,10 @@ Feedly.prototype.create_form = function()
     var form = document.createElement('form');
     form.id=this.type;
     form.innerHTML=
-        '<form>'+
-        '<p class="form_text" value="'+translate('login_feedly_text')+'"></p>'+
-        '<div class="feedly">'+
+        '<p class="form_text loggedin">'+translate('connected_with')+' '+this.typename+' /  <span id="loggedin_email"></span></p>'+
+        '<p class="loggedin" value="'+translate('login_feedly_text')+'"></p>'+
         '<p><button class="login_link bb-button bb-recommend">'+translate('login_with_feedly')+'</button></p>'+
-        '<p><button class="logout_link bb-button bb-danger">'+translate('logout_link')+'</button></p>'+
-        '</div>';
+        '<p><button class="logout_link bb-button bb-danger">'+translate('logout_link')+'</button></p>';
 
     if(location.search)
     {
@@ -54,7 +53,7 @@ Feedly.prototype.init = function()
         // Bind
         self.form.querySelector('.login_link').addEventListener('click', this.login.bind(this));
         this.logout_link.addEventListener('click', function(e) { return self.logout(e); }, false);
-        settings.add_api(this.type, 'Feedly', this.form);
+        settings.add_api(this.type, this.typename, this.form);
     }
     self.inited=1;
 
@@ -223,11 +222,13 @@ Feedly.prototype.initDb = function()
 
 Feedly.prototype.loggedin = function()
 {
+    this.form.querySelector('#loggedin_email').innerHTML= this.getEmail();
     this.form.classList.add("loggedin");
 };
 
 Feedly.prototype.loggedout = function()
 {
+    this.form.querySelector('#loggedin_email').innerHTML= '';
     this.form.classList.remove("loggedin");
 };
 

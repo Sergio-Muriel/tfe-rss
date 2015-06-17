@@ -356,7 +356,7 @@ dl a
 
 .loggedin .login_link,
 .loggedin .register_link,
-.loggedin input[name=password]
+.loggedin input
 {
     display:none;
 }

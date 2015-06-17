@@ -2,6 +2,7 @@ var Tinytinyrss = function()
 {
     var self=this;
     this.type='tinytinyrss';
+    this.typename='Tiny tiny RSS';
     this.username = null;
     this.password = null;
 
@@ -26,7 +27,7 @@ Tinytinyrss.prototype.create_form = function()
     var form = document.createElement('form');
     form.id=this.type;
     form.innerHTML=
-        '<p class="form_text loggedin" value="'+translate('connected_with')+'"></p>'+
+        '<p class="form_text loggedin">'+translate('connected_with')+' '+this.typename+' /  <span id="loggedin_user"></span></p>'+
         '<p class="form_text loggedout" value="'+translate('enter_account_information')+'"></p>'+
         '<p>'+
         '<input type="url" name="url" placeholder="'+translate('form_url_ttrss')+'" required>'+
@@ -53,7 +54,7 @@ Tinytinyrss.prototype.init = function()
         this.form.addEventListener('submit', function(e) { return self.login(e); }, false);
         this.login_link.addEventListener('submit', function(e) { return self.login.bind(self)(e); }, false);
         this.logout_link.addEventListener('click', function(e) { return self.logout.bind(self)(e); }, false);
-        settings.add_api(this.type, 'Tiny Tiny RSS', this.form);
+        settings.add_api(this.type, this.typename, this.form);
     }
     self.inited=1;
 
@@ -180,6 +181,7 @@ Tinytinyrss.prototype.loggedin = function()
 {
     this.user.value = this.getUser();
     this.url.value = this.getHost();
+    this.form.querySelector('#loggedin_user').innerHTML= this.getUser();
     this.form.classList.add("loggedin");
     this.user.disabled=true;
     this.url.disabled=true;
@@ -187,6 +189,7 @@ Tinytinyrss.prototype.loggedin = function()
 
 Tinytinyrss.prototype.loggedout = function()
 {
+    this.form.querySelector('#loggedin_user').innerHTML= '';
     this.form.classList.remove("loggedin");
     this.user.disabled=false;
     this.url.disabled=false;

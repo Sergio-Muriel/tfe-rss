@@ -1,7 +1,16 @@
 module.exports = function(grunt) {
+    var manifest = JSON.parse(grunt.file.read('manifest.webapp'));
+
 
     grunt.initConfig({
         watch: {
+            index: {
+                files: [ 'src/index.html'],
+                tasks: ['template'],
+                options: {
+                    spawn: false,
+                },
+            },
             scripts: {
                 files: [ 'src/css/*.css'],
                 tasks: ['cssnext'],
@@ -9,6 +18,17 @@ module.exports = function(grunt) {
                     spawn: false,
                 },
             },
+        },
+        template: {
+            'options': {},
+            'index':{
+                'options': {
+                    'data': manifest
+                },
+                'files':{
+                    'index.html': [ 'src/index.html']
+                }
+            }
         },
 
         cssnext: {
@@ -40,12 +60,13 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-template');
     grunt.loadNpmTasks('grunt-cssnext');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-htmlhint');
 
-    grunt.registerTask('build', ['cssnext']);
-    grunt.registerTask('default', ['cssnext']);
+    grunt.registerTask('build', ['template','cssnext']);
+    grunt.registerTask('default', ['template','cssnext']);
 };
 

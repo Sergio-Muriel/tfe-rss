@@ -66,6 +66,8 @@ Feedly.prototype.init = function()
 Feedly.prototype.logout = function(e)
 {
     this.deleteAccount(this.loggedout.bind(this));
+    clearInterval(self.refresh_interval);
+
     settings.logout();
     e.preventDefault();
 };
@@ -81,6 +83,31 @@ Feedly.prototype.login= function(e)
     window.open(url);
     e.preventDefault();
     return false;
+};
+
+Feedly.prototype.refresh_token= function()
+{
+    var self=this;
+    return new Promise(function(ok, reject)
+    {
+        if(!self.account)
+        {
+            reject();
+        }
+
+        var data  = 'refresh_token='+encodeURIComponent(self.account.refresh_token)+'&';
+        data += 'client_id='+encodeURIComponent(self.clientid)+'&';
+        data += 'client_secret='+encodeURIComponent(self.clientsecret)+'&';
+        data += 'grant_type='+encodeURIComponent('refresh_token');
+        self._query.bind(self)("POST", self.host+'/v3/auth/token', data)
+        .then(function(text)
+        {
+            var data = JSON.parse(text);
+            console.log('refresh token: ',data);
+            self.update_account(data.access_token.replace(':'+self.clientid,''))
+                .then(ok, reject);
+        }, reject);
+    });
 };
 
 
@@ -228,6 +255,28 @@ Feedly.prototype.create_account = function(access_token, refresh_token)
     });
 };
 
+Feedly.prototype.update_account = function(token)
+{
+    var account = null;
+    var self=this;
+
+    return new Promise(function(ok, reject)
+    {
+        var objectStore = self.db.transaction(["accounts"], "readwrite").objectStore("accounts");
+        var request = objectStore.get(self.account.id);
+        request.onerror = reject;
+        request.onsuccess = function(event) {
+            var data = request.result;
+            data.access_token = token;
+
+            // Put this updated object back into the database.
+            var requestUpdate = objectStore.put(data);
+            requestUpdate.onerror = reject;
+            requestUpdate.onsuccess = ok;
+        };
+    });
+};
+
 Feedly.prototype.getAccount = function(callback)
 {
     var account = null;
@@ -248,7 +297,12 @@ Feedly.prototype.getAccount = function(callback)
         }
         else
         {
-            callback(self.account);
+            self.refresh_token().then(callback, callback);
+            // Make Loop to refresh token every hour
+            self.refresh_interval=window.setInterval(function()
+            {
+                self.refresh_token().then(function(){});
+            }, 1000*3600 /* hour */);
         }
     };
 };

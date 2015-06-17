@@ -726,6 +726,33 @@ p.feed_fulldate
 
 
 
+.search_bar
+{
+    position:fixed;
+    bottom:0px;
+    z-index:2;
+    bottom:80px;
+    bottom:5rem;
+    width:100%;
+    text-align:center;
+    background:#22;
+    color:#828282;
+    height:80px;
+    height:5rem;
+    line-height:80px;
+    line-height:5rem;
+    overflow:hidden;
+    white-space:nowrap;
+    border-top:1px solid #828282;
+}
+.search_bar input
+{
+    margin:0px 16px 0px 0px;
+    margin:0rem 1rem 0rem 0rem;
+    width:auto;
+    height:48px;
+    height:3rem;
+}
 
 .center_menu
 {

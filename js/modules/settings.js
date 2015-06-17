@@ -30,7 +30,8 @@ var Settings = function()
         option.value=id;
         option.innerHTML=text;
         select.appendChild(option);
-        layer.insertBefore(form, layer.firstChild);
+        layer.appendChild(form);
+        //layer.insertBefore(form, layer.firstChild);
     };
 
     this.init_accounts=function()

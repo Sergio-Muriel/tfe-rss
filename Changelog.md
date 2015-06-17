@@ -1,6 +1,7 @@
 # 0.3.0
 
 - New settings interface
+- Refresh token for feedly
 
 # 0.2.7
 

@@ -821,8 +821,8 @@ var Layout = function()
         });
 
         var viewRead = settings.getViewRead();
-        var hideContent = settings.getHideContent();
-        var hideImage = settings.getHideImage();
+        var showContent = settings.getShowContent();
+        var showImage = settings.getShowImage();
         var id = this.display_id;
 
         var ul = center_scroll;
@@ -899,7 +899,7 @@ var Layout = function()
                             li.appendChild(div);
 
                             console.log('first image',first_image);
-                            if(first_image && !hideImage)
+                            if(first_image && showImage)
                             {
                                 console.log('append here');
                                 p = document.createElement('p');
@@ -925,7 +925,7 @@ var Layout = function()
                             p.innerHTML = item.title;
                             div.appendChild(p);
 
-                            if(!hideContent)
+                            if(showContent)
                             {
                                 p = document.createElement('p');
                                 p.className='feed_smalldesc';

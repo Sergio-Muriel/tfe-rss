@@ -10,8 +10,8 @@ var Settings = function()
         this.controllers = controllers;
 
         this.view_read = document.querySelector('#view_read');
-        this.hide_content = document.querySelector('#hide_content');
-        this.hide_image = document.querySelector('#hide_image');
+        this.show_content = document.querySelector('#show_content');
+        this.show_image = document.querySelector('#show_image');
         this.view_notification = document.querySelector('#view_notification');
 
 
@@ -150,8 +150,8 @@ var Settings = function()
     {
         var self=this;
         this.view_read.addEventListener('click', function(e) { return self.toggleViewRead(e); });
-        this.hide_content.addEventListener('click', function(e) { return self.toggleHideContent(e); });
-        this.hide_image.addEventListener('click', function(e) { return self.toggleHideImage(e); });
+        this.show_content.addEventListener('click', function(e) { return self.toggleShowContent(e); });
+        this.show_image.addEventListener('click', function(e) { return self.toggleShowImage(e); });
         this.view_notification.addEventListener('click', function(e) { return self.toggleViewNotification(e); });
 
         document.querySelector('#api').addEventListener('change', function(e) { return self.set_api(e.target.value); });
@@ -171,25 +171,25 @@ var Settings = function()
             this.view_read.classList.remove('fa-toggle-on');
         }
 
-        if(this.getHideContent())
+        if(this.getShowContent())
         {
-            this.hide_content.classList.remove('fa-toggle-off');
-            this.hide_content.classList.add('fa-toggle-on');
+            this.show_content.classList.remove('fa-toggle-off');
+            this.show_content.classList.add('fa-toggle-on');
         }
         else
         {
-            this.hide_content.classList.add('fa-toggle-off');
-            this.hide_content.classList.remove('fa-toggle-on');
+            this.show_content.classList.add('fa-toggle-off');
+            this.show_content.classList.remove('fa-toggle-on');
         }
-        if(this.getHideImage())
+        if(this.getShowImage())
         {
-            this.hide_image.classList.remove('fa-toggle-off');
-            this.hide_image.classList.add('fa-toggle-on');
+            this.show_image.classList.remove('fa-toggle-off');
+            this.show_image.classList.add('fa-toggle-on');
         }
         else
         {
-            this.hide_image.classList.add('fa-toggle-off');
-            this.hide_image.classList.remove('fa-toggle-on');
+            this.show_image.classList.add('fa-toggle-off');
+            this.show_image.classList.remove('fa-toggle-on');
         }
 
         if(this.getViewNotification())
@@ -228,18 +228,18 @@ var Settings = function()
         this.restoreSettings();
     };
 
-    this.toggleHideContent= function(e)
+    this.toggleShowContent= function(e)
     {
-        console.log('set  to ', this.hide_content.classList.contains('fa-toggle-off'));
-        localStorage.setItem('hideContent', this.hide_content.classList.contains('fa-toggle-off'));
+        console.log('set  to ', this.show_content.classList.contains('fa-toggle-off'));
+        localStorage.setItem('showContent', this.show_content.classList.contains('fa-toggle-off'));
         layout.clearAndLoadItems();
         this.restoreSettings();
     };
 
-    this.toggleHideImage= function(e)
+    this.toggleShowImage= function(e)
     {
-        console.log('set  to ', this.hide_image.classList.contains('fa-toggle-off'));
-        localStorage.setItem('hideImage', this.hide_image.classList.contains('fa-toggle-off'));
+        console.log('set  to ', this.show_image.classList.contains('fa-toggle-off'));
+        localStorage.setItem('showImage', this.show_image.classList.contains('fa-toggle-off'));
         layout.clearAndLoadItems();
         this.restoreSettings();
     };
@@ -263,17 +263,17 @@ var Settings = function()
         if(value!==null) { return value==='true' ? true : false; }
         return true; // default value, checked
     };
-    this.getHideContent = function()
+    this.getShowContent = function()
     {
-        var value= localStorage.getItem('hideContent');
+        var value= localStorage.getItem('showContent');
         if(value!==null) { return value==='true' ? true : false; }
-        return false; // default value, unchecked
+        return true; // default value, checked
     };
-    this.getHideImage = function()
+    this.getShowImage = function()
     {
-        var value= localStorage.getItem('hideImage');
+        var value= localStorage.getItem('showImage');
         if(value!==null) { return value==='true' ? true : false; }
-        return false; // default value, unchecked
+        return true; // default value, checked
     };
     this.getViewNotification = function()
     {

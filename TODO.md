@@ -1,5 +1,4 @@
-- Num version and issue page
-- Better settings pages
+- tablet design
 - Add/Edit/Delete feeds
 - Sort items by (select in settings) (date, popular, alphabetical?) / ASC-DESC
 - Owncloud news integration

@@ -612,7 +612,8 @@ Tinytinyrss.prototype.getItems = function(id, viewRead, next, limit)
                             var newitem= {
                                 category:  id,
                                 id: item.id,
-                                published: item.updated,
+                                published: item.published,
+                                updated: item.updated,
                                 title: item.title,
                                 summary : { content: item.content },
                                 canonical: [ { href: item.link } ],

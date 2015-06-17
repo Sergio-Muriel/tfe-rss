@@ -1,7 +1,9 @@
 # 0.3.0
 
 - New settings interface
+- Add about section in settings
 - Refresh token for feedly
+- Display user/email and API of logged user
 
 # 0.2.7
 

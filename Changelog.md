@@ -1,3 +1,7 @@
+# 0.3.0
+
+- New settings interface
+
 # 0.2.7
 
 - Ux Update

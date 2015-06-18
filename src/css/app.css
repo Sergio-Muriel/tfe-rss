@@ -12,6 +12,7 @@
 @import 'leftlist.css';
 @import 'rightlist.css';
 @import 'centerlist.css';
+@import 'landscape.css';
 
 html, body {
     font-size:10px;

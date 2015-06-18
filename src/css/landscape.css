@@ -1,0 +1,7 @@
+@media all and (orientation:landscape)
+{
+    .slide
+    {
+        width:50%;
+    }
+}

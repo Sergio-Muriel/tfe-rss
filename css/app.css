@@ -953,6 +953,15 @@ li.feed_fullscreen .feed_date
     color:red;
     border:1px solid red;
 }
+@media (orientation:landscape)
+{
+    .slide.left,
+    .slide.right,
+    .slide.center
+    {
+        width:50%;
+    }
+}
 
 html, body {
     font-size:10px;

@@ -219,6 +219,10 @@ form select
     margin:0.5em auto;
     -moz-appearance:none;
 }
+form select
+{
+    margin:0.5em 0px;
+}
 
 input:invalid,
 input[type="email"]:invalid,
@@ -256,8 +260,11 @@ input[type="url"], input[type="number"], textarea, select
     line-height:3.5rem;
     height:56px;
     height:3.5rem;
-    margin-left:8px;
-    margin-left:0.5rem;
+    padding-left:0.2em;
+}
+.line_select span
+{
+    display:block;
 }
 .line_select span:before
 {
@@ -328,6 +335,10 @@ input[type="url"], input[type="number"], textarea, select
     font-size:24px;
     font-size:1.5rem;
     width:calc(100% - 4rem);
+}
+.line_select label
+{
+    margin-left:0px;
 }
 
 dt, dd
@@ -549,14 +560,14 @@ div.leftlist_item
     font-size:25px;
     font-size:1.6rem;
     margin:0px;
-    background:#ebebeb;
+    background:#fff;
     border-bottom:1px solid #c2c2c2;
     color:#000;
     overflow:hidden;
 }
-.slide.center li.fresh_item
+.slide.center li.fresh_item  .feed_title
 {
-    background:#fff;
+    font-weight:bold;
 }
 
 .feed_header
@@ -600,7 +611,6 @@ div.leftlist_item
     font-size:24px;
     font-size:1.5rem;
     line-height:1.3em;
-    font-weight:bold;
     overflow:hidden;
 }
 p.feed_fulldate
@@ -953,11 +963,9 @@ li.feed_fullscreen .feed_date
     color:red;
     border:1px solid red;
 }
-@media (orientation:landscape)
+@media all and (orientation:landscape)
 {
-    .slide.left,
-    .slide.right,
-    .slide.center
+    .slide
     {
         width:50%;
     }

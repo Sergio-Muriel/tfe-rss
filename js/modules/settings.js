@@ -66,6 +66,23 @@ var Settings = function()
             });
     };
 
+    this.set_lang=function(lang, reload)
+    {
+        var options=[];
+        var select = document.querySelector('#lang');
+        Array.forEach(select.options, function(option)
+        {
+            options.push(option.value);
+        });
+        select.selectedIndex = options.indexOf(lang+'');
+
+        if(reload)
+        {
+            localStorage.setItem('lang', lang);
+            location.reload();
+        }
+    };
+
     this.set_update_time=function(time)
     {
         var options=[];
@@ -156,6 +173,7 @@ var Settings = function()
         this.view_notification.addEventListener('click', function(e) { return self.toggleViewNotification(e); });
 
         document.querySelector('#api').addEventListener('change', function(e) { return self.set_api(e.target.value); });
+        document.querySelector('#lang').addEventListener('change', function(e) { return self.set_lang(e.target.value, true); });
         document.querySelector('#update_time').addEventListener('change', function(e) { return self.set_update_time(e.target.value); });
     };
 
@@ -205,7 +223,14 @@ var Settings = function()
         }
 
         this.set_update_time(this.getUpdateTime());
+        this.set_lang(this.getLang());
     };
+
+    this.getLang= function()
+    {
+        return localStorage.getItem('lang') || navigator.language;
+    };
+
 
     this.logout= function(e)
     {

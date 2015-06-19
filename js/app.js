@@ -1,8 +1,9 @@
+// Set app language
+navigator.appLanguage = localStorage.getItem('lang') || navigator.language;
+
 // Init classes
 var translate = navigator.mozL10n.get;
 
-// simulate app language
-//navigator.appLanguage='ru-RU';
 
 var theoldreader = new TheOldReader();
 var tinytinyrss = new Tinytinyrss();

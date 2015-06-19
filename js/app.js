@@ -1,6 +1,9 @@
 // Init classes
 var translate = navigator.mozL10n.get;
 
+// simulate app language
+//navigator.appLanguage='ru-RU';
+
 var theoldreader = new TheOldReader();
 var tinytinyrss = new Tinytinyrss();
 var feedly = new Feedly();

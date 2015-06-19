@@ -1239,7 +1239,8 @@
   }
 
   if (window.document) {
-    isPretranslated = (document.documentElement.lang === navigator.language);
+    isPretranslated = (document.documentElement.lang === (navigator.appLanguage || navigator.language));
+
 
     // this is a special case for netError bug; see https://bugzil.la/444165
     if (document.documentElement.dataset.noCompleteBug) {
@@ -1276,12 +1277,12 @@
   function inlineLocalization() {
     var script = document.documentElement
                          .querySelector('script[type="application/l10n"]' +
-                         '[lang="' + navigator.language + '"]');
+                         '[lang="' + (navigator.appLanguage||navigator.language) + '"]');
     if (!script) {
       return false;
     }
 
-    var locale = this.ctx.getLocale(navigator.language);
+    var locale = this.ctx.getLocale(navigator.appLanguage||navigator.language);
     // the inline localization is happenning very early, when the ctx is not
     // yet ready and when the resources haven't been downloaded yet;  add the
     // inlined JSON directly to the current locale
@@ -1337,9 +1338,9 @@
   }
 
   function initLocale() {
-    this.ctx.requestLocales(navigator.language);
+    this.ctx.requestLocales(navigator.appLanguage||navigator.language);
     window.addEventListener('languagechange', function l10n_langchange() {
-      navigator.mozL10n.language.code = navigator.language;
+      navigator.mozL10n.language.code = (navigator.appLanguage||navigator.language);
     });
   }
 

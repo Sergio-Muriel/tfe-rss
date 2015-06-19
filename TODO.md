@@ -1,6 +1,7 @@
-- tablet design
-- Add/Edit/Delete feeds
-- Sort items by (select in settings) (date, popular, alphabetical?) / ASC-DESC
-- Owncloud news integration
-- Search feed to add
 - fix auto update when item opened
+- tablet design
+- search in feeds
+- Search feed to add
+- Add/Edit/Delete feeds
+- stand alone reader
+- Owncloud news integration

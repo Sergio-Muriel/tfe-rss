@@ -98,7 +98,7 @@ var Settings = function()
         localStorage.setItem('updateTime', time);
         if(time>0)
         {
-            this.update_time_timer = setInterval(layout.clearAndLoadItems.bind(layout),  time*60*1000);
+            this.update_time_timer = setInterval(layout.refresh.bind(layout),  time*60*1000);
         }
     };
 

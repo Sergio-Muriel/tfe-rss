@@ -776,6 +776,13 @@ var Layout = function()
         }
     };
 
+    this.refresh = function()
+    {
+        if(this.loading_items) { return; }
+        this.loading_items=1;
+        this.displayItems(null,'refresh');
+    };
+
     this.clearAndLoadItems = function()
     {
         if(this.loading_items) { return; }
@@ -801,7 +808,7 @@ var Layout = function()
         this.clearAndLoadItems();
     };
 
-    this.displayItems = function(continuation)
+    this.displayItems = function(continuation, mode)
     {
         var self=this;
         // Do nothing if not logged in
@@ -869,7 +876,14 @@ var Layout = function()
                                 li = document.createElement('li');
                                 li.className='feed_fulldate';
                                 li.innerHTML=item_date;
-                                ul.appendChild(li);
+                                if(mode && mode==='refresh')
+                                {
+                                    ul.insertBefore(li,ul.firstChild);
+                                }
+                                else
+                                {
+                                    ul.appendChild(li);
+                                }
                                 self.displayed_date = item_date;
                             }
 
@@ -898,10 +912,8 @@ var Layout = function()
                             div.className='feed_header';
                             li.appendChild(div);
 
-                            console.log('first image',first_image);
                             if(first_image && showImage)
                             {
-                                console.log('append here');
                                 p = document.createElement('p');
                                 // Preload image and display only if big enough
                                 (function(p)
@@ -971,7 +983,18 @@ var Layout = function()
                             headerintro.appendChild(p);
 
                             self.feed_contents[item.id] = content;
-                            ul.appendChild(li);
+                            if(mode && mode==='refresh')
+                            {
+                                if(! ul.querySelector(".feed_item[data-id='"+item.id+"']"))
+                                {
+                                    console.log('append new! ',li, ul.querySelector(".feed_item[data-id='"+item.id+"']"));
+                                    ul.insertBefore(li,ul.querySelector('.feed_fulldate').nextElementSibling);
+                                }
+                            }
+                            else
+                            {
+                                ul.appendChild(li);
+                            }
                     });
                     if(r.continuation)
                     {

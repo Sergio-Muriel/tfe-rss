@@ -436,6 +436,75 @@ var Layout = function()
         return true;
     };
 
+    this.markReadClick=function(e)
+    {
+        var self=this;
+        console.log('mark read ok');
+        if(e.preventDefault) { e.preventDefault(); }
+        if(e.stopPropagation) { e.stopPropagation(); }
+        var span = e.target;
+        var li = e.target;
+        while(li && li.tagName!=='LI')
+        {
+            li = li.parentNode;
+        }
+        var item_id = li.getAttribute('data-id');
+
+        span.classList.add('updating');
+        var read_state = span.classList.contains('ko');
+
+        if(span.classList.contains('ko'))
+        {
+            Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
+            {
+                var span = li.querySelector('.flag_read');
+                span.classList.remove('ko');
+                span.classList.remove('fa-check-square-o');
+                span.classList.add('fa-square-o');
+            });
+        }
+        else
+        {
+            Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
+            {
+                var span = li.querySelector('.flag_read');
+                span.classList.remove('fa-square-o');
+                span.classList.add('ko');
+                span.classList.add('fa-check-square-o');
+            });
+        }
+        this.controller.markRead(item_id, !span.classList.contains('ko'))
+            .then(function(result)
+            {
+                console.log('ok end ',item_id);
+                Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
+                {
+                    var span = li.querySelector('.flag_read');
+                    span.classList.remove('updating');
+                    if(read_state)
+                    {
+                        li.classList.add('fresh_item');
+                    }
+                    else
+                    {
+                        li.classList.remove('fresh_item');
+                    }
+
+                });
+            }, function()
+            {
+                console.log('fail end ',item_id);
+                Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
+                {
+                    var span = li.querySelector('.flag_read');
+                    span.classList.remove('updating');
+                });
+                self.alert(translate('network_error'));
+            });
+
+        return true;
+    };
+
     this.markLikeClick=function(e)
     {
         var self=this;
@@ -963,6 +1032,11 @@ var Layout = function()
                             p = document.createElement('p');
                             p.className='feed_flags';
                             headerintro.appendChild(p);
+
+                            var flag_read = document.createElement('span');
+                            flag_read.className='flag_read fa '+(!item.unread?' ko fa-check-square-o':'fa-square-o');
+                            flag_read.addEventListener('click', self.markReadClick.bind(self), false);
+                            p.appendChild(flag_read);
 
                             var flag_star = document.createElement('span');
                             flag_star.className='flag_star fa '+(!item.starred?'ko fa-star-o':'fa-star');

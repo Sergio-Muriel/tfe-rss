@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         watch: {
             index: {
-                files: [ 'src/index.html'],
+                files: [ 'src/index.html','manifest.webapp'],
                 tasks: ['template'],
                 options: {
                     spawn: false,

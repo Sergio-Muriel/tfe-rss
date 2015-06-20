@@ -1,3 +1,12 @@
+# 0.3.1
+
+- Add language settings
+- Reoder settings page
+- New design for read items
+- Add read/unread flag button
+
+
+
 # 0.3.0
 
 - New settings interface

@@ -106,6 +106,7 @@ p.feed_fulldate
     float:right;
     font-size:1.3rem;
     margin:0px;
+    margin-right:2.5rem;
     line-height:2.5rem;
     letter-spacing:0.05em;
     color:#2d6cb3;
@@ -137,7 +138,18 @@ p.feed_fulldate
 .feed_flags span
 {
     display:inline-block;
+    line-height:2.5rem;
     vertical-align:middle;
+}
+.feed_flags span.flag_read
+{
+    color:#2d6cb3;
+    position:absolute;
+    right:1.5rem;
+}
+.feed_flags span.flag_read.ko
+{
+    color:#2d6cb3;
 }
 
 /* do not display like on list */
@@ -313,9 +325,15 @@ li.feed_fullscreen .feed_flags
 }
 li.feed_fullscreen .feed_flags span
 {
-    padding:0px 3rem;
+    padding:0px 2rem;
     font-size:2.2rem;
     line-height:3rem;
+}
+li.feed_fullscreen .feed_flags span.flag_read
+{
+    position:relative;
+    left:auto;
+    right:auto;
 }
 li.feed_fullscreen .feed_flags span.flag_like,
 li.feed_fullscreen .feed_flags span.flag_share

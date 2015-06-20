@@ -918,11 +918,17 @@ li.feed_fullscreen .feed_flags span
     line-height:48px;
     line-height:3rem;
 }
-li.feed_fullscreen .feed_flags span.flag_read
+li.feed_fullscreen .feed_flags span.flag_read,
+li.feed_fullscreen .feed_flags span.flag_read.ko
 {
     position:relative;
     left:auto;
     right:auto;
+    color:#555;
+}
+.feed_flags span.flag_read.ko
+{
+    color:#2d6cb3;
 }
 li.feed_fullscreen .feed_flags span.flag_like,
 li.feed_fullscreen .feed_flags span.flag_share

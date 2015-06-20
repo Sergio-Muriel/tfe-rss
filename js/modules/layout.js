@@ -1141,6 +1141,7 @@ var Layout = function()
         }
 
         var newLi = li.cloneNode(true);
+        newLi.querySelector('.flag_read').addEventListener('click', this.markReadClick.bind(this), false);
         newLi.querySelector('.flag_star').addEventListener('click', this.markStarClick.bind(this), false);
         newLi.querySelector('.flag_like').addEventListener('click', this.markLikeClick.bind(this));
         newLi.querySelector('.flag_share').addEventListener('click', function(e)

@@ -1,5 +1,6 @@
 # 0.3.1
 
+- Landscape design
 - Add language settings
 - Reoder settings page
 - New design for read items

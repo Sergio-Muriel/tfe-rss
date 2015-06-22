@@ -7,10 +7,6 @@ var Settings = function()
     this.init =  function(controllers)
     {
         var self=this;
-        install.notinstalled()
-            .then(install.install.bind(install))
-            .then(this.init);
-
         this.controllers = controllers;
 
         this.view_read = document.querySelector('#view_read');

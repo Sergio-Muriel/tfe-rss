@@ -11,6 +11,7 @@ var feedly = new Feedly();
 var layout =  new Layout();
 var settings =  new Settings();
 var notif = new Notif();
+var install = new Install();
 
 
 // DOMContentLoaded is fired once the document has been loaded and parsed,

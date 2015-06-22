@@ -4,6 +4,7 @@
 - Reoder settings page
 - New design for read items
 - Add read/unread flag button
+- Added unsubscribe method on feedly
 
 
 

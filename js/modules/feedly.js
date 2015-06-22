@@ -655,6 +655,7 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                                     else
                                     {
                                         item.published = item.published/1000;
+                                        item.updated = item.published/1000;
                                     }
                                     if(!item.summary)
                                     {
@@ -787,6 +788,23 @@ Feedly.prototype.addFeed= function(url)
                 {
                     ok(data);
                 }
+            }, reject);
+    });
+};
+
+Feedly.prototype.deleteFeed= function(item_id)
+{
+    var self=this;
+    console.log('create deletefeed ',item_id, 'promise')
+    return new Promise(function(ok, reject)
+    {
+        var url = self.host+'/v3/subscriptions/:'+item_id;
+
+        console.log('delete ',url);
+        self._query.bind(self)("DELETE", url, null)
+            .then(function(text)
+            {
+                ok(text);
             }, reject);
     });
 };

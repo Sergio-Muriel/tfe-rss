@@ -439,7 +439,6 @@ var Layout = function()
     this.markReadClick=function(e)
     {
         var self=this;
-        console.log('mark read ok');
         if(e.preventDefault) { e.preventDefault(); }
         if(e.stopPropagation) { e.stopPropagation(); }
         var span = e.target;
@@ -1130,8 +1129,14 @@ var Layout = function()
         if(li.classList.contains('fresh_item'))
         {
             this.markRead(li,id);
+            console.log('mark read flah ',li.querySelector('.flag_read'));
+            li.querySelector('.flag_read').classList.remove('fa-square-o');
+            li.querySelector('.flag_read').classList.add('fa-check-square-o');
+            li.querySelector('.flag_read').classList.add('ko');
+
             li.classList.remove('fresh_item');
         }
+
 
         // Close previous opened item
         var check = document.querySelector('.feed_fullscreen');
@@ -1171,6 +1176,7 @@ var Layout = function()
             div.innerHTML = this.feed_contents[id];
             newLi.appendChild(div);
         }
+
     };
 };
 

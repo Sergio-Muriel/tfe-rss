@@ -26,8 +26,8 @@
 }
 .header h1
 {
-    font-size:32px;
-    font-size:2rem;
+    font-size:24px;
+    font-size:1.5rem;
     font-weight:bold;
     width:calc(100% - 10rem);
     overflow:hidden;
@@ -569,10 +569,11 @@ div.leftlist_item
     border-bottom:1px solid #c2c2c2;
     color:#000;
     overflow:hidden;
+    background:#e5e5e5;
 }
-.slide.center li.fresh_item  .feed_title
+.slide.center li.fresh_item
 {
-    font-weight:bold;
+    background:#fff;
 }
 
 .feed_header
@@ -613,11 +614,14 @@ div.leftlist_item
     padding:0px;
     white-space:normal;
     color:#000;
-    font-size:24px;
-    font-size:1.5rem;
-    line-height:1.3em;
+    font-size:22px;
+    font-size:1.4rem;
+    line-height:1em;
     overflow:hidden;
+    font-weight:bold;
+    color:#000;
 }
+
 p.feed_fulldate
 {
     display:none;
@@ -632,8 +636,8 @@ p.feed_fulldate
     margin:0px;
     display:inline;
     color:#999;
-    font-size:24px;
-    font-size:1.5rem;
+    font-size:22px;
+    font-size:1.4rem;
     line-height:1.3em;
     vertical-align:top;
 }
@@ -660,8 +664,8 @@ p.feed_fulldate
     font-size:20px;
     font-size:1.3rem;
     margin:0px;
-    margin-right:40px;
-    margin-right:2.5rem;
+    margin-right:46px;
+    margin-right:2.9rem;
     line-height:40px;
     line-height:2.5rem;
     letter-spacing:0.05em;
@@ -672,8 +676,8 @@ p.feed_fulldate
     float:right;
     position:relative;
     height:0px;
-    margin:0px 0px 8px 8px;
-    margin:0px 0px 0.5rem 0.5rem;
+    margin:0px 0px 9px 9px;
+    margin:0px 0px 0.6rem 0.6rem;
     height:96px;
     height:6rem;
     width:96px;
@@ -898,6 +902,7 @@ li.feed_fullscreen .feed_title
     font-weight:bold;
     font-size:25px;
     font-size:1.6rem;
+    color:#000;
 }
 li.feed_fullscreen .feed_flags
 {

@@ -300,9 +300,7 @@ var Layout = function()
         {
             return this.display_center();
         }
-        right.classList.add("hidden");
-        left.classList.remove("hidden");
-        slides.className='slides left_selected';
+        slides.className='slides left_selected left_visible';
 
         Array.forEach( buttons, function(button)
         {
@@ -317,9 +315,7 @@ var Layout = function()
         {
             return this.display_center();
         }
-        left.classList.add("hidden");
-        right.classList.remove("hidden");
-        slides.className='slides right_selected';
+        slides.className='slides right_selected right_visible';
         Array.forEach( buttons, function(button)
         {
             button.classList.remove('selected');
@@ -333,7 +329,8 @@ var Layout = function()
         {
             button.classList.remove('selected');
         });
-        slides.className='slides';
+        slides.classList.remove('right_selected');
+        slides.classList.remove('left_selected');
     };
 
 

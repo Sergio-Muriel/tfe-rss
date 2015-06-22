@@ -49,6 +49,11 @@
 {
     z-index:4;
 }
+.left_visible .slide.right,
+.right_visible .slide.left
+{
+    display:none;
+}
 
 .slide_content
 {

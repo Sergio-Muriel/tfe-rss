@@ -133,6 +133,11 @@
 {
     z-index:4;
 }
+.left_visible .slide.right,
+.right_visible .slide.left
+{
+    display:none;
+}
 
 .slide_content
 {
@@ -418,6 +423,8 @@ dl a
 {
     display:inline-block;
     vertical-align:top;
+    font-size:24px;
+    font-size:1.5rem;
     height:80px;
     height:5rem;
     line-height:80px;
@@ -477,7 +484,7 @@ dl a
 }
 .feed_icon img
 {
-    width:60%;
+    width:50%;
     vertical-align:middle;
 }
 
@@ -513,8 +520,8 @@ div.leftlist_item
 
 .subtitle h2
 {
-    font-size:32px;
-    font-size:2rem;
+    font-size:24px;
+    font-size:1.5rem;
     text-align:center;
     height:80px;
     height:5rem;
@@ -829,8 +836,8 @@ p.feed_fulldate
 {
     display:inline-block;
     vertical-align:top;
-    padding:0px 48px;
-    padding:0px 3rem;
+    padding:0px 32px;
+    padding:0px 2rem;
     height:80px;
     height:5rem;
     line-height:80px;
@@ -1002,8 +1009,43 @@ li.feed_fullscreen .feed_date
 }
 @media all and (orientation:landscape)
 {
-    .slide
+    .button_left
     {
+        display:none;
+    }
+
+    .slide.left
+    {
+        width:40%;
+    }
+    .slide.left .center_menu
+    {
+        width:calc(40% - 1px);
+    }
+
+    .slide.center
+    {
+        -webkit-transform:translateX(0%);
+            -ms-transform:translateX(0%);
+                transform:translateX(0%);
+    }
+
+    .left_visible .slide.right,
+    .right_visible .slide.left
+    {
+        display:block;
+    }
+
+
+    .slide.center
+    {
+        width:60%;
+        margin-left:40%;
+    }
+
+    .slide.right
+    {
+        right:0px;
         width:50%;
     }
 }

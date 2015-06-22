@@ -1,7 +1,40 @@
 @media all and (orientation:landscape)
 {
-    .slide
+    .button_left
     {
+        display:none;
+    }
+
+    .slide.left
+    {
+        width:40%;
+    }
+    .slide.left .center_menu
+    {
+        width:calc(40% - 1px);
+    }
+
+    .slide.center
+    {
+        transform:translateX(0%);
+    }
+
+    .left_visible .slide.right,
+    .right_visible .slide.left
+    {
+        display:block;
+    }
+
+
+    .slide.center
+    {
+        width:60%;
+        margin-left:40%;
+    }
+
+    .slide.right
+    {
+        right:0px;
         width:50%;
     }
 }

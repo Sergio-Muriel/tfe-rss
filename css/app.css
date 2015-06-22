@@ -1013,6 +1013,10 @@ li.feed_fullscreen .feed_date
     {
         display:none;
     }
+    .header h1
+    {
+        width:calc(100% - 5rem);
+    }
 
     .slide.left
     {
@@ -1046,8 +1050,15 @@ li.feed_fullscreen .feed_date
     .slide.right
     {
         right:0px;
-        width:50%;
+        width:60%;
     }
+    .right_selected .slide.center
+    {
+        -webkit-transform: translateX(-100%);
+            -ms-transform: translateX(-100%);
+                transform: translateX(-100%);
+    }
+
 }
 
 .fa

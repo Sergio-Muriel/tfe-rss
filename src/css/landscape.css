@@ -4,6 +4,10 @@
     {
         display:none;
     }
+    .header h1
+    {
+        width:calc(100% - 5rem);
+    }
 
     .slide.left
     {
@@ -35,6 +39,11 @@
     .slide.right
     {
         right:0px;
-        width:50%;
+        width:60%;
     }
+    .right_selected .slide.center
+    {
+        transform: translateX(-100%);
+    }
+
 }

@@ -1,6 +1,5 @@
 #!/bin/bash
 
 grunt build
-cd build
-zip -r output.zip *
-cd ..
+zip -r output.zip callback_feedly.html  css/ data/ img/ index.html  js/ LICENSE  manifest.webapp   README.md  src/ TODO.md 
+

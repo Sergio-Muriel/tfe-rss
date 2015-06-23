@@ -102,7 +102,7 @@ p.feed_fulldate
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
-    width:calc(100% - 8.0rem);
+    width:calc(100% - 10.0rem);
 
 }
 .feed_date
@@ -283,8 +283,9 @@ p.feed_fulldate
     top:5rem;
     width:100%;
     overflow-x:hidden;
+    overflow-y:scroll;
     background:var(--mainsubListBg);
-    bottom:5rem;
+    height:calc(100% - 10rem);
 }
 .slide.center li.feed_fullscreen .feed_smalldesc,
 .slide.center li.feed_fullscreen .feed_smalldate

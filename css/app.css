@@ -1003,7 +1003,7 @@ li.feed_fullscreen .feed_date
     color:red;
     border:1px solid red;
 }
-@media all and (orientation:landscape) and (min-height:470px)
+@media all and (orientation:landscape)
 {
     .button_left
     {

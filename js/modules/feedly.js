@@ -655,7 +655,7 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                                     else
                                     {
                                         item.published = item.published/1000;
-                                        item.updated = item.published/1000;
+                                        item.updated = item.published;
                                     }
                                     if(!item.summary)
                                     {

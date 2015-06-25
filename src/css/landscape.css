@@ -1,4 +1,4 @@
-@media all and (orientation:landscape) and (min-heigt:470px)
+@media all and (orientation:landscape) and (min-width:450px)
 {
     .button_left
     {

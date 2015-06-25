@@ -557,7 +557,7 @@ var Layout = function()
 
             // All items
             var li = document.createElement('li');
-            li.className='leftlist_item';
+            li.className='leftlist_item leftlist_default';
             li.setAttribute('data-id', self.controller.all_id);
             var label_toggle = document.createElement('p');
             label_toggle.className='label_toggle fa fa-home';
@@ -579,7 +579,7 @@ var Layout = function()
             {
                 // Starred items
                 li = document.createElement('li');
-                li.className='leftlist_item';
+                li.className='leftlist_item leftlist_default';
                 li.setAttribute('data-id', self.controller.starred_id);
                 label_toggle = document.createElement('p');
                 label_toggle.className='label_toggle fa fa-star';
@@ -600,7 +600,7 @@ var Layout = function()
             {
                 // Liked items
                 li = document.createElement('li');
-                li.className='leftlist_item';
+                li.className='leftlist_item leftlist_default';
                 li.setAttribute('data-id',self.controller.liked_id);
 
                 label_toggle = document.createElement('p');
@@ -623,7 +623,7 @@ var Layout = function()
             {
                 // Shared items
                 li = document.createElement('li');
-                li.className='leftlist_item';
+                li.className='leftlist_item leftlist_default';
                 li.setAttribute('data-id',self.controller.shared_id);
 
                 label_toggle = document.createElement('p');
@@ -753,7 +753,7 @@ var Layout = function()
                     var item = document.querySelector(re);
                     if(item)
                     {
-                        if(!viewRead && count.count===0)
+                        if(!viewRead && count.count===0 && !item.classList.contains('leftlist_default'))
                         {
                             item.classList.add("hidden");
                         }

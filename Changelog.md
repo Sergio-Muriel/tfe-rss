@@ -1,5 +1,9 @@
 # 0.3.1
 
+- Always display main labels
+
+# 0.3.1
+
 - Landscape design
 - Add language settings
 - Reoder settings page

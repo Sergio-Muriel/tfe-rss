@@ -1,5 +1,3 @@
-- fix auto update when item opened
-- tablet design
 - search in feeds
 - Search feed to add
 - Add/Edit/Delete feeds

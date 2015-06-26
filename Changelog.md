@@ -1,6 +1,7 @@
-# 0.3.1
+# 0.3.2
 
 - Always display main labels
+- Search in feeds
 
 # 0.3.1
 

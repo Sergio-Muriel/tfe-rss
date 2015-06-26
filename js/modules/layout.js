@@ -94,6 +94,8 @@ var Layout = function()
             return this.close_search();
         }
         this.search_opened=1;
+        document.querySelector('.slide.center .slide_content').classList.add('search_opened');
+
         document.querySelector('.search_bar').classList.add('opened');
         document.querySelector('.search_btn').classList.add('opened');
         document.querySelector('.search_bar input').focus();
@@ -108,6 +110,7 @@ var Layout = function()
         document.querySelector('.search_bar input').value='';
         document.querySelector('.search_bar').classList.remove('opened');
         document.querySelector('.search_btn').classList.remove('opened');
+        document.querySelector('.slide.center .slide_content').classList.remove('search_opened');
 
         if(need_clear)
         {
@@ -121,7 +124,7 @@ var Layout = function()
         if(e.preventDefault) { e.preventDefault(); }
         if(e.stopPropagation) { e.stopPropagation(); }
 
-        this.search_value= document.querySelector('.search_bar input').value;
+        this.search_value= document.querySelector('.search_bar input').value.toLowerCase();
         document.querySelector('.search_bar input').blur();
         this.clearAndLoadItems();
     };
@@ -987,8 +990,8 @@ var Layout = function()
 
                         var display_search =
                             !self.search_value ||
-                            item.title.indexOf(self.search_value)!==-1 ||
-                            item.summary.content.indexOf(self.search_value)!==-1;
+                            item.title.toLowerCase().indexOf(self.search_value)!==-1 ||
+                            item.summary.content.toLowerCase().indexOf(self.search_value)!==-1;
 
                         self.displayitems_total++;
                         // No search, or search match
@@ -1140,7 +1143,12 @@ var Layout = function()
                 }
                 self.loading_items=0;
                 document.querySelector('.search_nums').innerHTML= self.displayitems_ok+'/'+self.displayitems_total;
-                //self.onscroll();
+
+                // Auto load next pages for first 100 results
+                if(self.displayitems_total<100)
+                {
+                    self.onscroll();
+                }
             }, function()
             {
                 self.loading_items=0;

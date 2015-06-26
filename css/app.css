@@ -556,6 +556,11 @@ div.leftlist_item
     z-index:5;
     text-align:left;
 }
+.slide_content.search_opened
+{
+    bottom:160px;
+    bottom:10rem;
+}
 
 .slide.center ul,
 .slide.center li

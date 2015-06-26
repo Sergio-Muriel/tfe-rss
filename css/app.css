@@ -789,10 +789,10 @@ p.feed_fulldate
 .search_bar
 {
     position:fixed;
-    bottom:0px;
+    background:#212121;
     z-index:2;
-    bottom:80px;
-    bottom:5rem;
+    bottom:0px;
+    bottom:0rem;
     width:100%;
     text-align:center;
     background:#22;
@@ -804,14 +804,54 @@ p.feed_fulldate
     overflow:hidden;
     white-space:nowrap;
     border-top:1px solid #828282;
+    -webkit-transition:bottom 0.5s ease 0s;
+            transition:bottom 0.5s ease 0s;
 }
-.search_bar input
+.search_btn.opened
 {
-    margin:0px 16px 0px 0px;
-    margin:0rem 1rem 0rem 0rem;
-    width:auto;
+    color:#2D6CB3;
+}
+.search_bar.opened
+{
+    bottom:80px;
+    bottom:5rem;
+}
+
+.search_bar form
+{
+    padding:0px;
+    text-align:center;
+}
+.search_bar form input
+{
+    display:inline-block;
+    margin:0px;
+    margin:0rem;
+    width:calc(100% - 12rem);
     height:48px;
     height:3rem;
+}
+.search_nums
+{
+    display:inline-block;
+    font-size:22px;
+    font-size:1.4rem;
+    width:96px;
+    width:6rem;
+    text-align:center;
+}
+.search_close
+{
+    line-height:43px;
+    line-height:2.7rem;
+    height:48px;
+    height:3rem;
+    width:48px;
+    width:3rem;
+}
+.search_close:active
+{
+    color:white;
 }
 
 .center_menu

@@ -2,6 +2,7 @@
 
 - Always display main labels
 - Search in feeds
+- Fix feedly login on desktop
 
 # 0.3.1
 

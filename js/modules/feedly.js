@@ -79,7 +79,14 @@ Feedly.prototype.login= function(e)
     url+='redirect_uri='+encodeURIComponent('http://localhost')+'&';
     url+='scope='+encodeURIComponent('https://cloud.feedly.com/subscriptions')+'&';
 
-    window.open(url);
+    try
+    {
+        window.open(url);
+    }
+    catch(err)
+    {
+        location.href=url;
+    }
     e.preventDefault();
     return false;
 };

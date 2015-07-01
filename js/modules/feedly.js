@@ -125,11 +125,12 @@ Feedly.prototype.callback = function(url)
     var reError = /error=([^&]+)/;
     if((result = url.match(reError)))
     {
-        alert(translate('login_feedly_error'));
+        settings.alert(translate('login_feedly_error'));
     }
     else if((result = url.match(reCode)))
     {
         var code=result[1];
+        settings.alert(translate('connecting_to_the_account'));
         var data  = 'code='+encodeURIComponent(code)+'&';
         data += 'client_id='+encodeURIComponent(this.clientid)+'&';
         data += 'client_secret='+encodeURIComponent(this.clientsecret)+'&';

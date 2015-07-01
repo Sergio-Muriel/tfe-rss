@@ -82,7 +82,7 @@ Tinytinyrss.prototype.login= function(e)
                 settings.init_accounts.bind(settings),
                 function()
                 {
-                    alert(translate('login_fail'));
+                    settings.alert(translate('login_fail'));
                 });
     }
     else
@@ -147,6 +147,7 @@ Tinytinyrss.prototype._login = function(user, password)
     var self=this;
     return new Promise(function(ok, reject)
     {
+        settings.alert(translate('connecting_to_the_account'));
         var r = self.xhr;
         r.open("POST", self.url.value+'/api/', true);
         r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -156,7 +157,7 @@ Tinytinyrss.prototype._login = function(user, password)
                 var data = JSON.parse(r.responseText);
                 if(data.content && data.content.error && data.content.erro!=='LOGIN_ERROR')
                 {
-                    alert('ERROR: '+data.content.error);
+                    settings.alert('ERROR: '+data.content.error);
                     reject();
                 }
                 else if(data.content.session_id)

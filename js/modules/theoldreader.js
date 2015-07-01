@@ -87,7 +87,7 @@ TheOldReader.prototype.login= function(e)
                 settings.init_accounts.bind(settings),
                 function()
                 {
-                    alert(translate('login_fail'));
+                    settings.alert(translate('login_fail'));
                 });
     }
     else
@@ -152,6 +152,7 @@ TheOldReader.prototype._login = function(email, password)
     var self=this;
     return new Promise(function(ok, reject)
     {
+        settings.alert(translate('connecting_to_the_account'));
         var r = self.xhr;
         r.open("POST", self.host+"/accounts/ClientLogin", true);
         r.setRequestHeader("Content-type","application/x-www-form-urlencoded");

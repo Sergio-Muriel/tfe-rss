@@ -343,6 +343,10 @@ var Layout = function()
 
     this.display_left= function()
     {
+        if(!settings.isLoggedIn())
+        {
+            return;
+        }
         if(button_left.classList.contains('selected'))
         {
             return this.display_center();
@@ -372,6 +376,10 @@ var Layout = function()
 
     this.display_center= function()
     {
+        if(!settings.isLoggedIn())
+        {
+            return;
+        }
         Array.forEach( buttons, function(button)
         {
             button.classList.remove('selected');

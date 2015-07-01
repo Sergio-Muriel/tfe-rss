@@ -171,6 +171,8 @@ var Settings = function()
         this.show_content.addEventListener('click', function(e) { return self.toggleShowContent(e); });
         this.show_image.addEventListener('click', function(e) { return self.toggleShowImage(e); });
         this.view_notification.addEventListener('click', function(e) { return self.toggleViewNotification(e); });
+        this.alert_container = document.querySelector('.slide.right .alert_container');
+        this.alert_msg = document.querySelector('.slide.right .alert');
 
         document.querySelector('#api').addEventListener('change', function(e) { return self.set_api(e.target.value); });
         document.querySelector('#lang').addEventListener('change', function(e) { return self.set_lang(e.target.value, true); });
@@ -181,6 +183,19 @@ var Settings = function()
         {
             item.addEventListener('click', self.toggle_legend.bind(self));
         });
+    };
+
+    this.alert=function(msg,time)
+    {
+        if(!time) { time= 2000; }
+        this.alert_msg.innerHTML=msg;
+        this.alert_container.classList.add('visible');
+        clearTimeout(this.alert_timeout);
+        this.alert_timeout = setTimeout(this.alert_hide.bind(this), time);
+    };
+    this.alert_hide = function()
+    {
+        this.alert_container.classList.remove('visible');
     };
 
     this.toggle_legend = function(item)

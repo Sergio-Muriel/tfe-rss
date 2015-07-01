@@ -3,6 +3,8 @@
 - Always display main labels
 - Search in feeds
 - Fix feedly login on desktop
+- Group settings by pane
+- New settings design
 
 # 0.3.1
 

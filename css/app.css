@@ -182,17 +182,12 @@ form
     padding:0px 24px;
     padding: 0px 1.5rem;
 }
-fieldset
-{
-    margin-top:24px;
-    margin-top:1.5rem;
-}
-legend
+
+legend,
+legend.fa
 {
     width: 100%;
     box-sizing: border-box;
-    font-family: sans-serif;
-    font-style: italic;
     font-size:25px;
     font-size: 1.6rem;
     margin:0px 0px 0px;
@@ -206,10 +201,18 @@ legend
     height: 4rem;
     line-height:64px;
     line-height: 4rem;
-    color: #fff;
-    border-bottom:1px solid #fff;
+    color: #000;
+    background:#ebebeb;
     border-radius: 0px;
 }
+fieldset form
+{
+    color:#000;
+    padding:8px 16px;
+    padding:0.5rem 1rem;
+    margin:0px;
+}
+
 legend:before
 {
     display:inline-block;
@@ -220,9 +223,13 @@ fieldset.toggle form
 {
     display:none;
 }
+fieldset.opened legend
+{
+}
 fieldset.opened form
 {
     display:block;
+    background:white;
 }
 
 .form_text
@@ -280,15 +287,19 @@ input[type="url"], input[type="number"], textarea, select
 .line_select select
 {
     padding-right:3em;
-    line-height:56px;
-    line-height:3.5rem;
-    height:56px;
-    height:3.5rem;
+    line-height:52px;
+    line-height:3.3rem;
+    height:52px;
+    height:3.3rem;
+    font-size:20px;
+    font-size:1.3rem;
     padding-left:0.2em;
 }
 .line_select span
 {
     display:block;
+    font-size:20px;
+    font-size:1.3rem;
 }
 .line_select span:before
 {
@@ -369,6 +380,8 @@ input[type="url"], input[type="number"], textarea, select
 dl
 {
     margin:0.5em 0px;
+    font-size:22px;
+    font-size:1.4rem;
 }
 dt, dd
 {

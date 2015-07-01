@@ -574,6 +574,7 @@ div.leftlist_item
 .slide.right
 {
     border-left:1px solid #c2c2c2;
+    background:#ebebeb;
 }
 
 .slide.right .slide_content

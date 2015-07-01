@@ -1,6 +1,7 @@
 .slide.right
 {
     border-left:1px solid var(--menulistItemBorder);
+    background:#ebebeb;
 }
 
 .slide.right .slide_content

@@ -656,15 +656,14 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                                 {
                                     item.liked=false;
                                     item.starred=false;
-                                    if(item.updated)
+                                    item.orig_published = item.published;
+                                    item.orig_updated = item.updated;
+                                    if(!item.updated)
                                     {
-                                        item.updated = item.updated/1000;
+                                        item.updated = item.crawled;
                                     }
-                                    else
-                                    {
-                                        item.published = item.published/1000;
-                                        item.updated = item.published;
-                                    }
+                                    item.updated = item.updated/1000;
+
                                     if(!item.summary)
                                     {
                                         item.summary = { content : '' };

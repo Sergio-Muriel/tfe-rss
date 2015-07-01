@@ -95,8 +95,8 @@
                     <!-- Register form -->
                     <div role="main">
                         <div class="main_layer">
-                            <fieldset>
-                                <legend data-l10n-id="account_information"></legend>
+                            <fieldset class="toggle opened">
+                                <legend class="fa fa-at" data-l10n-id="account_information"></legend>
                                 <form id="register_layer">
                                     <div class="loggedout">
                                         <p class="form_text" data-l10n-id="select_api"></p>
@@ -110,8 +110,8 @@
                                 </form>
                             </fieldset>
 
-                            <fieldset class="loggedin hidden">
-                                <legend data-l10n-id="ui_settings"></legend>
+                            <fieldset class="loggedin hidden toggle">
+                                <legend class="fa fa-cogs" data-l10n-id="ui_settings"></legend>
                                 <form>
 
                                     <p class="line_select">
@@ -149,8 +149,8 @@
                                 </form>
                             </fieldset>
 
-                            <fieldset class="loggedin hidden">
-                                <legend data-l10n-id="update_settings"></legend>
+                            <fieldset class="loggedin hidden toggle">
+                                <legend class="fa fa-refresh" data-l10n-id="update_settings"></legend>
                                 <form>
                                     <p class="line_select">
                                         <label for="update_time" data-l10n-id="update_time"></label>
@@ -169,8 +169,8 @@
                                 </form>
                             </fieldset>
 
-                            <fieldset>
-                                <legend data-l10n-id="about"></legend>
+                            <fieldset class="toggle">
+                                <legend class="fa fa-info-circle" data-l10n-id="about"></legend>
                                 <form>
                                     <dl>
                                         <dt data-l10n-id="about_version"></dt>

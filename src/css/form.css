@@ -16,6 +16,10 @@ form
     font-size:1.7rem;
     padding: 0px 1.5rem;
 }
+fieldset
+{
+    margin-top:1.5rem;
+}
 legend
 {
     width: 100%;
@@ -33,6 +37,19 @@ legend
     color: #fff;
     border-bottom:1px solid #fff;
     border-radius: 0px;
+}
+legend:before
+{
+    display:inline-block;
+    width:3.1rem;
+}
+fieldset.toggle form
+{
+    display:none;
+}
+fieldset.opened form
+{
+    display:block;
 }
 
 .form_text

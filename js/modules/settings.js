@@ -175,6 +175,30 @@ var Settings = function()
         document.querySelector('#api').addEventListener('change', function(e) { return self.set_api(e.target.value); });
         document.querySelector('#lang').addEventListener('change', function(e) { return self.set_lang(e.target.value, true); });
         document.querySelector('#update_time').addEventListener('change', function(e) { return self.set_update_time(e.target.value); });
+
+        // Toggle labels
+        Array.forEach(document.querySelectorAll('fieldset.toggle legend'), function(item)
+        {
+            item.addEventListener('click', self.toggle_legend.bind(self));
+        });
+    };
+
+    this.toggle_legend = function(item)
+    {
+        var fieldset = item.target;
+        while(fieldset && fieldset.tagName!=='FIELDSET')
+        {
+            fieldset = fieldset.parentNode;
+        }
+        if(fieldset.classList.contains('opened'))
+        {
+            fieldset.classList.remove('opened')
+        }
+        else
+        {
+            fieldset.classList.add('opened')
+        }
+        console.log('fieldset ',fieldset);
     };
 
     this.restoreSettings= function()

@@ -1,4 +1,5 @@
 - search in feeds
+- scroll mark as read option
 - Search feed to add
 - Add/Edit/Delete feeds
 - stand alone reader

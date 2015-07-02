@@ -56,7 +56,7 @@
 {
     padding:0.5rem 1rem;
     font-size:1.3rem;
-    color:#999;
+    color:#606060;
     font-weight:bold;
     letter-spacing:0.05em;
 }
@@ -130,7 +130,7 @@ p.feed_fulldate
     background-position:center center;
     background-color:#ddd;
     background-repeat:no-repeat;
-    background-size:contain;
+    background-size:cover;
 }
 .feed_flags
 {

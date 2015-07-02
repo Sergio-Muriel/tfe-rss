@@ -197,10 +197,10 @@ legend.fa
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    height:64px;
-    height: 4rem;
-    line-height:64px;
-    line-height: 4rem;
+    height:80px;
+    height: 5rem;
+    line-height:80px;
+    line-height: 5rem;
     color: #000;
     background:#ebebeb;
     border-radius: 0px;
@@ -646,7 +646,7 @@ div.leftlist_item
     padding:0.5rem 1rem;
     font-size:20px;
     font-size:1.3rem;
-    color:#999;
+    color:#606060;
     font-weight:bold;
     letter-spacing:0.05em;
 }
@@ -730,7 +730,7 @@ p.feed_fulldate
     background-position:center center;
     background-color:#ddd;
     background-repeat:no-repeat;
-    background-size:contain;
+    background-size:cover;
 }
 .feed_flags
 {

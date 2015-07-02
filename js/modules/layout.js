@@ -1057,14 +1057,16 @@ var Layout = function()
                                     var img = new Image();
                                     img.onload=function()
                                     {
-                                        if(img.width>50 && img.height>0)
+                                        if(img.width>50 && img.height>50)
                                         {
+                                            p.classList.remove('hidden');
+                                            console.log('image ',img.width, img.height);
                                             p.style.backgroundImage = 'url('+first_image+')';
                                         }
                                     };
                                     img.src = first_image;
                                 })(p);
-                                p.className='feed_image';
+                                p.className='feed_image hidden';
                                 div.appendChild(p);
                             }
 

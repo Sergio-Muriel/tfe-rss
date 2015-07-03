@@ -104,7 +104,6 @@ var Settings = function()
 
     this.set_api=function(api)
     {
-        console.log('set api ',api);
         var layer = document.querySelector('#register_layer');
         var select = document.querySelector('#api');
         var options=[];
@@ -213,7 +212,6 @@ var Settings = function()
         {
             fieldset.classList.add('opened')
         }
-        console.log('fieldset ',fieldset);
     };
 
     this.restoreSettings= function()
@@ -287,7 +285,6 @@ var Settings = function()
 
     this.toggleViewRead= function(e)
     {
-        console.log('set  to ', this.view_read.classList.contains('fa-toggle-off'));
         localStorage.setItem('viewRead', this.view_read.classList.contains('fa-toggle-off'));
         layout.clearAndLoadItems();
         this.restoreSettings();
@@ -295,7 +292,6 @@ var Settings = function()
 
     this.toggleShowContent= function(e)
     {
-        console.log('set  to ', this.show_content.classList.contains('fa-toggle-off'));
         localStorage.setItem('showContent', this.show_content.classList.contains('fa-toggle-off'));
         layout.clearAndLoadItems();
         this.restoreSettings();
@@ -303,7 +299,6 @@ var Settings = function()
 
     this.toggleShowImage= function(e)
     {
-        console.log('set  to ', this.show_image.classList.contains('fa-toggle-off'));
         localStorage.setItem('showImage', this.show_image.classList.contains('fa-toggle-off'));
         layout.clearAndLoadItems();
         this.restoreSettings();
@@ -311,7 +306,6 @@ var Settings = function()
 
     this.toggleViewNotification= function(e)
     {
-        console.log('set  to ', this.view_notification.classList.contains('fa-toggle-off'));
         localStorage.setItem('viewNotification', this.view_notification.classList.contains('fa-toggle-off'));
         layout.clearAndLoadItems();
         this.restoreSettings();

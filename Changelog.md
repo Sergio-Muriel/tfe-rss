@@ -6,6 +6,7 @@
 - Group settings by pane
 - New settings design
 - Button labels
+- Error messages on tt-rss login
 
 # 0.3.1
 

@@ -154,11 +154,20 @@ Tinytinyrss.prototype._login = function(user, password)
         r.onreadystatechange = function () {
             if (r.readyState == 4)
             {
-                var data = JSON.parse(r.responseText);
+                var data;
+                try
+                {
+                    data = JSON.parse(r.responseText);
+                }
+                catch(err)
+                {
+                    settings.alert('ERROR: '+r.responseText);
+                    return;
+                }
                 if(data.content && data.content.error && data.content.erro!=='LOGIN_ERROR')
                 {
                     settings.alert('ERROR: '+data.content.error);
-                    reject();
+                    return;
                 }
                 else if(data.content.session_id)
                 {

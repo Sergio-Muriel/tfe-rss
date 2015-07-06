@@ -5,6 +5,7 @@
 - Fix feedly login on desktop
 - Group settings by pane
 - New settings design
+- Button labels
 
 # 0.3.1
 

@@ -445,3 +445,25 @@ li.feed_fullscreen .feed_date
 }
 
 
+.center_menu.with_labels span.fa:before
+{
+    position:relative;
+    top:-0.5rem;
+}
+.center_menu span.button_text
+{
+    display:none;
+}
+.center_menu.with_labels span.button_text
+{
+    display:block;
+    position:absolute;
+    left:0px;
+    bottom:0.2rem;
+    width:100%;
+    margin:0px;
+    padding:0px;
+    line-height:2rem;
+    height:2rem;
+    font-size:1rem;
+}

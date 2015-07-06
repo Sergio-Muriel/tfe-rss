@@ -39,11 +39,9 @@
                 <div class="slide_content">
                     <ul class="leftlist"></ul>
                 </div>
-                <div class="center_menu center_menu_feeds">
-                    <span class="addfeed_btn fa fa-plus"></span>
-                    <span class="check_btn fa fa-trash"></span>
-                    <span class="editfeed_btn fa fa-edit hidden"></span>
-                    <span class="delfeed_btn fa fa-refresh hidden"></span>
+                <div class="center_menu with_labels center_menu_feeds">
+                    <span class="addfeed_btn fa fa-plus"><span class="button_text" data-l10n-id="button_addfeed"></span></span>
+                    <span class="check_btn fa fa-trash"><span class="button_text" data-l10n-id="button_delfeed"></span></span>
                 </div>
             </div>
             <div class="slide center">
@@ -73,14 +71,14 @@
                     </form>
                 </div>
 
-                <div class="center_menu center_menu_all">
-                    <span class="readall_btn fa fa-check"></span>
-                    <span class="search_btn fa fa-search"></span>
-                    <span class="top_btn fa fa-arrow-up"></span>
-                    <span class="update_btn fa fa-refresh"></span>
+                <div class="center_menu with_labels center_menu_all">
+                    <span class="readall_btn fa fa-check"><span class="button_text" data-l10n-id="button_read"></span></span>
+                    <span class="search_btn fa fa-search"><span class="button_text" data-l10n-id="button_search"></span></span>
+                    <span class="top_btn fa fa-arrow-up"><span class="button_text" data-l10n-id="button_top"></span></span>
+                    <span class="update_btn fa fa-refresh"><span class="button_text" data-l10n-id="button_refresh"></span></span>
                 </div>
 
-                <div class="center_menu center_menu_single hidden">
+                <div class="center_menu with_labels center_menu_single hidden">
                     <span class="prev_btn fa fa-arrow-left"></span>
                     <span class="close_btn fa fa-close"></span>
                     <span class="next_btn fa fa-arrow-right"></span>
@@ -129,9 +127,15 @@
                                         </span>
                                     </p>
 
+
                                     <p class="line_checkbox">
                                         <span class="view_read fa fa-toggle-off" id="view_read"></span>
                                         <label for="view_read" data-l10n-id="view_read_items"></label>
+                                    </p>
+
+                                    <p class="line_checkbox">
+                                        <span class="show_labels fa fa-toggle-off" id="show_labels"></span>
+                                        <label for="show_labels" data-l10n-id="show_labels"></label>
                                     </p>
 
                                     <p class="line_checkbox">

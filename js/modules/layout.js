@@ -105,7 +105,6 @@ var Layout = function()
     {
         this.search_opened=0;
         var need_clear= this.search_value!== undefined && this.search_value!== '';
-        console.log('test of '+this.search_value+' and ',need_clear);
         this.search_value='';
         document.querySelector('.search_bar input').value='';
         document.querySelector('.search_bar').classList.remove('opened');
@@ -286,7 +285,6 @@ var Layout = function()
                 next = next.nextElementSibling;
             }
         }
-        console.log('next is ',next);
 
         if(next && this.opened_item!=next && next.classList.contains('feed_item'))
         {
@@ -527,7 +525,6 @@ var Layout = function()
         this.controller.markRead(item_id, !span.classList.contains('ko'))
             .then(function(result)
             {
-                console.log('ok end ',item_id);
                 Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
                 {
                     var span = li.querySelector('.flag_read');
@@ -544,7 +541,6 @@ var Layout = function()
                 });
             }, function()
             {
-                console.log('fail end ',item_id);
                 Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
                 {
                     var span = li.querySelector('.flag_read');
@@ -1060,7 +1056,6 @@ var Layout = function()
                                         if(img.width>50 && img.height>50)
                                         {
                                             p.classList.remove('hidden');
-                                            console.log('image ',img.width, img.height);
                                             p.style.backgroundImage = 'url('+first_image+')';
                                         }
                                     };
@@ -1130,7 +1125,6 @@ var Layout = function()
                             {
                                 if(! ul.querySelector(".feed_item[data-id='"+item.id+"']"))
                                 {
-                                    console.log('append new! ',li, ul.querySelector(".feed_item[data-id='"+item.id+"']"));
                                     ul.insertBefore(li,ul.querySelector('.feed_fulldate').nextElementSibling);
                                 }
                             }
@@ -1207,7 +1201,6 @@ var Layout = function()
         if(li.classList.contains('fresh_item'))
         {
             this.markRead(li,id);
-            console.log('mark read flah ',li.querySelector('.flag_read'));
             li.querySelector('.flag_read').classList.remove('fa-square-o');
             li.querySelector('.flag_read').classList.add('fa-check-square-o');
             li.querySelector('.flag_read').classList.add('ko');

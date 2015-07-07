@@ -1,5 +1,6 @@
 # 0.3.4
 
+- Fix toggle read button
 
 # 0.3.3
 

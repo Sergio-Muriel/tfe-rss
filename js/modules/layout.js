@@ -500,14 +500,14 @@ var Layout = function()
         var item_id = li.getAttribute('data-id');
 
         span.classList.add('updating');
-        var read_state = span.classList.contains('ko');
+        var read_state = !span.classList.contains('ko');
 
-        if(span.classList.contains('ko'))
+        if(read_state)
         {
             Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
             {
                 var span = li.querySelector('.flag_read');
-                span.classList.remove('ko');
+                span.classList.add('ko');
                 span.classList.remove('fa-check-square-o');
                 span.classList.add('fa-square-o');
             });
@@ -518,11 +518,11 @@ var Layout = function()
             {
                 var span = li.querySelector('.flag_read');
                 span.classList.remove('fa-square-o');
-                span.classList.add('ko');
+                span.classList.remove('ko');
                 span.classList.add('fa-check-square-o');
             });
         }
-        this.controller.markRead(item_id, !span.classList.contains('ko'))
+        this.controller.markRead(item_id, !read_state)
             .then(function(result)
             {
                 Array.forEach(document.querySelectorAll("li[data-id='"+item_id+"']"), function(li)
@@ -1098,7 +1098,7 @@ var Layout = function()
                             headerintro.appendChild(p);
 
                             var flag_read = document.createElement('span');
-                            flag_read.className='flag_read fa '+(!item.unread?' ko fa-check-square-o':'fa-square-o');
+                            flag_read.className='flag_read fa '+(!item.unread ? 'fa-check-square-o':'ko fa-square-o');
                             flag_read.addEventListener('click', self.markReadClick.bind(self), false);
                             p.appendChild(flag_read);
 

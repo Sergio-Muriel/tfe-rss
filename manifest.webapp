@@ -1,7 +1,7 @@
 {
   "version": "0.3.4",
   "name": "Tfe RSS",
-  "description": "RSS App that display feeds from the old reader.",
+  "description": "RSS App that display feeds from Feedly, The Old Reader and Tiny Tiny RSS",
   "launch_path": "/index.html",
   "icons": {
     "16": "/img/icons/icon16x16.png",

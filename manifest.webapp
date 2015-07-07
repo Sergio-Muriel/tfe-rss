@@ -1,5 +1,5 @@
 {
-  "version": "0.3.3",
+  "version": "0.3.4
   "name": "Tfe RSS",
   "description": "RSS App that display feeds from the old reader.",
   "launch_path": "/index.html",

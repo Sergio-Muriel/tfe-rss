@@ -841,7 +841,7 @@ var Layout = function()
         if(!this.loading_items)
         {
             var no_items = document.querySelector('.no_items');
-            if(no_items)
+            if(no_items && document.querySelector('.no_items').getAttribute('data-continuation'))
             {
                 this.loading_items=1;
                 return this.displayItems(document.querySelector('.no_items').getAttribute('data-continuation'));

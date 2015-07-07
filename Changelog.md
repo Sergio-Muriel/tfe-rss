@@ -1,6 +1,6 @@
 # 0.3.3
 
-
+- Fix feedly readall
 
 # 0.3.2
 

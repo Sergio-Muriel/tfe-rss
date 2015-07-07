@@ -687,7 +687,9 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                                         });
                                     }
                                 });
-                                ok({ items:data, continuation: items.continuation});
+                                var result = { items:data } ;
+                                if(items.continuation) { result.continuation = items.continuation; }
+                                ok(result);
                             }
                             else
                             {

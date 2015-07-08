@@ -32,7 +32,7 @@
 
 .header button span
 {
-    color:var(--headerColor);
+    color:#000;
 }
 .header button:active span
 {

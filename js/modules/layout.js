@@ -963,7 +963,7 @@ var Layout = function()
             li.className='no_items';
             ul.appendChild(li);
         }
-        li.innerHTML=translate('loading_items');
+        li.innerHTML='<span class="fa fa-spinner fa-spin"></span> '+translate('loading_items');
         
         this.controller.getItems(id, viewRead, continuation)
             .then(function(r)

@@ -3,12 +3,12 @@
     --mainBg: #fff;
     --mainColor: #000;
 
-    --headerBg: linear-gradient(to bottom, rgba(232,232,232,1) 0%,rgba(220,220,220,1) 45%,rgba(211,211,211,1) 100%);
-    --headerColor: #000;
+    --headerBg: #298bee;
+    --headerColor: #fff;
 
-    --selectedMenu: linear-gradient(to bottom, rgba(232,232,232,1) 0%,rgba(220,220,220,1) 45%,rgba(211,211,211,1) 100%);
-    --headerMenuBg: linear-gradient(to bottom, rgba(232,232,232,1) 0%,rgba(220,220,220,1) 45%,rgba(211,211,211,1) 100%);
-    --headerMenuFg: #000;
+    --selectedMenu: #298bee;
+    --headerMenuBg: #298bee;
+    --headerMenuFg: #fff;
     --menuBg: #333;
     --menuColor: #fff;
 

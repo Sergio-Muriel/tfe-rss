@@ -1,3 +1,7 @@
+# 0.4.0
+
+- Animated loadigin icon
+
 # 0.3.4
 
 - Fix toggle read button

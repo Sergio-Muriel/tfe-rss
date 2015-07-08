@@ -843,7 +843,7 @@ p.feed_fulldate
 }
 .search_btn.opened
 {
-    color:#2D6CB3;
+    color:#cbcbcb;
 }
 .search_bar.opened
 {
@@ -861,7 +861,11 @@ p.feed_fulldate
     display:inline-block;
     margin:0px;
     margin:0rem;
+    padding:0px 8px;
+    padding:0px 0.5rem;
     width:calc(100% - 12rem);
+    font-size:22px;
+    font-size:1.4rem;
     height:48px;
     height:3rem;
 }
@@ -1074,8 +1078,7 @@ li.feed_fullscreen .feed_date
     line-height:1.4em;
     padding:16px;
     padding:1rem;
-    background:#2b2b2b;
-    text-shadow:1px 1px 1px #000;
+    background:#ebebeb;
     color:#828282;
     border:1px solid white;
     text-align:center;

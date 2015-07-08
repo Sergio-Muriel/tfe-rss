@@ -6,6 +6,7 @@ var Notif = function()
             Notification.requestPermission(function() {});
         }
     };
+
     this.send = function(title, body)
     {
         if (settings.getViewNotification() && Notification.permission === "granted")

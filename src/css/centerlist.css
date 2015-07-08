@@ -200,8 +200,7 @@ p.feed_fulldate
     line-height:7rem;
     text-align:center;
     font-size:1.6rem;
-    background:var(--mainlistButtonBg);
-    text-shadow:1px 1px 1px #000;
+    background:#f0f0f0;
     color:var(--mainlistButtonFg);
 }
 .slide.center li.not_loggedin

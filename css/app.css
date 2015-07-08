@@ -807,8 +807,7 @@ p.feed_fulldate
     text-align:center;
     font-size:25px;
     font-size:1.6rem;
-    background:#2b2b2b;
-    text-shadow:1px 1px 1px #000;
+    background:#f0f0f0;
     color:#828282;
 }
 .slide.center li.not_loggedin

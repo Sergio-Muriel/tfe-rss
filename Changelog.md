@@ -1,6 +1,6 @@
 # 0.4.0
 
-- Header background color
+- UX style update
 - Animated loadigin icon
 
 # 0.3.4

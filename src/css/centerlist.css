@@ -200,7 +200,7 @@ p.feed_fulldate
     line-height:7rem;
     text-align:center;
     font-size:1.6rem;
-    background:#f0f0f0;
+    background:#ebebeb;
     color:var(--mainlistButtonFg);
 }
 .slide.center li.not_loggedin
@@ -362,14 +362,16 @@ li.feed_fullscreen .feed_flags
     position:relative;
     width:100%;
     height:auto;
-    padding-bottom:1.3rem;
+    padding-bottom:0.8rem;
     margin-top:1rem;
 }
 li.feed_fullscreen .feed_flags span
 {
     padding:0px 2rem;
     font-size:2.2rem;
-    line-height:3rem;
+    line-height:2.6rem;
+    font-size:2rem;
+    width:6rem;
 }
 li.feed_fullscreen .feed_flags span.flag_read,
 li.feed_fullscreen .feed_flags span.flag_read.ko

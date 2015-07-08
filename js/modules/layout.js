@@ -1162,6 +1162,12 @@ var Layout = function()
 
     this.closeItem = function()
     {
+        if(this.opened_item)
+        {
+            // Scroll to opened item before closing
+            center_scroll_container.scrollTop=this.opened_item.offsetTop;
+        }
+
         this.opened_item=null;
         center_menu_all.classList.remove('hidden');
         center_menu_single.classList.add('hidden');

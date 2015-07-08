@@ -47,7 +47,7 @@
 }
 .header button:active span
 {
-    color:#727272;
+    color:#fff;
 }
 .header button.selected
 {

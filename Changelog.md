@@ -2,6 +2,7 @@
 
 - UX style update
 - Animated loadigin icon
+- Auto scroll to last opened, when closing item
 
 # 0.3.4
 

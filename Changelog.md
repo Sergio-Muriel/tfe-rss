@@ -1,5 +1,6 @@
 # 0.4.0
 
+- Header background color
 - Animated loadigin icon
 
 # 0.3.4

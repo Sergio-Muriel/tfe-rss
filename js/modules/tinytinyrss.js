@@ -620,6 +620,7 @@ Tinytinyrss.prototype.getItems = function(id, viewRead, next, limit)
                         Array.forEach(items.content, function(item)
                         {
                             var newitem= {
+                                readall_key : item.id,
                                 category:  id,
                                 id: item.id,
                                 published: item.published,

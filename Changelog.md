@@ -4,7 +4,7 @@
 - UX style update
 - Animated loadigin icon
 - Auto scroll to last opened, when closing item
-- Bug fixes
+- Bug fixes (readall function, ...)
 
 # 0.3.4
 

@@ -594,6 +594,7 @@ TheOldReader.prototype.getItems = function(id, viewRead, next)
                                 {
                                     Array.forEach(data.items, function(item)
                                     {
+                                        item.readall_key = data.updated*1000*1000;
                                         item.starred = item.categories.indexOf('user/-/state/com.google/starred')!==-1;
                                         item.liked = item.categories.indexOf('user/-/state/com.google/like')!==-1;
                                         item.unread = item.categories.indexOf('user/-/state/com.google/fresh')!==-1;
@@ -685,14 +686,14 @@ TheOldReader.prototype.markStar= function(item_id, state)
     });
 };
 
-TheOldReader.prototype.readAll= function(item_id)
+TheOldReader.prototype.readAll= function(item_id, ts)
 {
     var self=this;
     return new Promise(function(ok, reject)
     {
         var url = self.host+'/reader/api/0/mark-all-as-read';
 
-        var data='s='+item_id;
+        var data='s='+item_id+'&ts='+ts;
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {

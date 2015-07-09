@@ -330,7 +330,9 @@ var Layout = function()
         }
         span.classList.add('updating');
 
-        this.controller.readAll(this.display_id)
+        var readall_key = center.querySelector('.feed_item').getAttribute('readall_key');
+        // Last item
+        this.controller.readAll(this.display_id, readall_key)
             .then(function(result)
             {
                 span.classList.remove('updating');
@@ -1048,6 +1050,7 @@ var Layout = function()
 
                             li = document.createElement('li');
                             li.setAttribute('feed_link', item.canonical[0].href);
+                            li.setAttribute('readall_key', item.readall_key);
                             li.className='feed_item';
                             if(item.unread)
                             {

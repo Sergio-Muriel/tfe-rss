@@ -656,6 +656,7 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                                 {
                                     item.liked=false;
                                     item.starred=false;
+                                    item.readall_key=item.id;
                                     item.orig_published = item.published;
                                     item.orig_updated = item.updated;
                                     if(!item.updated)
@@ -760,14 +761,14 @@ Feedly.prototype.markStar= function(item_id, state)
     });
 };
 
-Feedly.prototype.readAll= function(item_id)
+Feedly.prototype.readAll= function(item_id, lastid)
 {
     var self=this;
     return new Promise(function(ok, reject)
     {
         var url = self.host+'/v3/markers';
 
-        var data= { action : "markAsRead", categoryIds : [item_id], type: 'categories' };
+        var data= { action : "markAsRead", categoryIds : [item_id], "lastReadEntryId": lastid, 'type': 'categories'  };
         self._query.bind(self)("POST", url, data)
             .then(function(text)
             {

@@ -104,6 +104,8 @@ input[type="url"], input[type="number"], textarea, select
     background:var(--inputBg);
     color:var(--inputColor);
 }
+
+.line_input select,
 .line_select select
 {
     padding-right:3em;
@@ -112,6 +114,8 @@ input[type="url"], input[type="number"], textarea, select
     font-size:1.3rem;
     padding-left:0.2em;
 }
+
+.line_input span,
 .line_select span
 {
     display:block;
@@ -168,6 +172,7 @@ input[type="url"], input[type="number"], textarea, select
     width:2rem;
 }
 
+.line_input label,
 .line_select label,
 .line_checkbox label
 {
@@ -178,6 +183,7 @@ input[type="url"], input[type="number"], textarea, select
     font-size:1.5rem;
     width:calc(100% - 4rem);
 }
+.line_input label,
 .line_select label
 {
     margin-left:0px;

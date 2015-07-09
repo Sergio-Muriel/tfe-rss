@@ -18,7 +18,7 @@
     width:100%;
 }
 
-.slide.center li
+.slide.center li.feed_item
 {
     position:relative;
     list-style:none;
@@ -197,6 +197,7 @@ p.feed_fulldate
 .slide.center li.no_items,
 .slide.center li.loading
 {
+    list-style:none;
     line-height:7rem;
     text-align:center;
     font-size:1.6rem;

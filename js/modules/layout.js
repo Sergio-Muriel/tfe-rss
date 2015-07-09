@@ -1010,7 +1010,10 @@ var Layout = function()
                                 li.innerHTML=item_date;
                                 if(mode && mode==='refresh')
                                 {
-                                    ul.insertBefore(li,ul.firstChild);
+                                    if(! ul.querySelector(".feed_item[data-id='"+item.id+"']"))
+                                    {
+                                        ul.insertBefore(li,ul.firstChild);
+                                    }
                                 }
                                 else
                                 {

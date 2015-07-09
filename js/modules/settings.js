@@ -14,6 +14,8 @@ var Settings = function()
         this.show_image = document.querySelector('#show_image');
         this.show_labels = document.querySelector('#show_labels');
         this.view_notification = document.querySelector('#view_notification');
+        this.hide_regex = document.querySelector('#hide_regex');
+        this.invalid_regex = document.querySelector('#invalid_regex');
 
 
         this.bind();
@@ -172,6 +174,10 @@ var Settings = function()
         this.show_image.addEventListener('click', function(e) { return self.toggleShowImage(e); });
         this.show_labels.addEventListener('click', function(e) { return self.toggleShowLabels(e); });
         this.view_notification.addEventListener('click', function(e) { return self.toggleViewNotification(e); });
+
+        this.hide_regex.addEventListener('change', function(e) { return self.updateHideRegex(e,1); });
+        this.hide_regex.addEventListener('keyup', function(e) { return self.updateHideRegex(e,0); });
+
         this.alert_container = document.querySelector('.slide.right .alert_container');
         this.alert_msg = document.querySelector('.slide.right .alert');
 
@@ -281,6 +287,9 @@ var Settings = function()
             this.view_notification.classList.remove('fa-toggle-on');
         }
 
+        this.hide_regex.value= this.getHideRegex();
+
+
         this.set_update_time(this.getUpdateTime());
         this.set_lang(this.getLang());
     };
@@ -340,6 +349,30 @@ var Settings = function()
         this.restoreSettings();
     };
 
+    this.updateHideRegex= function(e, do_warn)
+    {
+        try
+        {
+            var re = new RegExp(this.hide_regex.value,'i');
+            this.invalid_regex.classList.add('valid');
+        }
+        catch(err)
+        {
+            this.invalid_regex.classList.remove('valid');
+            if(do_warn)
+            {
+               return this.alert(translate('invalid_regex'));
+            }
+        }
+
+        if(do_warn)
+        {
+            localStorage.setItem('hideRegex', this.hide_regex.value);
+            layout.clearAndLoadItems();
+            this.restoreSettings();
+        }
+    };
+
     this.isLoggedIn = function()
     {
         return this.controller ? this.controller.isLoggedIn() : false;
@@ -378,6 +411,13 @@ var Settings = function()
     this.getUpdateTime = function()
     {
         return localStorage.getItem('updateTime') || 15;
+    };
+
+    this.getHideRegex = function()
+    {
+        var value= localStorage.getItem('hideRegex');
+        if(value!==null) { return value; }
+        return 'sponsored'; // Default regex
     };
 
 };

@@ -75,6 +75,7 @@ form select
     line-height:1.5em;
     margin:0.5em auto;
     -moz-appearance:none;
+    background:none;
 }
 form select
 {
@@ -105,7 +106,7 @@ input[type="url"], input[type="number"], textarea, select
     color:var(--inputColor);
 }
 
-.line_input select,
+.line_input input,
 .line_select select
 {
     padding-right:3em;
@@ -113,6 +114,7 @@ input[type="url"], input[type="number"], textarea, select
     height:3.3rem;
     font-size:1.3rem;
     padding-left:0.2em;
+    width:100%;
 }
 
 .line_input span,

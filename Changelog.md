@@ -1,5 +1,6 @@
 # 0.4.0
 
+- Advanced settings: hide regex
 - UX style update
 - Animated loadigin icon
 - Auto scroll to last opened, when closing item

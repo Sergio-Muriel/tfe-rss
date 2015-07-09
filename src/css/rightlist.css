@@ -9,3 +9,11 @@
     bottom:0px;
 }
 
+#invalid_regex
+{
+    color:red;
+}
+#invalid_regex.valid
+{
+    visibility:hidden;
+}

@@ -949,12 +949,21 @@ var Layout = function()
         });
 
         var viewRead = settings.getViewRead();
+        var hideRegexText = settings.getHideRegex();
         var showContent = settings.getShowContent();
         var showImage = settings.getShowImage();
         var id = this.display_id;
 
         var ul = center_scroll;
         var li;
+
+        // Create hide regex if needed
+        var hideRegex=null;
+        if(hideRegexText)
+        {
+            hideRegex= new RegExp(hideRegexText,'i');
+            console.log('created regex ',hideRegex);
+        }
 
         // Remove previous load more  if present
         if(!(li=ul.querySelector('li.no_items')))
@@ -996,6 +1005,12 @@ var Layout = function()
                             !self.search_value ||
                             item.title.toLowerCase().indexOf(self.search_value)!==-1 ||
                             item.summary.content.toLowerCase().indexOf(self.search_value)!==-1;
+
+                        // Filter hide regex on title
+                        if(hideRegex && hideRegex.test(item.title))
+                        {
+                            display_search=false;
+                        }
 
                         self.displayitems_total++;
                         // No search, or search match

@@ -247,6 +247,7 @@ form select
     line-height:1.5em;
     margin:0.5em auto;
     -moz-appearance:none;
+    background:none;
 }
 form select
 {
@@ -283,7 +284,7 @@ input[type="url"], input[type="number"], textarea, select
     color:#000;
 }
 
-.line_input select,
+.line_input input,
 .line_select select
 {
     padding-right:3em;
@@ -294,6 +295,7 @@ input[type="url"], input[type="number"], textarea, select
     font-size:20px;
     font-size:1.3rem;
     padding-left:0.2em;
+    width:100%;
 }
 
 .line_input span,
@@ -584,6 +586,15 @@ div.leftlist_item
 {
     bottom:0px;
 }
+
+#invalid_regex
+{
+    color:red;
+}
+#invalid_regex.valid
+{
+    visibility:hidden;
+}
 .slide.center
 {
     position:relative;
@@ -613,7 +624,6 @@ div.leftlist_item
     font-size:25px;
     font-size:1.6rem;
     margin:0px;
-    background:#fff;
     border-bottom:1px solid #c2c2c2;
     color:#000;
     overflow:hidden;
@@ -645,6 +655,8 @@ div.leftlist_item
 }
 .slide.center li.feed_fulldate
 {
+    background:#e5e5e5;
+    border-bottom:1px solid #c2c2c2;
     padding:8px 16px;
     padding:0.5rem 1rem;
     font-size:20px;

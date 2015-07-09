@@ -24,7 +24,6 @@
     list-style:none;
     font-size:1.6rem;
     margin:0px;
-    background:#fff;
     border-bottom:1px solid var(--mainlistItemBorder);
     color:var(--mainlistColor);
     overflow:hidden;
@@ -54,6 +53,8 @@
 }
 .slide.center li.feed_fulldate
 {
+    background:#e5e5e5;
+    border-bottom:1px solid var(--mainlistItemBorder);
     padding:0.5rem 1rem;
     font-size:1.3rem;
     color:#606060;

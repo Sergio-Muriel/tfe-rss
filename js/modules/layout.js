@@ -1171,8 +1171,8 @@ var Layout = function()
                 self.loading_items=0;
                 document.querySelector('.search_nums').innerHTML= self.displayitems_ok+'/'+self.displayitems_total;
 
-                // Auto load next pages for first 100 results
-                if(self.displayitems_total<100)
+                // Auto load next pages for first (x) results
+                if(self.displayitems_total<settings.getMaxSearchItems())
                 {
                     self.onscroll();
                 }

@@ -1,5 +1,6 @@
 # 0.4.1
 
+- Adv settings: max search items
 
 
 # 0.4.0

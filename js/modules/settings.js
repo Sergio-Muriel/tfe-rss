@@ -15,6 +15,7 @@ var Settings = function()
         this.show_labels = document.querySelector('#show_labels');
         this.view_notification = document.querySelector('#view_notification');
         this.hide_regex = document.querySelector('#hide_regex');
+        this.max_search_items = document.querySelector('#max_search_items');
         this.invalid_regex = document.querySelector('#invalid_regex');
 
 
@@ -178,6 +179,9 @@ var Settings = function()
         this.hide_regex.addEventListener('change', function(e) { return self.updateHideRegex(e,1); });
         this.hide_regex.addEventListener('keyup', function(e) { return self.updateHideRegex(e,0); });
 
+        this.max_search_items.addEventListener('change', function(e) { return self.updateMaxSearchItems(e,1); });
+        this.max_search_items.addEventListener('keyup', function(e) { return self.updateMaxSearchItems(e,0); });
+
         this.alert_container = document.querySelector('.slide.right .alert_container');
         this.alert_msg = document.querySelector('.slide.right .alert');
 
@@ -288,6 +292,7 @@ var Settings = function()
         }
 
         this.hide_regex.value= this.getHideRegex();
+        this.max_search_items.value= this.getMaxSearchItems();
 
 
         this.set_update_time(this.getUpdateTime());
@@ -373,6 +378,28 @@ var Settings = function()
         }
     };
 
+    this.updateMaxSearchItems= function(e, do_warn)
+    {
+        var value = this.max_search_items.value;
+        if(/^[1-9][0-9]*$/.test(value))
+        {
+            this.invalid_regex.classList.add('valid');
+        }
+        else
+        {
+            if(do_warn)
+            {
+                this.max_search_items.value= this.getMaxSearchItems();
+            }
+        }
+
+        if(do_warn)
+        {
+            localStorage.setItem('maxSearchItems', this.max_search_items.value);
+            this.restoreSettings();
+        }
+    };
+
     this.isLoggedIn = function()
     {
         return this.controller ? this.controller.isLoggedIn() : false;
@@ -418,6 +445,13 @@ var Settings = function()
         var value= localStorage.getItem('hideRegex');
         if(value!==null) { return value; }
         return 'sponsored'; // Default regex
+    };
+
+    this.getMaxSearchItems = function()
+    {
+        var value= localStorage.getItem('maxSearchItems');
+        if(value!==null) { return value; }
+        return 100; // Default regex
     };
 
 };

@@ -645,8 +645,10 @@ var Layout = function()
                 li.appendChild(label);
 
                 label_num = document.createElement('p');
-                label_num.className='label_num fa fa-remove';
+                label_num.className='label_num';
                 li.appendChild(label_num);
+
+                leftlist.appendChild(li);
             }
 
             if(self.controller.liked_id)

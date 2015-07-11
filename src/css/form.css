@@ -16,6 +16,10 @@ form
     font-size:1.7rem;
     padding: 0px 1.5rem;
 }
+form p
+{
+    margin:0.8rem 0rem;
+}
 
 legend,
 legend.fa

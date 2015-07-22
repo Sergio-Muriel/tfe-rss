@@ -1,3 +1,7 @@
+# 0.4.2
+
+- Add open article in browser link after content
+
 # 0.4.1
 
 - Adv settings: max search items

@@ -673,6 +673,8 @@ div.leftlist_item
 
 .feed_title
 {
+    position:relative;
+    z-index:3;
     display:inline;
     vertical-align:top;
     margin:0px;

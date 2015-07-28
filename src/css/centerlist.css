@@ -361,6 +361,7 @@ li.feed_fullscreen .feed_title
     padding-right:0px;
     font-weight:bold;
     font-size:1.6rem;
+    line-height:1.3em;
     color:#000;
 }
 li.feed_fullscreen .feed_flags

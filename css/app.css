@@ -1013,6 +1013,7 @@ li.feed_fullscreen .feed_title
     font-weight:bold;
     font-size:25px;
     font-size:1.6rem;
+    line-height:1.3em;
     color:#000;
 }
 li.feed_fullscreen .feed_flags

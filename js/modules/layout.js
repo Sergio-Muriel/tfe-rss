@@ -1271,6 +1271,7 @@ var Layout = function()
         {
             var div = document.createElement('div');
             div.className='feed_content';
+            console.log('li ',li);
             div.innerHTML = this.feed_contents[id]+'<p><a target="_blank" href="'+li.getAttribute('feed_link')+'">'+translate("view_article_on_browser")+'</a></p>';
             newLi.appendChild(div);
         }

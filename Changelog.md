@@ -1,6 +1,7 @@
 # 0.4.2
 
 - Add open article in browser link after content
+- fix feedly links
 
 # 0.4.1
 

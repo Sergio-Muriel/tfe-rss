@@ -669,6 +669,10 @@ Feedly.prototype.getItems = function(id, viewRead, next)
                                     {
                                         item.summary = { content : '' };
                                     }
+                                    if(/http/.test(item.originId))
+                                    {
+                                        item.canonical = [ {href : item.originId} ];
+                                    }
                                     if(!item.canonical)
                                     {
                                         item.canonical = [ {href : item.origin.htmlUrl} ];

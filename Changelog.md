@@ -2,6 +2,7 @@
 
 - Add open article in browser link after content
 - fix feedly links
+- remove select icons
 
 # 0.4.1
 

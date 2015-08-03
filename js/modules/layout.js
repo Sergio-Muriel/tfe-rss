@@ -1252,10 +1252,12 @@ var Layout = function()
         newLi.querySelector('.flag_share').addEventListener('click', function(e)
         {
             new MozActivity({
-                name: "share",
+                name: "new",
                 data: {
+                    type: ["websms/sms", "mail"],
+                    body: li.querySelector('.feed_title').innerHTML+' '+li.getAttribute('feed_link'),
                     url: "mailto:?subject="+encodeURIComponent(li.querySelector('.feed_title').innerHTML)+
-                        "&body=" + encodeURIComponent(li.getAttribute('feed_link'))
+                    "&body=" + encodeURIComponent(li.getAttribute('feed_link'))
                 }
             });
         });

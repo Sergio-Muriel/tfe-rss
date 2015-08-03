@@ -1,5 +1,6 @@
 # 0.4.4
 
+- Fix websms/sms share link
 
 # 0.4.3
 

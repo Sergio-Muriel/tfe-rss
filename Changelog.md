@@ -1,3 +1,7 @@
+# 0.4.5
+
+- Added "owncloud news" support
+
 # 0.4.4
 
 - Fix websms/sms share link

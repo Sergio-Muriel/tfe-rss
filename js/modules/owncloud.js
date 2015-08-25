@@ -30,7 +30,8 @@ Owncloud.prototype.create_form = function()
         '<p class="form_text loggedin">'+translate('connected_with')+' '+this.typename+' /  <span id="loggedin_user"></span></p>'+
         '<p class="form_text loggedout" value="'+translate('enter_account_information')+'"></p>'+
         '<p>'+
-        '<input type="url" name="url" placeholder="'+translate('form_url_ttrss')+'" required>'+
+        '<span class="form_help">'+translate('form_url_owncloud_help')+'</span>'+
+        '<input type="url" name="url" placeholder="'+translate('form_url_owncloud')+'" required>'+
         '<input type="text" name="user" placeholder="'+translate('form_user')+'" required>'+
         '<input type="password" name="password" placeholder="'+translate('form_password')+'" required>'+
         '</p>'+
@@ -149,7 +150,8 @@ Owncloud.prototype._login = function(user, password)
     {
         settings.alert(translate('connecting_to_the_account'));
         var r = self.xhr;
-        r.open("POST", self.url.value+'/api/', true);
+        r.open("GET", self.url.value+'/api/v1-2/feeds', true);
+        r.setRequestHeader("Authorization","Basic "+btoa(user+":"+password));
         r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         r.onreadystatechange = function () {
             if (r.readyState == 4)
@@ -162,23 +164,11 @@ Owncloud.prototype._login = function(user, password)
                 catch(err)
                 {
                     settings.alert('ERROR: '+r.responseText);
-                    return;
-                }
-                if(data.content && data.content.error && data.content.erro!=='LOGIN_ERROR')
-                {
-                    settings.alert('ERROR: '+data.content.error);
-                    return;
-                }
-                else if(data.content.session_id)
-                {
-                    self.create_account(self.url.value, self.user.value, data.content.session_id)
-                        .then(ok);
-                }
-                else
-                {
                     reject();
+                    return;
                 }
-
+                self.create_account(self.url.value, user, password)
+                    .then(ok);
             }
         };
 
@@ -205,7 +195,7 @@ Owncloud.prototype.loggedout = function()
     this.url.disabled=false;
 };
 
-Owncloud.prototype.create_account = function(host, user, session)
+Owncloud.prototype.create_account = function(host, user, password)
 {
     var self=this;
     return new Promise(function(ok, reject)
@@ -215,7 +205,7 @@ Owncloud.prototype.create_account = function(host, user, session)
         var value = {};
         value.host = host;
         value.user = user;
-        value.session = session;
+        value.password = password;
 
         var accounts = transaction.objectStore('accounts');
         var request = accounts.add(value);
@@ -247,17 +237,7 @@ Owncloud.prototype.getAccount = function(callback)
             cursor.continue();
             // Test connection
             var url = self.host+'/api/';
-            self._query.bind(self)("POST", url, { op: 'isLoggedIn' })
-                .then(function(text)
-                {
-                    var data = JSON.parse(text);
-                    if(!data.content.status)
-                    {
-                        self.deleteAccount(function() {});
-                        self.account=null;
-                    }
-                    callback(self.account);
-                });
+            callback(self.account);
         }
         else if(!received)
         {

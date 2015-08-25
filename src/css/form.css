@@ -213,3 +213,9 @@ dl a
     color:#000;
 }
 
+.form_help
+{
+    display:inline-block;
+    padding:0px 0px 0.7rem 0px;
+    font-size:1.3rem;
+}

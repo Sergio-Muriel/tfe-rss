@@ -30,7 +30,7 @@ Owncloud.prototype.create_form = function()
         '<p class="form_text loggedin">'+translate('connected_with')+' '+this.typename+' /  <span id="loggedin_user"></span></p>'+
         '<p class="form_text loggedout" value="'+translate('enter_account_information')+'"></p>'+
         '<p>'+
-        '<span class="form_help">'+translate('form_url_owncloud_help')+'</span>'+
+        '<span class="form_help loggedout">'+translate('form_url_owncloud_help')+'</span>'+
         '<input type="url" name="url" placeholder="'+translate('form_url_owncloud')+'" required>'+
         '<input type="text" name="user" placeholder="'+translate('form_user')+'" required>'+
         '<input type="password" name="password" placeholder="'+translate('form_password')+'" required>'+

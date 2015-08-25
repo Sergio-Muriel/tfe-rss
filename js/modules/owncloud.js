@@ -505,6 +505,7 @@ Owncloud.prototype.fullupdate = function()
 Owncloud.prototype.getFeeds = function()
 {
     var self=this;
+    self.feed_cache = {};
     return new Promise(function(ok, reject)
     {
         var feeds = [];
@@ -518,6 +519,7 @@ Owncloud.prototype.getFeeds = function()
             var cursor = e.target.result;
             if (cursor) {
                 feeds.push(cursor.value);
+                self.feed_cache[cursor.value.id] = cursor.value;
                 cursor.continue();
             }
             else
@@ -594,44 +596,54 @@ Owncloud.prototype.getItems = function(id, viewRead, next, limit)
         if(!limit) { limit= 20; }
         var items=[];
         var ids=[];
-        var url = self.host+'/api/';
-        return;
-        var data = {
-           op : 'getHeadlines',
-           feed_id: id.replace(/(CAT|FEED):/,''),
-           skip: next,
-           is_cat: /CAT/.test(id),
-           show_content: true,
-           view_mode : viewRead ?  'all_articles' : 'unread',
-           limit:limit,
-        };
+        var url = self.host+'/api/v1-2/items?';
 
+        var is_cat= /CAT/.test(id);
+        var url_id = id;
+
+        var url_type = "3";
+        if(is_cat)
+        {
+            url_type="1";
+        }
+        else if(url_id==self.all_id)
+        {
+            url_id="3";
+        }
+
+        url+= 
+            'batchSize=20&'+
+            'type='+(url_type)+'&'+
+            'id='+url_id.replace(/FEED:|CAT:/,'')+'&'+
+            'getRead='+(viewRead ? 1:0)+'&'+
+            (next ? 'offset='+next+'&' : '')
+        ;
+        console.log('url ',url);
         self._query.bind(self)("GET", url)
             .then(function(text)
             {
-                items = JSON.parse(text);
-                if(items)
+                var received = JSON.parse(text);
+                if(received)
                 {
-                    var itemids = items.itemRefs;
                     var data;
-                    if(items.content)
+                    if(received.items)
                     {
-                        data = { continuation: (items.content.length==20 ? parseInt(next)+20 : null), items: [] }; 
-                        Array.forEach(items.content, function(item)
+                        data = { continuation: (received.items.length==20 ? received.items[received.items.length-1].id : null), items: [] }; 
+                        Array.forEach(received.items, function(item)
                         {
                             var newitem= {
                                 readall_key : item.id,
                                 category:  id,
                                 id: item.id,
-                                published: item.published,
-                                updated: item.updated,
+                                published: item.pubDate,
+                                updated: item.pubDate,
                                 title: item.title,
-                                summary : { content: item.content },
-                                canonical: [ { href: item.link } ],
+                                summary : { content: item.body },
+                                canonical: [ { href: item.url } ],
                                 unread: item.unread,
-                                origin: { title: item.feed_title },
-                                starred: item.marked,
-                                liked: item.published
+                                origin: { title:  self.feed_cache[item.feedId] ?  self.feed_cache[item.feedId].title : '?' },
+                                starred: item.starred,
+                                liked: false
                             };
                             data.items.push(newitem);
                         });

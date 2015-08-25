@@ -425,14 +425,14 @@ Owncloud.prototype.updateCount = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/api/';
-        self._query.bind(self)("POST", url, { op: 'getCounters' })
+        var url = self.host+'/api/v1-2/feeds';
+        self._query.bind(self)("GET", url)
             .then(function(text)
             {
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    self.addCounts(data.content)
+                    self.addCounts(data.feeds)
                         .then(ok, reject);
                 }
                 else
@@ -457,14 +457,39 @@ Owncloud.prototype.addCounts = function(counts)
         var allcounts = transaction_counts.objectStore('counts');
         allcounts.clear();
 
+        var sum_cats = {};
+        var total=0;
         counts.forEach(function(data)
         {
-            var counts = transaction_counts.objectStore('counts');
-            data.count = data.counter;
-            if(data.kind=='cat') { data.id='CAT:'+data.id; }
-            else  { data.id = 'FEED:'+data.id; }
-            var request = counts.add(data);
+            if(!sum_cats[data.folderId])
+            {
+                sum_cats[data.folderId]= 0;
+            }
+            total+=data.unreadCount;
+            sum_cats[data.folderId]+= data.unreadCount;
+
+            var counts_save = transaction_counts.objectStore('counts');
+            var save_data={};
+            save_data.count = data.unreadCount;
+            save_data.id=data.id;
+            var request = counts_save.add(save_data);
         });
+        // add global coutn
+        var counts_save = transaction_counts.objectStore('counts');
+        var save_data={};
+        save_data.count = total;
+        save_data.id=self.all_id;
+        var request = counts_save.add(save_data);
+
+        // add cat sums
+        for(var label in sum_cats)
+        {
+            var counts_save = transaction_counts.objectStore('counts');
+            var save_data={};
+            save_data.count = sum_cats[label];
+            save_data.id='CAT:'+label;
+            var request = counts_save.add(save_data);
+        }
     });
 };
 
@@ -570,6 +595,7 @@ Owncloud.prototype.getItems = function(id, viewRead, next, limit)
         var items=[];
         var ids=[];
         var url = self.host+'/api/';
+        return;
         var data = {
            op : 'getHeadlines',
            feed_id: id.replace(/(CAT|FEED):/,''),
@@ -580,7 +606,7 @@ Owncloud.prototype.getItems = function(id, viewRead, next, limit)
            limit:limit,
         };
 
-        self._query.bind(self)("POST", url, data)
+        self._query.bind(self)("GET", url)
             .then(function(text)
             {
                 items = JSON.parse(text);

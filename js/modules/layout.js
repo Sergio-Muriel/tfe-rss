@@ -748,6 +748,10 @@ var Layout = function()
                 if(name)
                 {
                     items = document.querySelector(re);
+                    if(!items)
+                    {
+                        console.log('faile search ',re);
+                    }
                 }
                 else
                 {

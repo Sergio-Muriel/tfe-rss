@@ -289,16 +289,17 @@ Owncloud.prototype._query = function(method,url,data,callback)
         // Init XHR object
         var r = new XMLHttpRequest({ mozSystem: true });
         r.open(method, url, true);
+
+        if(self.account)
+        {
+            r.setRequestHeader("Authorization","Basic "+btoa(self.account.user+":"+self.account.password));
+        }
         if(!data || typeof data ==='string')
         {
             r.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         }
         else
         {
-            if(self.account)
-            {
-                data.sid = self.account.session;
-            }
             data = JSON.stringify(data);
             r.setRequestHeader("Content-type","application/json");
         }
@@ -327,14 +328,14 @@ Owncloud.prototype.updateSubscriptionList = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/api/';
-        self._query.bind(self)("POST", url, { op : 'getFeedTree' })
+        var url = self.host+'/api/v1-2/feeds';
+        self._query.bind(self)("GET", url)
             .then(function(text)
             {
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    self.addSubscriptions(data.content)
+                    self.addSubscriptions(data.feeds)
                         .then(ok, reject);
                 }
                 else
@@ -359,22 +360,15 @@ Owncloud.prototype.addSubscriptions = function(subscriptions)
         allfeeds.clear();
 
         //Create the Object to be saved i.e. our Note
-        subscriptions.categories.items.forEach(function(category)
+        subscriptions.forEach(function(feed)
         {
-            if(category.items)
+            var feeds = transaction_feeds.objectStore('feeds');
+            feed.category = 'CAT:'+feed.folderId;
+            if(feed.faviconLink)
             {
-                category.items.forEach(function(feed)
-                {
-                    var feeds = transaction_feeds.objectStore('feeds');
-                    feed.category = category.id;
-                    feed.title = feed.name;
-                    if(feed.icon)
-                    {
-                        feed.iconUrl = self.host+'/'+feed.icon;
-                    }
-                    var request = feeds.add(feed);
-                });
+                feed.iconUrl = feed.faviconLink;
             }
+            var request = feeds.add(feed);
         });
     });
 };
@@ -384,14 +378,14 @@ Owncloud.prototype.updateLabelsList = function()
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/api/';
-        self._query.bind(self)("POST", url, { op: 'getCategories' })
+        var url = self.host+'/api/v1-2/folders';
+        self._query.bind(self)("GET", url)
             .then(function(text)
             {
                 var data = JSON.parse(text);
                 if(data)
                 {
-                    self.addLabels(data.content)
+                    self.addLabels(data.folders)
                         .then(ok, reject);
                 }
                 else
@@ -419,7 +413,7 @@ Owncloud.prototype.addLabels = function(labels)
         labels.forEach(function(data)
         {
             var labels = transaction_labels.objectStore('labels');
-            data.label = data.title;
+            data.label = data.name;
             data.id ='CAT:'+data.id;
             var request = labels.add(data);
         });

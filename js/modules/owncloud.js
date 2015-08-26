@@ -8,7 +8,7 @@ var Owncloud = function()
     this.disable_liked = true;
 
     this.all_id  = 'FEED:-4';
-    //this.starred_id  = 'user/-/state/com.google/starred';
+    this.starred_id  = 'FEED:-3';
     //this.liked_id = 'user/-/state/com.google/like';
     //this.shared_id = 'user/-/state/com.google/broadcast';
 
@@ -611,6 +611,11 @@ Owncloud.prototype.getItems = function(id, viewRead, next, limit)
         if(is_cat)
         {
             url_type="1";
+        }
+        else if(url_id==self.starred_id)
+        {
+            url_type="2";
+            url_id="0";
         }
         else if(url_id==self.all_id)
         {

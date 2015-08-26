@@ -1134,9 +1134,12 @@ var Layout = function()
                             flag_star.addEventListener('click', self.markStarClick.bind(self), false);
                             p.appendChild(flag_star);
 
-                            var flag_like = document.createElement('span');
-                            flag_like.className='flag_like fa '+(!item.liked?'ko fa-thumbs-o-up':'fa-thumbs-up');
-                            p.appendChild(flag_like);
+                            if(!self.controller.disable_liked)
+                            {
+                                var flag_like = document.createElement('span');
+                                flag_like.className='flag_like fa '+(!item.liked?'ko fa-thumbs-o-up':'fa-thumbs-up');
+                                p.appendChild(flag_like);
+                            }
 
                             var flag_share = document.createElement('span');
                             flag_share.className='flag_share fa fa-share ko';
@@ -1252,7 +1255,10 @@ var Layout = function()
         var newLi = li.cloneNode(true);
         newLi.querySelector('.flag_read').addEventListener('click', this.markReadClick.bind(this), false);
         newLi.querySelector('.flag_star').addEventListener('click', this.markStarClick.bind(this), false);
-        newLi.querySelector('.flag_like').addEventListener('click', this.markLikeClick.bind(this));
+        if(!this.controller.disable_liked)
+        {
+            newLi.querySelector('.flag_like').addEventListener('click', this.markLikeClick.bind(this));
+        }
         newLi.querySelector('.flag_share').addEventListener('click', function(e)
         {
             new MozActivity({

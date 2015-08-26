@@ -5,6 +5,7 @@ var Owncloud = function()
     this.typename='Owncloud News';
     this.username = null;
     this.password = null;
+    this.disable_liked = true;
 
     this.all_id  = 'FEED:-4';
     //this.starred_id  = 'user/-/state/com.google/starred';
@@ -589,6 +590,11 @@ Owncloud.prototype.getCounts = function()
 Owncloud.prototype.getItems = function(id, viewRead, next, limit)
 {
     var self=this;
+    // if reloading a category, empty cache to avoid too much mem use
+    if(!next || !this.item_cache)
+    {
+        this.item_cache={};
+    }
 
     return new Promise(function(ok, reject)
     {
@@ -631,6 +637,7 @@ Owncloud.prototype.getItems = function(id, viewRead, next, limit)
                         data = { continuation: (received.items.length==20 ? received.items[received.items.length-1].id : null), items: [] }; 
                         Array.forEach(received.items, function(item)
                         {
+                            self.item_cache[item.id] = item.feedId+'/'+item.guidHash;
                             var newitem= {
                                 readall_key : item.id,
                                 category:  id,
@@ -667,15 +674,8 @@ Owncloud.prototype.markRead= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/api/';
-        var data= {
-            op: 'updateArticle',
-            article_ids: item_id,
-            mode: state ? 0 : 1,
-            field: 2 // unread
-        };
-
-        self._query.bind(self)("POST", url, data)
+        var url = self.host+'/api/v1-2/items/'+item_id+'/'+(state ? 'read' : 'unread');
+        self._query.bind(self)("PUT", url)
             .then(function(text)
             {
                 ok(text);
@@ -688,12 +688,8 @@ Owncloud.prototype.deleteFeed= function(item_id)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/api/';
-        var data= {
-            op: 'unsubscribeFeed',
-            feed_id: item_id.replace(/(CAT|FEED):/,''),
-        };
-        self._query.bind(self)("POST", url, data)
+        var url = self.host+'/api/v1-2/feeds/'+item_id;
+        self._query.bind(self)("DELETE", url)
             .then(function(text)
             {
                 ok(text);
@@ -706,19 +702,7 @@ Owncloud.prototype.markLike= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/api/';
-        var data= {
-            op: 'updateArticle',
-            article_ids: item_id,
-            mode: state ? 1 : 0,
-            field:  1 // like (published)
-        };
-
-        self._query.bind(self)("POST", url, data)
-            .then(function(text)
-            {
-                ok(text);
-            }, reject);
+        reject();
     });
 };
 
@@ -727,15 +711,8 @@ Owncloud.prototype.markStar= function(item_id, state)
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/api/';
-        var data= {
-            op: 'updateArticle',
-            article_ids: item_id,
-            mode: state ? 1 : 0,
-            field:  0 // star
-        };
-
-        self._query.bind(self)("POST", url, data)
+        var url = self.host+'/api/v1-2/items/'+self.item_cache[item_id]+'/'+(state ? 'star' : 'unstar');
+        self._query.bind(self)("PUT", url)
             .then(function(text)
             {
                 ok(text);
@@ -743,19 +720,32 @@ Owncloud.prototype.markStar= function(item_id, state)
     });
 };
 
-Owncloud.prototype.readAll= function(item_id)
+Owncloud.prototype.readAll= function(item_id, ts)
 {
     var self=this;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/api/';
-        var data= {
-            op: 'catchupFeed',
-            feed_id: item_id.replace(/(CAT|FEED):/,''),
-            is_cat: /CAT/.test(item_id)
-        };
+        console.log('marking as read ',item_id);
+        var is_cat= /CAT/.test(item_id);
 
-        self._query.bind(self)("POST", url, data)
+
+        if(item_id==self.all_id)
+        {
+            item_id="/items/";
+        }
+        else if(is_cat)
+        {
+            item_id="/folders/"+item_id;
+        }
+        else
+        {
+            item_id="/feeds/"+item_id;
+        }
+
+        var url = self.host+'/api/v1-2/'+item_id+'read?newestItemId='+ts;
+        console.log('url ',url);
+
+        self._query.bind(self)("PUT", url)
             .then(function(text)
             {
                 ok(text);

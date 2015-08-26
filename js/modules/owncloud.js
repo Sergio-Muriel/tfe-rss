@@ -735,11 +735,11 @@ Owncloud.prototype.readAll= function(item_id, ts)
         }
         else if(is_cat)
         {
-            item_id="/folders/"+item_id;
+            item_id="/folders/"+item_id.replace('CAT:','')+'/';
         }
         else
         {
-            item_id="/feeds/"+item_id;
+            item_id="/feeds/"+item_id.replace('FEED:','')+'/';
         }
 
         var url = self.host+'/api/v1-2/'+item_id+'read?newestItemId='+ts;
@@ -759,10 +759,10 @@ Owncloud.prototype.addFeed= function(url)
     var addurl = url;
     return new Promise(function(ok, reject)
     {
-        var url = self.host+'/api/';
-        var data = { op: 'subscribeToFeed',  category_id: 0, feed_url: addurl, login: 'tfe', password: 'tfe' } ;
+        var query_url = self.host+'/api/v1-2/feeds';
+        var data = { url: url, folderId: 0};
 
-        self._query.bind(self)("POST", url, data)
+        self._query.bind(self)("POST", query_url, data)
             .then(function(text)
             {
                 var data = JSON.parse(text);

@@ -751,6 +751,7 @@ var Layout = function()
                     if(!items)
                     {
                         console.log('faile search ',re);
+                        items = leftlist;
                     }
                 }
                 else

@@ -837,6 +837,7 @@ var Layout = function()
                         if(!viewRead && count.count===0 && !item.classList.contains('leftlist_default'))
                         {
                             item.classList.add("hidden");
+                            item.classList.remove('with_unread');
                         }
                         else
                         {

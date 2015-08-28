@@ -1,6 +1,7 @@
 # 0.4.6
 
 - selected label has a specific background color to identify
+- auto go to next folder when clicking on read all
 
 # 0.4.5
 

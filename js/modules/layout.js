@@ -336,8 +336,18 @@ var Layout = function()
             .then(function(result)
             {
                 span.classList.remove('updating');
-                self.clearAndLoadItems();
+
                 // auto focus next label with unread items
+                if(next = document.querySelector('.leftlist_item.with_unread:not(.leftlist_default)'))
+                {
+                    console.log('next! ',next);
+                    self.loadFeed({ target: next} );
+                    next.click();
+                }
+                else
+                {
+                    self.clearAndLoadItems();
+                }
             });
     };
 
@@ -829,6 +839,14 @@ var Layout = function()
                             item.classList.remove("hidden");
                             var label = item.querySelector('.label_num');
                             label.innerHTML= count.count;
+                            if(count.count>0)
+                            {
+                                item.classList.add('with_unread');
+                            }
+                            else
+                            {
+                                item.classList.remove('with_unread');
+                            }
                         }
                     }
                 });

@@ -337,6 +337,7 @@ var Layout = function()
             {
                 span.classList.remove('updating');
                 self.clearAndLoadItems();
+                // auto focus next label with unread items
             });
     };
 
@@ -588,7 +589,13 @@ var Layout = function()
 
     this.displayDefaultLabel = function()
     {
+        if(selected =document.querySelector('.leftlist_item.selected'))
+        {
+            selected.classList.remove('selected');
+        }
+
         var li = document.querySelector('.leftlist_item');
+        li.classList.add('selected');
         this.display_id = li.getAttribute('data-id');
         this.display_name = li.querySelector('.label').innerHTML;
         return this.clearAndLoadItems();
@@ -871,6 +878,12 @@ var Layout = function()
         {
             li = li.parentNode;
         }
+
+        if(selected =document.querySelector('.leftlist_item.selected'))
+        {
+            selected.classList.remove('selected');
+        }
+        li.classList.add('selected');
         this.display_id = li.getAttribute('data-id');
         this.display_name = li.querySelector('.label, .feed_name').innerHTML;
         return this.clearAndLoadItems();

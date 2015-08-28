@@ -152,11 +152,9 @@ var Settings = function()
                     _controller.loggedin();
                     layout.display_center();
 
-                    layout.updateLeftList()
-                        .then(layout.displayDefaultLabel.bind(layout));
-
                     _controller.fullupdate()
-                        .then(layout.updateLeftList.bind(layout));
+                        .then(layout.updateLeftList.bind(layout))
+                        .then(layout.displayDefaultLabel.bind(layout));
                     ok();
                 }
                 else

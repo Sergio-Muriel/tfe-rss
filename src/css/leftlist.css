@@ -34,6 +34,10 @@
     background:var(--menulistItemBg);
     border-bottom:1px solid var(--menulistItemBorder);
 }
+.slide.left li.selected
+{
+    background:#fff;
+}
 .slide.left li p
 {
     display:inline-block;

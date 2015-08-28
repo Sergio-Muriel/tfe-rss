@@ -1,5 +1,6 @@
 # 0.4.6
 
+- selected label has a specific background color to identify
 
 # 0.4.5
 

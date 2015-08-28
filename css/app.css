@@ -471,6 +471,10 @@ dl a
     background:#ebebeb;
     border-bottom:1px solid #c2c2c2;
 }
+.slide.left li.selected
+{
+    background:#fff;
+}
 .slide.left li p
 {
     display:inline-block;

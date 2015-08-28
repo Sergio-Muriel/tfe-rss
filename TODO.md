@@ -1,4 +1,3 @@
-- auto go to next label when read all
 - update share code  with TB 
 - scroll mark as read option
 - option for tt-rss to login with http htaccess

@@ -36,7 +36,7 @@
 }
 .slide.left li.selected
 {
-    background:#fff;
+    background:rgb(204,204,204);
 }
 .slide.left li p
 {

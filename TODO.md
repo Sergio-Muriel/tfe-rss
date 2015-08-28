@@ -2,4 +2,3 @@
 - option for tt-rss to login with http htaccess
 - Add/Edit/Delete feeds
 - stand alone reader
-- Owncloud news integration

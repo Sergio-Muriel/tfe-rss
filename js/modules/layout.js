@@ -336,13 +336,13 @@ var Layout = function()
             .then(function(result)
             {
                 span.classList.remove('updating');
-                if(selected = document.querySelector('.leftlist_item.selected'))
+                if(selected = document.querySelector('li.leftlist_item.selected'))
                 {
                     selected.classList.remove('with_unread');
                 }
 
                 // auto focus next label with unread items
-                if(next = document.querySelector('.leftlist_item.with_unread:not(.leftlist_default)'))
+                if(next = document.querySelector('li.leftlist_item.with_unread:not(.leftlist_default)'))
                 {
                     console.log('next! ',next);
                     self.loadFeed({ target: next} );

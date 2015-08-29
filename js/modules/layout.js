@@ -833,7 +833,7 @@ var Layout = function()
                     var item = document.querySelector(re);
                     if(item)
                     {
-                        if(item.tagName=='LI')
+                        if(item.tagName=='LI' && !item.classList.contains('leftlist_default'))
                         {
                             sum+= count.count;
                         }

@@ -1,5 +1,6 @@
 # 0.4.6
 
+- fix unread item count in notifications
 - selected label has a specific background color to identify
 - auto go to next folder when clicking on read all
 

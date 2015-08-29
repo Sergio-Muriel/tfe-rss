@@ -827,13 +827,16 @@ var Layout = function()
                 var sum=0;
                 counts.forEach(function(count)
                 {
-                    sum+= count.count;
                     var name = count.id;//replace(/.*label\//,'')
 
                     var re = ".leftlist_item[data-id=\'"+name+"\']";
                     var item = document.querySelector(re);
                     if(item)
                     {
+                        if(item.tagName=='LI')
+                        {
+                            sum+= count.count;
+                        }
                         if(!viewRead && count.count===0 && !item.classList.contains('leftlist_default'))
                         {
                             item.classList.add("hidden");
